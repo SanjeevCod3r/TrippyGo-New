@@ -75,6 +75,7 @@ import { PopularThingsToDo } from "@/components/PopularThingsToDo";
 import { CustomerReviews } from "@/components/CustomerReviews";
 import { AppPromoBanner } from "@/components/AppPromoBanner";
 import { TravelArticles } from "@/components/TravelArticles";
+import { EnquiryModal } from "@/components/EnquiryModal";
 
 // Animation variants
 const fadeInUp = {
@@ -791,6 +792,8 @@ export default function App() {
       </main>
 
       <Footer />
+
+      <EnquiryModal />
 
       {/* Booking Modals for Fleet */}
       {selectedFleetVehicle && (

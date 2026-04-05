@@ -221,7 +221,7 @@ function LoginForm({ onLogin }) {
 
             <Button 
               type="submit" 
-              className="w-full bg-[#eb662b] hover:bg-[#eb662b]/90 text-white font-black py-7 rounded-2xl shadow-xl shadow-orange-200 transition-all border-none text-lg mt-4 flex items-center justify-center gap-3"
+              className="w-full bg-[#eb662b] hover:bg-[#eb662b]/90 text-white font-black py-7 rounded-2xl transition-all border-none text-lg mt-4 flex items-center justify-center gap-3"
               disabled={loading}
               style={{ fontFamily: 'Montserrat, sans-serif' }}
             >
@@ -278,7 +278,7 @@ function Sidebar({ activeTab, setActiveTab, logout }) {
             <img 
               src="/asset/logo1.png" 
               alt="Logo" 
-              className="h-10 w-auto filter brightness-0 invert"
+              className="h-14 w-auto "
             />
             {/* <span className="font-black text-xs uppercase tracking-widest text-[#0056D2] bg-white px-2 py-1 rounded">Admin</span> */}
           </div>

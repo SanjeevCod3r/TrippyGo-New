@@ -1283,6 +1283,22 @@ async function handleRoute(request, { params }) {
       return handleCORS(NextResponse.json({ success: true, contact }))
     }
 
+    // ==================== ENQUIRIES ====================
+
+    // POST /api/enquiry
+    if (route === '/enquiry' && method === 'POST') {
+      const data = await request.json()
+      
+      const enquiry = {
+        id: uuidv4(),
+        ...data,
+        createdAt: new Date()
+      }
+
+      await db.collection('enquiries').insertOne(enquiry)
+      return handleCORS(NextResponse.json({ success: true, enquiry }))
+    }
+
     // GET /api/admin/contacts
     if (route === '/admin/contacts' && method === 'GET') {
       const user = verifyToken(request)
