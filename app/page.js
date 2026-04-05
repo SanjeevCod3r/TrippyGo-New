@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import {
   Card,
@@ -55,6 +56,7 @@ import {
   Package,
   Truck,
   Navigation,
+  Globe,
 } from "lucide-react";
 import Contact from "./contact/page";
 import About from "./about/page";
@@ -68,6 +70,11 @@ import { AboutShowcase } from "@/components/AboutShowCase";
 import { WhyChoose } from "@/components/WhyChooseUs";
 import { DestinationShowcase } from "@/components/DestinationShowCase";
 import { CabBookingForm } from "@/components/CabBookingForm";
+import { PromoBanner } from "@/components/PromoBanner";
+import { PopularThingsToDo } from "@/components/PopularThingsToDo";
+import { CustomerReviews } from "@/components/CustomerReviews";
+import { AppPromoBanner } from "@/components/AppPromoBanner";
+import { TravelArticles } from "@/components/TravelArticles";
 
 // Animation variants
 const fadeInUp = {
@@ -126,16 +133,14 @@ function OldHeader() {
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`fixed top-4 left-4 right-4 z-50 transition-all duration-500 ${
-          isScrolled ? "top-2 left-2 right-2" : ""
-        }`}
+        className={`fixed top-4 left-4 right-4 z-50 transition-all duration-500 ${isScrolled ? "top-2 left-2 right-2" : ""
+          }`}
       >
         <div
-          className={`max-w-7xl mx-auto px-6 py-4 flex items-center justify-between rounded-3xl border transition-all duration-500 ${
-            isScrolled
-              ? "bg-white/95 backdrop-blur-xl shadow-2xl"
-              : "bg-white/80 backdrop-blur-lg"
-          }`}
+          className={`max-w-7xl mx-auto px-6 py-4 flex items-center justify-between rounded-3xl border transition-all duration-500 ${isScrolled
+            ? "bg-white/95 backdrop-blur-xl shadow-2xl"
+            : "bg-white/80 backdrop-blur-lg"
+            }`}
         >
           {/* Logo */}
           <a href="/" className="flex items-center gap-2">
@@ -143,7 +148,7 @@ function OldHeader() {
               <Navigation className="w-6 h-6 text-white" />
             </div>
             <span className="text-xl font-bold text-paleBlue">
-              Excursion Travel
+              Trippy Go
             </span>
           </a>
 
@@ -236,128 +241,134 @@ function OldHeader() {
 
 // Redundant CabBookingForm removed as it is now a separate component
 
-// Hero Section with Cab Booking
+// Hero Section with Cinematic Slider and Side-Panel Form
 function HeroSection() {
+  const [currentImage, setCurrentImage] = useState(0);
+  const images = [
+    "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?q=80&w=2671&auto=format&fit=crop", // Taj Mahal
+    "https://images.unsplash.com/photo-1506461883276-594a12b11cf3?q=80&w=2670&auto=format&fit=crop", // Varanasi
+    "https://images.unsplash.com/photo-1514222134-b57cbb8ce073?q=80&w=2670&auto=format&fit=crop", // Kerala
+    "https://images.unsplash.com/photo-1477587458883-47145ed94245?q=80&w=2670&auto=format&fit=crop", // Hawa Mahal
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % images.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <div
-      id="home"
-      className="relative min-h-screen overflow-hidden"
-      data-testid="hero-section"
-    >
-      {/* Background Image */}
+    <div id="home" className="relative min-h-screen overflow-hidden bg-black">
+      {/* Cinematic Background Slider */}
       <div className="absolute inset-0">
-        <img
-          src="/asset/Home Page Hero Image.png"
-          alt="Hero Background"
-          className="w-full h-full object-cover"
-        />
-        {/* Dark Overlay with Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent z-[1]" />
+        <AnimatePresence>
+          <motion.div
+            key={currentImage}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.5, ease: "linear" }}
+            className="absolute inset-0 z-0"
+          >
+            <img
+              src={images[currentImage]}
+              alt="Travel Background"
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+        </AnimatePresence>
+        {/* Cinematic Overlays */}
+        <div className="absolute inset-0 bg-black/40 z-[1]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-[2]" />
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 min-h-screen pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 flex items-center">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 w-full">
-          {/* Mobile First: Form on top for phone view */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="lg:hidden mb-12"
-          >
-            <CabBookingForm />
-          </motion.div>
+      {/* Content Container */}
+      <div className="relative z-10 min-h-screen flex items-center pt-20">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
-          {/* Hero Content Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            {/* Left Content */}
+          {/* Left Side: Cinematic Content */}
+          <div className="lg:col-span-7 text-left">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-center lg:text-left"
-              data-testid="hero-content"
             >
-              {/* Eyebrow */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4 }}
-                className="inline-block px-6 py-2 bg-white/10 backdrop-blur-lg rounded-full text-white text-xs sm:text-sm font-black mb-6 uppercase tracking-[0.2em] border border-white/20 shadow-xl"
-                style={{ fontFamily: "Montserrat, sans-serif" }}
-              >
-                Cooperate Mobility Solutions
-              </motion.div>
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600/20 backdrop-blur-md rounded-full border border-blue-500/30 text-blue-300 text-xs font-bold uppercase tracking-[0.3em] mb-8">
+                <Globe size={14} className="animate-spin-slow" />
+                <span>Boutique Travel Experiences</span>
+              </div>
 
-              {/* Title */}
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-[1.1] tracking-tighter"
-                style={{ fontFamily: "Montserrat, sans-serif" }}
+              <h1
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 leading-tight uppercase"
+                style={{ fontFamily: 'var(--font-montserrat)' }}
               >
-                Experience
+                Find your next
                 <br />
-                <span className="text-white drop-shadow-2xl">Excellence</span>
-              </motion.h1>
+                adventure with
+                <br />
+                <span className="text-[#eb662b]">Trippy Go</span>
+              </h1>
 
-              {/* Description */}
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-                className="text-lg sm:text-xl text-gray-200 mb-10 leading-relaxed max-w-xl mx-auto lg:mx-0 font-medium opacity-90"
-                style={{ fontFamily: "Manrope, sans-serif" }}
+              <p
+                className="text-lg md:text-xl text-gray-300 mb-12 max-w-xl leading-relaxed font-medium"
+                style={{ fontFamily: 'var(--font-manrope)' }}
               >
-                From premium chauffeur-driven services to tailored solutions, we
-                deliver excellence in every ride.
-              </motion.p>
+                Experience the soul of India through curated itineraries,
+                premium accommodations, and seamless mobility solutions tailored for the modern explorer.
+              </p>
 
-              {/* CTAs */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7 }}
-                className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-              >
-                <motion.a
-                  href="/destinations"
-                  whileHover={{
-                    scale: 1.05,
-                    boxShadow: "0 20px 40px rgba(0, 86, 210, 0.4)",
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-10 py-5 bg-gradient-to-r from-[#0056D2] to-[#43E0F8] text-white font-black rounded-2xl shadow-2xl transition-all duration-300 text-base uppercase tracking-widest"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  Explore Now
-                </motion.a>
-                <motion.a
-                  href="/contact"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-10 py-5 bg-white/10 backdrop-blur-lg text-white font-black rounded-2xl border-2 border-white/20 hover:bg-white/20 transition-all duration-300 text-base uppercase tracking-widest"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  Contact Us
-                </motion.a>
-              </motion.div>
-            </motion.div>
-
-            {/* Right Content - Booking Form (Desktop only) */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, x: 50 }}
-              animate={{ opacity: 1, scale: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="hidden lg:flex justify-end"
-            >
-              <div className="w-full max-w-[480px]">
-                <CabBookingForm />
+              <div className="flex flex-wrap gap-6">
+                <Link href="/destinations">
+                  <motion.button
+                    whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(235, 102, 43, 0.4)" }}
+                    whileTap={{ scale: 0.95 }}
+                    className="px-10 py-5 bg-gradient-to-r from-[#eb662b] to-[#ff9b6a] text-white font-black rounded-2xl shadow-2xl transition-all duration-300 text-base uppercase tracking-widest"
+                    style={{ fontFamily: 'var(--font-montserrat)' }}
+                  >
+                    Explore Destinations
+                  </motion.button>
+                </Link>
               </div>
             </motion.div>
           </div>
+
+          {/* Right Side: Floating Glass Booking Form */}
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 1, delay: 0.4 }}
+            className="lg:col-span-5 flex justify-center lg:justify-end"
+          >
+            <div className="w-full max-w-[450px] relative group">
+              {/* Decorative Glow */}
+              <div className="absolute -inset-4 bg-gradient-to-br from-[#eb662b]/30 to-[#ff9b6a]/30 rounded-[3rem] blur-3xl opacity-50 group-hover:opacity-75 transition-opacity" />
+
+              <div className="relative bg-white/10 backdrop-blur-2xl rounded-[2.5rem] border border-white/20 p-2 shadow-2xl overflow-hidden">
+                <div className="bg-white/90 backdrop-blur-md p-2 rounded-[2rem]">
+                  <CabBookingForm />
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
+      </div>
+
+      {/* Scroll Indicator */}
+
+      {/* Curve Bottom Design */}
+      <div className="absolute bottom-0 left-0 right-0 z-30 pointer-events-none">
+        <svg
+          className="w-full h-auto translate-y-px"
+          viewBox="0 0 1440 120"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 70C840 80 960 100 1080 105C1200 110 1320 100 1380 95L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z"
+            fill="white"
+          />
+        </svg>
       </div>
     </div>
   );
@@ -455,7 +466,7 @@ function BookingModal({ open, onClose, type, bookingData, onSuccess }) {
         key: orderData.keyId,
         amount: orderData.amount,
         currency: orderData.currency,
-        name: "Excursion Travel",
+        name: "Trippy Go",
         description: `${type.charAt(0).toUpperCase() + type.slice(1)} Booking`,
         order_id: orderData.orderId,
         handler: async function (response) {
@@ -763,12 +774,15 @@ export default function App() {
       <Header />
       <main>
         <HeroSection />
-        <AboutShowcase />
-        <Services />
-        <FeaturedDestinations />
-        <DestinationShowcase />
         <WhyChoose />
-        <FleetIntro />
+        {/* <Services /> */}
+        <DestinationShowcase />
+        <FeaturedDestinations />
+        <PromoBanner />
+        <PopularThingsToDo />
+        <CustomerReviews />
+        <AppPromoBanner />
+        <TravelArticles />
         <FleetShowcase
           vehicles={vehicles}
           loading={loadingVehicles}

@@ -89,18 +89,18 @@ const FloatingChat = () => {
             className="fixed bottom-24 right-6 z-40 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden min-w-80"
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#0056D2] to-[#43E0F8] text-white p-4">
+            <div className="bg-gradient-to-r from-[#eb662b] to-[#ff9b6a] text-white p-4">
               <h3
-                className="font-bold text-lg"
+                className="font-black text-lg"
                 style={{ fontFamily: "var(--font-montserrat), sans-serif" }}
               >
                 How can we help you?
               </h3>
               <p
-                className="text-sm opacity-90"
+                className="text-sm opacity-90 font-medium"
                 style={{ fontFamily: "var(--font-manrope), sans-serif" }}
               >
-                Get in touch with Excursion Travel
+                Get in touch with Trippy Go
               </p>
             </div>
 
@@ -136,26 +136,26 @@ const FloatingChat = () => {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={handleCallClick}
-                className="w-full flex items-center gap-3 p-3 bg-blue-50 hover:bg-blue-100 rounded-xl border border-blue-200 transition-colors group"
+                className="w-full flex items-center gap-3 p-3 bg-orange-50 hover:bg-orange-100 rounded-xl border border-orange-100 transition-colors group"
               >
-                <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Phone size={20} className="text-white" />
+                <div className="w-10 h-10 bg-[#eb662b] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <Phone size={18} className="text-white" />
                 </div>
                 <div className="text-left">
                   <p
-                    className="font-semibold text-blue-800"
+                    className="font-bold text-orange-900"
                     style={{ fontFamily: "var(--font-manrope), sans-serif" }}
                   >
                     Call Us Directly
                   </p>
                   <p
-                    className="text-sm text-blue-600"
+                    className="text-sm text-orange-600 font-medium"
                     style={{ fontFamily: "var(--font-manrope), sans-serif" }}
                   >
                     Speak with our team
                   </p>
                 </div>
-                <Phone size={16} className="text-blue-500 ml-auto" />
+                <Phone size={16} className="text-[#eb662b] ml-auto" />
               </motion.button>
             </div>
 

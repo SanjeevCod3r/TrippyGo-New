@@ -2,858 +2,294 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import {
-  Target,
-  Eye,
+  MapPin,
+  Ticket,
+  Camera,
+  ShieldCheck,
   Award,
-  Lightbulb,
-  CheckCircle,
-  Star,
-  ArrowRight,
-  Shield,
+  ChevronRight,
+  PlaneTakeoff,
+  XCircle,
+  Zap,
+  Car,
+  FastForward,
 } from "lucide-react";
+
 import Header from "@/components/Header";
 import Footer from "@/app/footer/page";
 
 export default function About() {
-  const visionPoints = [
-    "Technology is at the core of our innovation.",
-    "We aim to exceed customer expectations.",
-    "Reliable and premium services set us apart.",
-  ];
-
-  const missionPoints = [
-    "Customers come first, always.",
-    "Quality drives every aspect of our service.",
-    "Vehicles are impeccably maintained and road-ready.",
-  ];
-
-  const approachPoints = [
-    "Innovation drives our service enhancements.",
-    "Safety and sustainability are non-negotiable.",
-    "Every vehicle reflects our dedication to perfection.",
-  ];
-
-  const benefits = [
-    {
-      icon: CheckCircle,
-      title: "Flexible Travel Options",
-      description: "One-way and round-trip rentals for any journey type",
-    },
-    {
-      icon: Star,
-      title: "Diverse Fleet",
-      description: "From compact cars to luxury SUVs for every need",
-    },
-    {
-      icon: Target,
-      title: "24/7 Airport Transfers",
-      description: "Stress-free connectivity at any schedule",
-    },
-  ];
-
   return (
-    <>
+    <div className="min-h-screen bg-white font-sans text-gray-800">
       <Header />
-      <section
-        id="about"
-        className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-paleBlue-50 relative overflow-hidden"
-        data-testid="about-section"
-      >
-        {/* Enhanced Background Pattern */}
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-br from-[#0056D2]/20 to-[#43E0F8]/20 rounded-full filter blur-3xl"></div>
-          <div className="absolute bottom-20 right-10 w-80 h-80 bg-gradient-to-tl from-[#43E0F8]/20 to-[#5DFDCB]/20 rounded-full filter blur-3xl"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-[#0056D2]/10 to-[#43E0F8]/10 rounded-full filter blur-2xl"></div>
+
+      <main className="mt-20 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pt-28 pb-20">
+        
+        {/* TOP BANNER */}
+        <div className="relative w-full bg-[#FAFAFD] rounded-[2rem] p-12 md:p-20 mb-20 overflow-hidden flex flex-col justify-center">
+          <h1 className="text-3xl md:text-5xl font-black text-[#05073C]" style={{ fontFamily: "var(--font-montserrat)" }}>
+            About Us
+          </h1>
+          
+          {/* Decorative Plane Trail SVG */}
+          <div className="absolute bottom-4 left-10 opacity-30 pointer-events-none">
+            <svg width="200" height="80" viewBox="0 0 200 80" fill="none">
+              <path d="M10,70 Q50,90 80,40 T180,20" stroke="#eb662b" strokeWidth="2" strokeDasharray="6 6" fill="transparent" />
+              <PlaneTakeoff x="170" y="5" className="text-[#eb662b]" size={24} />
+            </svg>
+          </div>
         </div>
 
-        {/* Cool Floating Elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {/* Floating Geometric Shapes */}
-          <motion.div
-            animate={{
-              y: [0, -30, 0],
-              rotate: [0, 8, 0],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="absolute top-28 right-20 w-20 h-20 bg-gradient-to-br from-[#0056D2] to-[#43E0F8] rounded-2xl opacity-15 shadow-2xl"
-            style={{
-              clipPath: "polygon(50% 0%, 0% 100%, 100% 100%)",
-            }}
-          />
-          <motion.div
-            animate={{
-              y: [0, 35, 0],
-              rotate: [0, -10, 0],
-              scale: [1, 0.9, 1],
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 1.5,
-            }}
-            className="absolute bottom-36 left-16 w-16 h-16 bg-gradient-to-br from-[#43E0F8] to-[#5DFDCB] rounded-full opacity-20 shadow-xl"
-            style={{
-              clipPath:
-                "polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)",
-            }}
-          />
-          <motion.div
-            animate={{
-              y: [0, -25, 0],
-              x: [0, 15, 0],
-              rotate: [0, 15, 0],
-            }}
-            transition={{
-              duration: 12,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 3,
-            }}
-            className="absolute top-1/3 right-1/4 w-12 h-12 bg-gradient-to-br from-[#5DFDCB] to-[#0056D2] rounded-lg opacity-25 shadow-lg"
-            style={{
-              clipPath:
-                "polygon(20% 0%, 80% 0%, 100% 50%, 80% 100%, 20% 100%, 0% 50%)",
-            }}
-          />
 
-          {/* Floating Particles */}
-          {[...Array(8)].map((_, i) => (
-            <motion.div
-              key={i}
-              animate={{
-                y: [0, -100 - i * 20, 0],
-                x: [0, Math.sin(i) * 50, 0],
-                opacity: [0.3, 0.8, 0.3],
-                scale: [0.8, 1.2, 0.8],
-              }}
-              transition={{
-                duration: 8 + i * 2,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: i * 0.5,
-              }}
-              className={`absolute w-2 h-2 rounded-full ${
-                i % 4 === 0
-                  ? "bg-[#0056D2]/40"
-                  : i % 4 === 1
-                  ? "bg-[#43E0F8]/40"
-                  : i % 4 === 2
-                  ? "bg-[#5DFDCB]/40"
-                  : "bg-[#FE805A]/40"
-              }`}
-              style={{
-                top: `${20 + i * 8}%`,
-                left: `${15 + i * 10}%`,
-              }}
-            />
-          ))}
-
-          {/* Glowing Orbs */}
-          <motion.div
-            animate={{
-              scale: [1, 1.3, 1],
-              opacity: [0.2, 0.5, 0.2],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="absolute top-16 left-16 w-32 h-32 bg-[#0056D2]/10 rounded-full blur-xl"
-          />
-          <motion.div
-            animate={{
-              scale: [1.3, 1, 1.3],
-              opacity: [0.3, 0.1, 0.3],
-            }}
-            transition={{
-              duration: 6,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 2,
-            }}
-            className="absolute bottom-32 right-32 w-40 h-40 bg-[#43E0F8]/8 rounded-full blur-2xl"
-          />
-        </div>
-
-        <div className="mt-6 max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-16 sm:py-20 md:py-24 relative z-10">
-          {/* Enhanced Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16 sm:mb-20"
-            data-testid="about-header"
+        {/* SECTION 1: Tour And Travel Deals */}
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-32">
+          
+          {/* Image Collage */}
+          <motion.div 
+             initial={{ opacity: 0, x: -30 }}
+             whileInView={{ opacity: 1, x: 0 }}
+             viewport={{ once: true }}
+             className="grid grid-cols-2 gap-4 h-[500px]"
           >
-            {/* Modern Badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#0056D2]/10 via-[#43E0F8]/10 to-[#0056D2]/10 backdrop-blur-xl rounded-full border border-[#43E0F8]/30 mb-8 shadow-lg"
-            >
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                className="w-3 h-3 bg-gradient-to-r from-[#0056D2] to-[#43E0F8] rounded-full"
-              />
-              <span
-                className="text-[#0056D2] font-bold text-sm uppercase tracking-wider"
-                style={{ fontFamily: "Montserrat, sans-serif" }}
-              >
-                ABOUT EXCURSION TRAVEL
-              </span>
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight"
-              style={{
-                fontFamily: "Montserrat, sans-serif",
-                letterSpacing: "-0.02em",
-              }}
-              data-testid="about-title"
-            >
-              Your Trusted Partner in{" "}
-              <span className="bg-gradient-to-r from-[#0056D2] via-[#4A8BDF] to-[#43E0F8] bg-clip-text text-transparent">
-                Corporate Car Rentals
-              </span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-              className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed px-4 sm:px-0"
-              style={{ fontFamily: "Manrope, sans-serif" }}
-              data-testid="about-subtitle"
-            >
-              Excellence, innovation, and reliability in every journey. We
-              redefine corporate transportation with cutting-edge technology and
-              unparalleled service quality.
-            </motion.p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5 }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 mb-20"
-          >
-            {/* Vehicles Stat - Circular Design */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.6 }}
-              className="group relative"
-            >
-              <div className="bg-gradient-to-br from-[#0056D2]/10 via-[#43E0F8]/5 to-[#0056D2]/10 backdrop-blur-xl rounded-3xl p-8 border border-[#43E0F8]/20 shadow-xl overflow-hidden">
-                {/* Animated Background */}
-                <motion.div
-                  animate={{
-                    rotate: 360,
-                    scale: [1, 1.1, 1],
-                  }}
-                  transition={{
-                    duration: 20,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                  className="absolute inset-0 bg-gradient-to-br from-[#0056D2]/5 to-[#43E0F8]/5 rounded-3xl"
-                />
-
-                <div className="relative z-10 text-center">
-                  {/* Circular Progress Indicator */}
-                  <div className="relative w-32 h-32 mx-auto mb-6">
-                    <svg
-                      className="w-full h-full transform -rotate-90"
-                      viewBox="0 0 120 120"
-                    >
-                      {/* Background Circle */}
-                      <circle
-                        cx="60"
-                        cy="60"
-                        r="50"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="8"
-                        className="text-gray-200"
-                      />
-                      {/* Progress Circle */}
-                      <motion.circle
-                        cx="60"
-                        cy="60"
-                        r="50"
-                        fill="none"
-                        stroke="url(#vehiclesGradient)"
-                        strokeWidth="8"
-                        strokeLinecap="round"
-                        initial={{ pathLength: 0 }}
-                        whileInView={{ pathLength: 0.85 }}
-                        viewport={{ once: true }}
-                        transition={{
-                          duration: 2,
-                          delay: 0.8,
-                          ease: "easeOut",
-                        }}
-                        className="drop-shadow-lg"
-                      />
-                      {/* Gradient Definition */}
-                      <defs>
-                        <linearGradient
-                          id="vehiclesGradient"
-                          x1="0%"
-                          y1="0%"
-                          x2="100%"
-                          y2="100%"
-                        >
-                          <stop offset="0%" stopColor="#0056D2" />
-                          <stop offset="100%" stopColor="#43E0F8" />
-                        </linearGradient>
-                      </defs>
-                    </svg>
-
-                    {/* Center Content */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        whileInView={{ scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{
-                          delay: 1,
-                          type: "spring",
-                          stiffness: 200,
-                        }}
-                      >
-                        <div
-                          className="text-3xl font-bold text-gray-900 mb-1"
-                          style={{ fontFamily: "Montserrat, sans-serif" }}
-                        >
-                          900+
-                        </div>
-                        <div
-                          className="text-sm text-gray-600 font-medium"
-                          style={{ fontFamily: "Manrope, sans-serif" }}
-                        >
-                          Vehicles
-                        </div>
-                      </motion.div>
-                    </div>
-                  </div>
-
-                  {/* Description */}
-                  <motion.p
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 1.2 }}
-                    className="text-gray-600 text-sm leading-relaxed"
-                    style={{ fontFamily: "Manrope, sans-serif" }}
-                  >
-                    Our extensive fleet ensures you always have the perfect
-                    vehicle for your corporate needs.
-                  </motion.p>
-
-                  {/* Floating Icon */}
-                  <motion.div
-                    animate={{
-                      y: [0, -10, 0],
-                      rotate: [0, 5, 0],
-                    }}
-                    transition={{
-                      duration: 4,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                    className="absolute top-4 right-4 w-8 h-8 bg-gradient-to-br from-[#0056D2] to-[#43E0F8] rounded-lg flex items-center justify-center shadow-lg"
-                  >
-                    <Award className="text-white" size={16} />
-                  </motion.div>
+             <div className="flex flex-col gap-4">
+                <div className="flex-1 rounded-[2rem] overflow-hidden">
+                   <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80" alt="Dubai" className="w-full h-full object-cover" />
                 </div>
-              </div>
-            </motion.div>
-
-            {/* Support Stat - Modern Card Design */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.7 }}
-              className="group relative"
-            >
-              <div className="bg-gradient-to-br from-[#43E0F8]/10 via-[#5DFDCB]/5 to-[#43E0F8]/10 backdrop-blur-xl rounded-3xl p-8 border border-[#43E0F8]/20 shadow-xl overflow-hidden">
-                {/* Animated Border */}
-                <motion.div
-                  animate={{
-                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                  }}
-                  transition={{
-                    duration: 8,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                  className="absolute inset-0 bg-gradient-to-r from-[#0056D2] via-[#43E0F8] to-[#5DFDCB] opacity-20 rounded-3xl blur-sm"
-                  style={{
-                    backgroundSize: "200% 200%",
-                  }}
-                />
-
-                <div className="relative z-10">
-                  {/* Icon and Title */}
-                  <div className="flex items-center justify-between mb-6">
-                    <motion.div
-                      whileHover={{ scale: 1.1, rotate: 10 }}
-                      className="w-16 h-16 bg-gradient-to-br from-[#43E0F8] to-[#5DFDCB] rounded-2xl flex items-center justify-center shadow-lg"
-                    >
-                      <Shield className="text-white" size={28} />
-                    </motion.div>
-
-                    <motion.div
-                      initial={{ x: 20, opacity: 0 }}
-                      whileInView={{ x: 0, opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.9 }}
-                      className="text-right"
-                    >
-                      <div
-                        className="text-3xl font-bold text-gray-900"
-                        style={{ fontFamily: "Montserrat, sans-serif" }}
-                      >
-                        24/7
-                      </div>
-                      <div
-                        className="text-lg text-[#0056D2] font-semibold"
-                        style={{ fontFamily: "Manrope, sans-serif" }}
-                      >
-                        Support
-                      </div>
-                    </motion.div>
-                  </div>
-
-                  {/* Progress Bars */}
-                  <div className="space-y-3 mb-6">
-                    <div>
-                      <div className="flex justify-between text-sm mb-1">
-                        <span
-                          className="text-gray-600"
-                          style={{ fontFamily: "Manrope, sans-serif" }}
-                        >
-                          Response Time
-                        </span>
-                        <span
-                          className="text-gray-900 font-medium"
-                          style={{ fontFamily: "Manrope, sans-serif" }}
-                        >
-                          Under 5 min
-                        </span>
-                      </div>
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: "95%" }}
-                        viewport={{ once: true }}
-                        transition={{
-                          delay: 1,
-                          duration: 1.5,
-                          ease: "easeOut",
-                        }}
-                        className="h-2 bg-gray-200 rounded-full overflow-hidden"
-                      >
-                        <div className="h-full bg-gradient-to-r from-[#0056D2] to-[#4A8BDF] rounded-full"></div>
-                      </motion.div>
-                    </div>
-
-                    <div>
-                      <div className="flex justify-between text-sm mb-1">
-                        <span
-                          className="text-gray-600"
-                          style={{ fontFamily: "Manrope, sans-serif" }}
-                        >
-                          Uptime
-                        </span>
-                        <span
-                          className="text-gray-900 font-medium"
-                          style={{ fontFamily: "Manrope, sans-serif" }}
-                        >
-                          99.9%
-                        </span>
-                      </div>
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: "99%" }}
-                        viewport={{ once: true }}
-                        transition={{
-                          delay: 1.2,
-                          duration: 1.5,
-                          ease: "easeOut",
-                        }}
-                        className="h-2 bg-gray-200 rounded-full overflow-hidden"
-                      >
-                        <div className="h-full bg-gradient-to-r from-[#4A8BDF] to-[#43E0F8] rounded-full"></div>
-                      </motion.div>
-                    </div>
-                  </div>
-
-                  {/* Description */}
-                  <motion.p
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 1.4 }}
-                    className="text-gray-600 text-sm leading-relaxed"
-                    style={{ fontFamily: "Manrope, sans-serif" }}
-                  >
-                    Round-the-clock support ensures your business never stops
-                    moving. Our dedicated team is always ready to assist.
-                  </motion.p>
-
-                  {/* Pulsing Indicator */}
-                  <motion.div
-                    animate={{
-                      scale: [1, 1.2, 1],
-                      opacity: [0.7, 1, 0.7],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                    className="absolute top-4 left-4 w-3 h-3 bg-green-400 rounded-full shadow-lg"
-                  />
+                <div className="flex-1 rounded-[2rem] overflow-hidden">
+                   <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=600&q=80" alt="Paris" className="w-full h-full object-cover" />
                 </div>
-              </div>
-            </motion.div>
+             </div>
+             <div className="rounded-[2rem] overflow-hidden h-full">
+                <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=600&q=80" alt="London" className="w-full h-full object-cover" />
+             </div>
           </motion.div>
 
-          {/* Exploring The Benefits Section */}
+          {/* Text Content */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5 }}
-            className="mb-20"
+             initial={{ opacity: 0, x: 30 }}
+             whileInView={{ opacity: 1, x: 0 }}
+             viewport={{ once: true }}
           >
-            <div className="bg-gradient-to-r from-gray-50 to-white rounded-3xl p-8 sm:p-12 shadow-lg border border-gray-100">
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="flex items-center gap-4 mb-8"
-              >
-                <div className="w-12 h-12 bg-gradient-to-br from-[#0056D2] to-[#43E0F8] rounded-2xl flex items-center justify-center">
-                  <CheckCircle className="text-white" size={24} />
-                </div>
-                <h2
-                  className="text-3xl sm:text-4xl font-bold text-gray-900"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  Exploring The Benefits
-                </h2>
-              </motion.div>
+             <div className="flex items-center gap-2 mb-3">
+               <MapPin className="text-[#eb662b]" size={16} />
+               <span className="text-[#eb662b] font-semibold text-sm">Save big on your next adventure.</span>
+             </div>
+             <h2 className="text-3xl md:text-5xl font-black text-[#05073C] mb-6 leading-tight" style={{ fontFamily: "var(--font-montserrat)" }}>
+               Tour And Travel Deals
+             </h2>
+             
+             <div className="space-y-4 text-gray-500 font-medium text-sm leading-relaxed mb-8" style={{ fontFamily: "var(--font-manrope)" }}>
+               <p>
+                 Discover unbeatable travel packages tailored just for you. From serene escapes to thrilling adventures, we bring you the world's most captivating destinations at prices that inspire you to explore more.
+               </p>
+               <p>
+                 At Trippy Go, we believe every journey should be as unique as the traveler. Our dedicated team works tirelessly to curate experiences that blend luxury, comfort, and local authenticity.
+               </p>
+               <p>
+                 Whether you're planning a corporate retreat, a romantic getaway, or a family vacation, our comprehensive services ensure every detail is perfectly managed, allowing you to focus on creating lasting memories.
+               </p>
+             </div>
 
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="text-gray-600 text-lg leading-relaxed mb-8"
-                style={{ fontFamily: "Manrope, sans-serif" }}
-              >
-                Excursion travel play a vital role in creating seamless and
-                enjoyable travel experiences. Excursions are perfect for
-                exploring local attractions, cultural landmarks, and natural
-                wonders. To complement this, car rental services provide
-                travelers with the flexibility to explore at their own pace,
-                offering options such as one-way rentals, ideal for journeys
-                that don't loop back to the starting point, and round-trip
-                rentals for local or day travel. With a wide range of vehicles
-                available, including compact cars, SUVs, and luxury options,
-                travelers can choose what best suits their needs. For air
-                travelers, transfer services ensure stress-free connectivity to
-                and from airports with options for private transportation, often
-                available round-the-clock to accommodate any schedule. Whether
-                planning a one-way trip to a new destination or a round-trip
-                adventure, these services work together to simplify logistics,
-                giving travelers more time to focus on enjoying their journey.
-              </motion.p>
+             <Link href="/destinations">
+                <button className="px-8 py-3 bg-gradient-to-r from-[#eb662b] to-[#ff9b6a] text-white font-bold text-sm tracking-wide rounded-full transition-all shadow-md hover:shadow-lg hover:scale-105 active:scale-95">
+                   Book Now
+                </button>
+             </Link>
 
-              <div className="grid md:grid-cols-3 gap-6">
-                {benefits.map((benefit, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.3 + index * 0.1 }}
-                    whileHover={{ scale: 1.05, y: -5 }}
-                    className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300"
-                  >
-                    <motion.div
-                      whileHover={{ rotate: 360 }}
-                      transition={{ duration: 0.6 }}
-                      className="w-12 h-12 bg-gradient-to-br from-[#0056D2] to-[#43E0F8] rounded-xl flex items-center justify-center mb-4"
-                    >
-                      <benefit.icon className="text-white" size={20} />
-                    </motion.div>
-                    <h3
-                      className="text-lg font-bold text-gray-900 mb-2"
-                      style={{ fontFamily: "Montserrat, sans-serif" }}
-                    >
-                      {benefit.title}
-                    </h3>
-                    <p
-                      className="text-gray-600 text-sm"
-                      style={{ fontFamily: "Manrope, sans-serif" }}
-                    >
-                      {benefit.description}
-                    </p>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
+             {/* Map Pins Graphic */}
+             <div className="hidden lg:block absolute right-0 -translate-y-32 opacity-20 pointer-events-none">
+                <svg width="250" height="100" viewBox="0 0 250 100" fill="none">
+                  <path d="M20,80 Q80,110 120,40 T220,50" stroke="#05073C" strokeWidth="2" strokeDasharray="6 6" fill="transparent" />
+                  <MapPin x="10" y="60" className="text-[#eb662b]" size={24} />
+                  <MapPin x="210" y="30" className="text-[#05073C]" size={24} />
+                </svg>
+             </div>
           </motion.div>
+        </section>
 
-          {/* Vision, Mission, Approach Grid */}
-          <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
-            {/* Our Vision */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.6 }}
-              className="group"
-            >
-              <div className="bg-white/90 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/60 hover:shadow-2xl transition-all duration-500 h-full">
-                <motion.div
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  className="w-16 h-16 bg-gradient-to-br from-[#0056D2] to-[#43E0F8] rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:shadow-[#0056D2]/30 transition-all duration-300"
-                >
-                  <Eye className="text-white" size={28} />
-                </motion.div>
 
-                <h3
-                  className="text-2xl font-bold text-gray-900 mb-4"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  Our Vision
-                </h3>
-                <h4
-                  className="text-lg font-semibold text-[#0056D2] mb-6"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  Setting New Standards in Car Rentals
-                </h4>
+        {/* SECTION 2: Why Book With Trippy Go? */}
+        <section className="mb-32">
+          {/* Header */}
+          <div className="text-center mb-16 relative">
+             <div className="flex items-center justify-center gap-2 mb-2">
+               <ShieldCheck className="text-[#eb662b]" size={16} />
+               <span className="text-[#eb662b] font-semibold text-sm">Why we are the best for our client</span>
+             </div>
+             <h2 className="text-3xl md:text-4xl font-black text-[#05073C]" style={{ fontFamily: "var(--font-montserrat)" }}>
+               Why book with Trippy Go?
+             </h2>
 
-                <p
-                  className="text-gray-600 mb-6 leading-relaxed"
-                  style={{ fontFamily: "Manrope, sans-serif" }}
-                >
-                  We envision redefining corporate car rentals with innovation
-                  and precision. By integrating the latest technology, we
-                  simplify the rental process and ensure reliable service every
-                  time. Our commitment to excellence is reflected in our diverse
-                  fleet and our focus on providing tailored solutions for
-                  business professionals and travelers.
-                </p>
-
-                <ul className="space-y-3">
-                  {visionPoints.map((point, index) => (
-                    <motion.li
-                      key={index}
-                      initial={{ opacity: 0, x: -10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.8 + index * 0.1 }}
-                      className="flex items-start gap-3 text-gray-700"
-                    >
-                      <ArrowRight
-                        className="text-[#0056D2] mt-1 flex-shrink-0"
-                        size={16}
-                      />
-                      <span style={{ fontFamily: "Manrope, sans-serif" }}>
-                        {point}
-                      </span>
-                    </motion.li>
-                  ))}
-                </ul>
-              </div>
-            </motion.div>
-
-            {/* Our Mission */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.7 }}
-              className="group"
-            >
-              <div className="bg-white/90 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/60 hover:shadow-2xl transition-all duration-500 h-full">
-                <motion.div
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  className="w-16 h-16 bg-gradient-to-br from-[#43E0F8] to-[#4A8BDF] rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:shadow-[#43E0F8]/30 transition-all duration-300"
-                >
-                  <Target className="text-white" size={28} />
-                </motion.div>
-
-                <h3
-                  className="text-2xl font-bold text-gray-900 mb-4"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  Our Mission
-                </h3>
-                <h4
-                  className="text-lg font-semibold text-[#0056D2] mb-6"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  Excellence in Every Ride
-                </h4>
-
-                <p
-                  className="text-gray-600 mb-6 leading-relaxed"
-                  style={{ fontFamily: "Manrope, sans-serif" }}
-                >
-                  Our mission is to deliver unparalleled car rental experiences
-                  by combining innovative technology with exceptional service.
-                  From streamlined booking processes to real-time vehicle
-                  tracking, we aim to make every journey seamless and
-                  stress-free. With a fleet of meticulously maintained vehicles,
-                  we ensure safety, comfort, and reliability in every ride.
-                </p>
-
-                <ul className="space-y-3">
-                  {missionPoints.map((point, index) => (
-                    <motion.li
-                      key={index}
-                      initial={{ opacity: 0, x: -10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.9 + index * 0.1 }}
-                      className="flex items-start gap-3 text-gray-700"
-                    >
-                      <ArrowRight
-                        className="text-[#0056D2] mt-1 flex-shrink-0"
-                        size={16}
-                      />
-                      <span style={{ fontFamily: "Manrope, sans-serif" }}>
-                        {point}
-                      </span>
-                    </motion.li>
-                  ))}
-                </ul>
-              </div>
-            </motion.div>
-
-            {/* Our Approach */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.8 }}
-              className="group"
-            >
-              <div className="bg-white/90 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/60 hover:shadow-2xl transition-all duration-500 h-full">
-                <motion.div
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  className="w-16 h-16 bg-gradient-to-br from-[#4A8BDF] to-[#43E0F8] rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:shadow-[#5DFDCB]/30 transition-all duration-300"
-                >
-                  <Lightbulb className="text-white" size={28} />
-                </motion.div>
-
-                <h3
-                  className="text-2xl font-bold text-gray-900 mb-4"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  Our Approach
-                </h3>
-                <h4
-                  className="text-lg font-semibold text-[#0056D2] mb-6"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  Innovation Meets Dedication
-                </h4>
-
-                <p
-                  className="text-gray-600 mb-6 leading-relaxed"
-                  style={{ fontFamily: "Manrope, sans-serif" }}
-                >
-                  Our approach is centered on combining innovation with a
-                  dedication to excellence. We continuously evolve our services
-                  to meet changing customer needs. From high-tech features to a
-                  focus on sustainability, we're committed to setting new
-                  benchmarks in the car rental industry.
-                </p>
-
-                <ul className="space-y-3">
-                  {approachPoints.map((point, index) => (
-                    <motion.li
-                      key={index}
-                      initial={{ opacity: 0, x: -10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 1.0 + index * 0.1 }}
-                      className="flex items-start gap-3 text-gray-700"
-                    >
-                      <ArrowRight
-                        className="text-[#0056D2] mt-1 flex-shrink-0"
-                        size={16}
-                      />
-                      <span style={{ fontFamily: "Manrope, sans-serif" }}>
-                        {point}
-                      </span>
-                    </motion.li>
-                  ))}
-                </ul>
-              </div>
-            </motion.div>
+             {/* Loop Graphic */}
+             <div className="absolute top-0 left-0 hidden lg:block opacity-20 pointer-events-none -translate-y-10">
+                <svg width="200" height="100" viewBox="0 0 200 100" fill="none">
+                  <path d="M180,20 Q100,-20 80,40 T20,90" stroke="#05073C" strokeWidth="2" strokeDasharray="6 6" fill="transparent" />
+                  <MapPin x="10" y="70" className="text-[#05073C]" size={20} />
+                </svg>
+             </div>
           </div>
 
-          {/* Call to Action */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.9 }}
-            className="text-center mt-16 sm:mt-20"
+          {/* 4 Columns */}
+          <motion.div 
+             initial={{ opacity: 0, y: 30 }}
+             whileInView={{ opacity: 1, y: 0 }}
+             viewport={{ once: true }}
+             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+             style={{ fontFamily: 'var(--font-manrope)' }}
           >
-            <div className="bg-gradient-to-r from-[#0056D2]/5 via-[#43E0F8]/5 to-[#0056D2]/5 backdrop-blur-xl rounded-3xl p-8 sm:p-12 border border-[#43E0F8]/20 max-w-4xl mx-auto">
-              <h3
-                className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4"
-                style={{ fontFamily: "Montserrat, sans-serif" }}
-              >
-                Ready to Experience Excellence?
-              </h3>
-              <p
-                className="text-gray-600 mb-8 max-w-2xl mx-auto"
-                style={{ fontFamily: "Manrope, sans-serif" }}
-              >
-                Join thousands of satisfied clients who trust Excursion Travel
-                for their corporate transportation needs.
-              </p>
-              <motion.button
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-gradient-to-r from-[#0056D2] to-[#43E0F8] text-white font-bold rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 text-lg"
-                style={{ fontFamily: "Manrope, sans-serif" }}
-              >
-                Get Started Today
-              </motion.button>
-            </div>
+             {/* Col 1 */}
+             <div className="flex flex-col items-center text-center px-4">
+                <div className="mb-6 w-20 h-20 bg-orange-50 rounded-[2rem] flex items-center justify-center text-[#eb662b] shadow-sm transition-transform hover:scale-110">
+                   <Ticket size={40} />
+                </div>
+                <h3 className="font-black text-[#05073C] mb-3 text-lg" style={{ fontFamily: 'var(--font-montserrat)' }}>Ultimate Flexibility</h3>
+                <p className="text-gray-500 text-xs font-medium leading-relaxed">
+                  Experience travel on your terms with our fully customizable booking options and seamless planning.
+                </p>
+             </div>
+
+             {/* Col 2 */}
+             <div className="flex flex-col items-center text-center px-4">
+                <div className="mb-6 w-20 h-20 bg-orange-50 rounded-[2rem] flex items-center justify-center text-[#eb662b] shadow-sm transition-transform hover:scale-110">
+                   <Camera size={40} />
+                </div>
+                <h3 className="font-black text-[#05073C] mb-3 text-lg" style={{ fontFamily: 'var(--font-montserrat)' }}>Memorable Experiences</h3>
+                <p className="text-gray-500 text-xs font-medium leading-relaxed">
+                  Capture the magic of travel with our curated journeys designed to create stories worth sharing.
+                </p>
+             </div>
+
+             {/* Col 3 */}
+             <div className="flex flex-col items-center text-center px-4">
+                <div className="mb-6 w-20 h-20 bg-orange-50 rounded-[2rem] flex items-center justify-center text-[#eb662b] shadow-sm transition-transform hover:scale-110">
+                   <PlaneTakeoff size={40} />
+                </div>
+                <h3 className="font-black text-[#05073C] mb-3 text-lg" style={{ fontFamily: 'var(--font-montserrat)' }}>Quality At Our Core</h3>
+                <p className="text-gray-500 text-xs font-medium leading-relaxed">
+                  Every detail of your trip is meticulously planned and managed to ensure peak service excellence.
+                </p>
+             </div>
+
+             {/* Col 4 */}
+             <div className="flex flex-col items-center text-center px-4">
+                <div className="mb-6 w-20 h-20 bg-orange-50 rounded-[2rem] flex items-center justify-center text-[#eb662b] shadow-sm transition-transform hover:scale-110">
+                   <Award size={40} />
+                </div>
+                <h3 className="font-black text-[#05073C] mb-3 text-lg" style={{ fontFamily: 'var(--font-montserrat)' }}>Award-Winning Support</h3>
+                <p className="text-gray-500 text-xs font-medium leading-relaxed">
+                  Our dedicated support team is available around the clock to provide unparalleled travel assistance.
+                </p>
+             </div>
           </motion.div>
-        </div>
-      </section>
+        </section>
+
+
+        {/* SECTION 3: Our Best Services */}
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          
+          {/* Left Text */}
+          <motion.div
+             initial={{ opacity: 0, x: -30 }}
+             whileInView={{ opacity: 1, x: 0 }}
+             viewport={{ once: true }}
+             className="relative"
+          >
+             <div className="flex items-center gap-2 mb-3">
+               <Award className="text-[#eb662b]" size={16} />
+               <span className="text-[#eb662b] font-semibold text-sm">Our Dedication to Excellence</span>
+             </div>
+             <h2 className="text-3xl md:text-5xl font-black text-[#05073C] mb-6 leading-tight" style={{ fontFamily: "var(--font-montserrat)" }}>
+               Our Best Services
+             </h2>
+             
+             <div className="space-y-4 text-gray-500 font-medium text-sm leading-relaxed mb-8" style={{ fontFamily: "var(--font-manrope)" }}>
+               <p>
+                 We pride ourselves on offering more than just transportation; we offer peace of mind. Our luxury fleet and professional chauffeurs are at your service for any occasion, ensuring every journey is smooth and stylish.
+               </p>
+               <p>
+                 From corporate delegation handling to seamless wedding transportation, our attention to detail and commitment to punctuality set us apart. We understand that your time is valuable, and your comfort is paramount.
+               </p>
+             </div>
+
+             <Link href="/services">
+                <button className="px-8 py-3 bg-gradient-to-r from-[#eb662b] to-[#ff9b6a] text-white font-bold text-sm tracking-wide rounded-full transition-all shadow-md hover:shadow-lg hover:scale-105 active:scale-95">
+                   Discover Services
+                </button>
+             </Link>
+
+             {/* Plane Graphic bottom */}
+             <div className="absolute -bottom-16 right-10 opacity-20 pointer-events-none hidden md:block">
+                <svg width="200" height="80" viewBox="0 0 200 80" fill="none">
+                  <path d="M20,20 Q80,0 120,40 T180,60" stroke="#05073C" strokeWidth="2" strokeDasharray="6 6" fill="transparent" />
+                  <PlaneTakeoff x="20" y="5" className="text-[#eb662b]" size={24} />
+                </svg>
+             </div>
+          </motion.div>
+
+          {/* Right Cards Stack */}
+          <motion.div
+             initial={{ opacity: 0, x: 30 }}
+             whileInView={{ opacity: 1, x: 0 }}
+             viewport={{ once: true }}
+             className="relative"
+          >
+             {/* Dotted Border Container with extremely faint orange background */}
+             <div className="w-full bg-[#FFFBFB] border-2 border-dashed border-orange-200 rounded-[2rem] p-6 md:p-10 flex flex-col gap-6 relative z-10" style={{ fontFamily: 'var(--font-manrope)' }}>
+                
+                {/* Card 1 */}
+                <div className="bg-white rounded-2xl p-5 flex items-start gap-5 shadow-sm border border-gray-100 group hover:border-[#eb662b]/30 transition-all">
+                   <div className="bg-orange-50 p-3 rounded-lg text-[#eb662b] group-hover:scale-110 transition-transform">
+                     <XCircle size={24} />
+                   </div>
+                   <div className="flex-1">
+                      <h4 className="font-bold text-[#05073C] mb-1" style={{ fontFamily: 'var(--font-montserrat)' }}>Easy cancellation</h4>
+                      <p className="text-[11px] text-gray-500 font-medium">Life is unpredictable. That's why we offer hassle-free cancellation options for your convenience.</p>
+                   </div>
+                </div>
+
+                {/* Card 2 */}
+                <div className="bg-white rounded-2xl p-5 flex items-start gap-5 shadow-sm border border-gray-100 group hover:border-[#eb662b]/30 transition-all">
+                   <div className="bg-orange-50 p-3 rounded-lg text-[#eb662b] group-hover:scale-110 transition-transform">
+                     <Zap size={24} />
+                   </div>
+                   <div className="flex-1">
+                      <h4 className="font-bold text-[#05073C] mb-1" style={{ fontFamily: 'var(--font-montserrat)' }}>Instant confirmation</h4>
+                      <p className="text-[11px] text-gray-500 font-medium">Book with confidence. Receive immediate confirmation for all your travel arrangements.</p>
+                   </div>
+                </div>
+
+                {/* Card 3 */}
+                <div className="bg-white rounded-2xl p-5 flex items-start gap-5 shadow-sm border border-gray-100 group hover:border-[#eb662b]/30 transition-all">
+                   <div className="bg-orange-50 p-3 rounded-lg text-[#eb662b] group-hover:scale-110 transition-transform">
+                     <Car size={24} />
+                   </div>
+                   <div className="flex-1">
+                      <h4 className="font-bold text-[#05073C] mb-1" style={{ fontFamily: 'var(--font-montserrat)' }}>Pick-up Possible</h4>
+                      <p className="text-[11px] text-gray-500 font-medium">Door-to-door service that ensures you start your journey right from your doorstep.</p>
+                   </div>
+                </div>
+
+                {/* Card 4 */}
+                <div className="bg-white rounded-2xl p-5 flex items-start gap-5 shadow-sm border border-gray-100 group hover:border-[#eb662b]/30 transition-all">
+                   <div className="bg-orange-50 p-3 rounded-lg text-[#eb662b] group-hover:scale-110 transition-transform">
+                     <FastForward size={24} />
+                   </div>
+                   <div className="flex-1">
+                      <h4 className="font-bold text-[#05073C] mb-1" style={{ fontFamily: 'var(--font-montserrat)' }}>Skip the line</h4>
+                      <p className="text-[11px] text-gray-500 font-medium">Enjoy VIP entry and skip the queues at some of the world's most popular attractions.</p>
+                   </div>
+                </div>
+
+             </div>
+          </motion.div>
+
+        </section>
+
+      </main>
+
       <Footer />
-    </>
+    </div>
   );
 }

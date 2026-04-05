@@ -112,7 +112,7 @@ export default function MyBookingsPage() {
                 <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
                   <Navigation className="w-6 h-6 text-white" />
                 </div>
-                <span className="text-xl font-bold text-primary">Excursion Travel</span>
+                <span className="text-xl font-bold text-primary">Trippy Go</span>
               </a>
             </div>
 

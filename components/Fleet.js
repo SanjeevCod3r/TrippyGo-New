@@ -4,281 +4,313 @@ import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Search,
-  Filter,
-  X,
-  Car,
   Users,
   Shield,
   Star,
-  MapPin,
-  Clock,
-  Fuel,
-  Settings,
-  Briefcase,
+  CheckCircle,
 } from "lucide-react";
 
 export const Fleet = ({ onBookNow, vehicles = [], loading = false }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedFilters, setSelectedFilters] = useState({
-    category: "all",
-    passengers: "all",
-    features: [],
-  });
-  const [showFilters, setShowFilters] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState("all");
 
   // Group vehicles by category for category selection
   const fleetCategories = useMemo(() => {
     const categories = Array.from(
       new Set(vehicles.map((v) => v.type || "other"))
     );
-    return categories.map((cat) => ({
+    return [{ name: "All", value: "all" }, ...categories.map((cat) => ({
       name: cat.toUpperCase(),
-      icon: cat === "suv" ? Shield : cat === "sedan" ? Briefcase : Users,
       value: cat,
-    }));
+    }))];
   }, [vehicles]);
 
   const filteredVehicles = useMemo(() => {
     return vehicles.filter((vehicle) => {
-      // Search filter
       const matchesSearch =
         searchTerm === "" ||
         vehicle.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         (vehicle.description &&
           vehicle.description.toLowerCase().includes(searchTerm.toLowerCase()));
 
-      // Category filter
       const matchesCategory =
-        selectedFilters.category === "all" ||
-        vehicle.type === selectedFilters.category;
+        selectedCategory === "all" || vehicle.type === selectedCategory;
 
-      // Passengers filter
-      const vehiclePassengers = vehicle.seating || 4;
-      const matchesPassengers =
-        selectedFilters.passengers === "all" ||
-        (selectedFilters.passengers === "1-4" && vehiclePassengers <= 4) ||
-        (selectedFilters.passengers === "5-7" &&
-          vehiclePassengers >= 5 &&
-          vehiclePassengers <= 7) ||
-        (selectedFilters.passengers === "8+" && vehiclePassengers >= 8);
-
-      // Features filter - adjusting to handle possible API data structure
-      const vehicleFeatures = vehicle.features || [];
-      const matchesFeatures =
-        selectedFilters.features.length === 0 ||
-        selectedFilters.features.every((feature) =>
-          vehicleFeatures.some((vFeature) =>
-            vFeature.toLowerCase().includes(feature.toLowerCase())
-          )
-        );
-
-      return (
-        matchesSearch && matchesCategory && matchesPassengers && matchesFeatures
-      );
+      return matchesSearch && matchesCategory;
     });
-  }, [vehicles, searchTerm, selectedFilters]);
+  }, [vehicles, searchTerm, selectedCategory]);
 
-  const handleFilterChange = (filterType, value) => {
-    setSelectedFilters((prev) => ({
-      ...prev,
-      [filterType]: value,
-    }));
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+    },
   };
 
-  const clearFilters = () => {
-    setSelectedFilters({
-      category: "all",
-      passengers: "all",
-      features: [],
-    });
-    setSearchTerm("");
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
   };
 
-  const availableFeatures = [
-    "AC",
-    "Fuel Efficient",
-    "Luxury",
-    "Spacious",
-    "Premium",
-    "Advanced Safety",
-    "Entertainment",
-  ];
+  // Tag color logic based on category (similar to Regions in destinations)
+  const getCategoryTagColor = (type) => {
+    const t = type?.toLowerCase() || '';
+    if (t === 'suv') return 'bg-[#eb662b]'; 
+    if (t === 'sedan') return 'bg-[#f49e34]'; 
+    if (t === 'luxury' || t === 'luxury sedan') return 'bg-[#ff9b6a]'; 
+    if (t === 'innova' || t === 'van') return 'bg-[#d45821]'; 
+    return 'bg-[#eb662b]'; 
+  };
 
   return (
-    <section
-      id="fleet"
-      className="py-24 bg-gradient-to-br from-gray-50 via-white to-paleBlue-50 relative overflow-hidden"
-      data-testid="fleet-section"
-    >
-      {/* Background decorations removed for brevity, keeping same structure as user provided snippet */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-br from-[#0056D2]/10 to-[#43E0F8]/10 rounded-full filter blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-80 h-80 bg-gradient-to-tl from-[#43E0F8]/10 to-[#5DFDCB]/10 rounded-full filter blur-3xl"></div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <div className="inline-flex items-center mt-6 gap-3 px-8 py-4 bg-gradient-to-r from-[#0056D2]/10 via-[#43E0F8]/10 to-[#0056D2]/10 backdrop-blur-xl rounded-full border border-[#43E0F8]/30 mb-8 shadow-lg">
-            <span
-              className="text-[#0056D2] font-bold text-sm uppercase tracking-wider"
-              style={{ fontFamily: "Montserrat, sans-serif" }}
-            >
-              EXPLORE OUR FLEET
-            </span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-            Find Your{" "}
-            <span className="bg-gradient-to-r from-[#0056D2] via-[#4A8BDF] to-[#43E0F8] bg-clip-text text-transparent">
-              Perfect Vehicle
-            </span>
-          </h2>
-        </motion.div>
-
-        <div className="flex flex-col sm:flex-row gap-4 mb-6">
-          <div className="relative flex-1">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-            <input
-              type="text"
-              placeholder="Search vehicles..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-12 pr-4 py-4 bg-white/80 backdrop-blur-xl border border-gray-200/50 rounded-2xl focus:outline-none transition-all text-gray-900"
+    <>
+      {/* Hero Section */}
+      <section className="relative w-full h-[60vh] md:h-[80vh] flex items-center justify-center overflow-hidden bg-[#F6F9F8]">
+         {/* Background Image */}
+         <div className="absolute inset-0 z-0">
+            <img 
+              src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=1600&q=80" 
+              alt="Premium Fleet Cars" 
+              className="w-full h-full object-cover select-none"
             />
-          </div>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            onClick={() => setShowFilters(!showFilters)}
-            className="flex items-center gap-2 px-6 py-4 bg-gradient-to-r from-[#0056D2] to-[#4A8BDF] text-white font-semibold rounded-2xl shadow-lg"
-          >
-            <Filter className="w-5 h-5" /> Filters
-          </motion.button>
-        </div>
+            <div className="absolute inset-0 bg-black/40"></div>
+         </div>
 
-        {/* Categories */}
-        <div className="flex flex-wrap gap-3 mb-6">
-          <button
-            onClick={() => handleFilterChange("category", "all")}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-              selectedFilters.category === "all"
-                ? "bg-[#0056D2] text-white"
-                : "bg-white text-gray-700"
-            }`}
-          >
-            All
-          </button>
-          {fleetCategories.map((category) => (
-            <button
-              key={category.value}
-              onClick={() => handleFilterChange("category", category.value)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                selectedFilters.category === category.value
-                  ? "bg-[#0056D2] text-white"
-                  : "bg-white text-gray-700 border border-gray-200"
-              }`}
+         {/* Hero Text */}
+         <div className="relative z-10 text-center px-4 mt-16 max-w-2xl">
+             <h1 
+               className="text-4xl md:text-6xl text-white font-serif leading-tight drop-shadow-md mb-4"
+               style={{ fontStyle: 'italic', fontFamily: 'Georgia, serif' }} 
+             >
+               Premium Fleet<br/>for Every Journey
+             </h1>
+             <p className="text-white text-sm md:text-base font-medium mb-8 max-w-[500px] mx-auto drop-shadow-sm" style={{ fontFamily: 'var(--font-manrope)' }}>
+               Experience ultimate comfort and reliability. Our top-tier vehicles are perfectly maintained for your road trips and corporate travels.
+             </p>
+             <button 
+                onClick={() => {
+                  const el = document.getElementById("fleet-grid");
+                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="px-8 py-3 bg-[#eb662b] hover:bg-[#ff9b6a] text-white font-bold text-sm tracking-wider uppercase rounded-full shadow-lg transition-transform hover:-translate-y-1 block mx-auto" 
+                style={{ fontFamily: 'var(--font-montserrat)' }}
+             >
+               VIEW VEHICLES
+             </button>
+         </div>
+
+         {/* Torn Paper Bottom Edge */}
+         <div className="absolute bottom-0 left-0 right-0 z-20 w-full overflow-hidden pointer-events-none translate-y-[2px]">
+            <svg 
+              viewBox="0 0 1200 120" 
+              preserveAspectRatio="none" 
+              className="w-full h-12 md:h-20 text-[#F6F9F8] fill-current"
             >
-              <category.icon className="w-4 h-4" />
-              {category.name}
-            </button>
-          ))}
-        </div>
+               <path d="M0,0 L0,120 L1200,120 L1200,0 C1100,50 900,10 800,40 C700,70 500,10 400,30 C300,50 100,10 0,0 Z" />
+            </svg>
+         </div>
+      </section>
 
-        {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[...Array(3)].map((_, i) => (
-              <div
-                key={i}
-                className="bg-white rounded-3xl h-80 animate-pulse border border-gray-100"
-              />
-            ))}
+      {/* Main Content Section */}
+      <section id="fleet-grid" className="relative min-h-screen py-16 bg-[#F6F9F8]">
+         {/* Topography faint backdrop */}
+         <div className="absolute inset-0 opacity-10 pointer-events-none z-0">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="topography" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+                  <path d="M10 10C20 20 40 10 50 30C60 50 80 40 90 60" fill="none" stroke="#000" strokeWidth="0.5" />
+                  <path d="M10 90C30 80 40 100 60 80C80 60 90 90 100 70" fill="none" stroke="#000" strokeWidth="0.5" />
+                  <path d="M50 0C60 20 80 10 100 30" fill="none" stroke="#000" strokeWidth="0.5" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#topography)" />
+            </svg>
+         </div>
+
+        <div className="max-w-7xl mx-auto px-4 md:px-12 relative z-10">
+          
+          {/* Header Title section */}
+          <div className="flex flex-col items-center mb-10 text-center">
+             <span className="text-[#eb662b] font-medium italic text-lg mb-2" style={{ fontFamily: 'Georgia, serif' }}>
+                Top Vehicles
+             </span>
+             <h2 className="text-3xl md:text-4xl font-black text-[#05073C] mb-4" style={{ fontFamily: 'var(--font-montserrat)' }}>
+                Find Your Perfect Ride
+             </h2>
+             <div className="flex items-center gap-1">
+                <svg width="40" height="10" viewBox="0 0 40 10" className="text-[#eb662b] fill-none stroke-current stroke-2">
+                   <path d="M0 5 Q 5 0, 10 5 T 20 5 T 30 5 T 40 5" />
+                </svg>
+             </div>
           </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {filteredVehicles.map((vehicle, index) => (
+
+          {/* Search and Filters */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-12 bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100 max-w-4xl mx-auto"
+          >
+              <div className="relative mb-6">
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                <input
+                  type="text"
+                  placeholder="Search vehicles by name or features..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-12 pr-4 py-4 bg-gray-50 border-none rounded-xl focus:outline-none focus:ring-2 focus:ring-[#eb662b] text-sm text-gray-900 placeholder-gray-400"
+                  style={{ fontFamily: "var(--font-manrope)" }}
+                />
+              </div>
+
+              <div>
+                 <h3 className="text-xs font-bold text-gray-800 uppercase tracking-wider mb-4" style={{ fontFamily: "var(--font-manrope)" }}>
+                   Filter by Category
+                 </h3>
+                 <div className="flex flex-wrap gap-2">
+                   {fleetCategories.map((category) => (
+                       <button
+                         key={category.value}
+                         onClick={() => setSelectedCategory(category.value)}
+                         className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
+                           selectedCategory === category.value
+                             ? "bg-[#eb662b] text-white shadow-md shadow-orange-100"
+                             : "bg-gray-50 text-gray-600 hover:bg-gray-100"
+                         }`}
+                         style={{ fontFamily: "var(--font-manrope)" }}
+                       >
+                         {category.name}
+                       </button>
+                   ))}
+                 </div>
+              </div>
+          </motion.div>
+
+          {/* Fleet Grid */}
+          {loading ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="animate-pulse bg-white rounded-[2rem] overflow-hidden shadow-sm h-[480px]">
+                  <div className="bg-gray-200 h-56 w-full m-4 rounded-[1.5rem]" />
+                  <div className="p-6">
+                    <div className="h-4 bg-gray-200 rounded w-3/4 mb-4" />
+                    <div className="h-3 bg-gray-200 rounded w-full mb-2" />
+                    <div className="h-3 bg-gray-200 rounded w-5/6 mb-8" />
+                    <div className="h-8 bg-gray-200 rounded w-full" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <AnimatePresence mode="wait">
               <motion.div
-                key={vehicle.id || index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -8 }}
-                className="group relative bg-white rounded-3xl overflow-hidden shadow-xl border border-gray-100"
+                key={`${selectedCategory}-${searchTerm}`}
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+                className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
               >
-                <div className="relative h-48 overflow-hidden bg-gray-100">
-                  <img
-                    src={vehicle.images?.[0] || "/asset/car-placeholder.png"}
-                    alt={vehicle.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-all duration-500"
-                  />
-                  <div className="absolute top-4 left-4 px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-xs font-semibold text-[#0056D2]">
-                    {vehicle.seating} Seats
-                  </div>
-                </div>
+                {filteredVehicles.map((vehicle) => {
+                  const title = vehicle.name || "Premium Vehicle";
+                  const image = vehicle.images?.[0] || "/asset/car-placeholder.png";
+                  const price = vehicle.pricePerDay || vehicle.basePrice || 1000;
+                  const type = vehicle.type || 'Standard';
+                  const seats = vehicle.seating || 4;
+                  const description = vehicle.description || `Experience comfortable travel with our premium ${type} perfect for any group size.`;
 
-                <div className="p-6">
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-xl font-bold text-gray-900 truncate title">
-                      {vehicle.name}
-                    </h3>
-                    {vehicle.type && (
-                      <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs capitalize whitespace-nowrap ml-2 mt-1">
-                        {vehicle.type}
-                      </span>
-                    )}
-                  </div>
-
-                  {vehicle.description && (
-                    <p
-                      className="text-sm text-gray-500 mb-4 line-clamp-2"
-                      title={vehicle.description}
+                  return (
+                    <motion.div
+                      key={vehicle.id || vehicle._id}
+                      variants={itemVariants}
+                      className="group bg-white rounded-[2rem] overflow-hidden shadow-sm border border-gray-50 hover:shadow-xl transition-shadow duration-300 flex flex-col pt-3 px-3 relative"
                     >
-                      {vehicle.description}
-                    </p>
-                  )}
+                      {/* Image Container */}
+                      <div className="relative h-56 overflow-hidden rounded-[1.5rem] w-full shrink-0 bg-gray-50">
+                        <img
+                          src={image}
+                          alt={title}
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+                        
+                        {/* Colored Tag (Top Left) */}
+                        <div className={`absolute top-4 left-4 ${getCategoryTagColor(type)} text-white text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded`}>
+                           {type}
+                        </div>
+                      </div>
 
-                  <div className="flex flex-wrap gap-2 mb-6 min-h-[40px]">
-                    {(vehicle.features || [])
-                      .slice(0, 3)
-                      .map((feature, idx) => (
-                        <span
-                          key={idx}
-                          className="px-2 py-1 bg-paleBlue-50 text-[#0056D2] text-xs rounded-full border border-paleBlue-100"
+                      {/* Content Section */}
+                      <div className="p-4 pt-6 flex flex-col flex-1">
+                        <h3
+                          className="text-lg font-black text-[#05073C] mb-2 leading-snug line-clamp-2"
+                          style={{ fontFamily: "var(--font-montserrat)" }}
                         >
-                          {feature}
-                        </span>
-                      ))}
-                  </div>
+                          {title}
+                        </h3>
+                        <p
+                          className="text-gray-400 text-xs leading-relaxed mb-6 line-clamp-2 font-medium"
+                          style={{ fontFamily: "var(--font-manrope)" }}
+                        >
+                          {description}
+                        </p>
 
-                  <motion.button
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => onBookNow?.({ vehicle })}
-                    className="w-full py-3 bg-gradient-to-r from-[#0056D2] to-[#0056D2] text-white font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all"
-                  >
-                    Book for ₹{vehicle.pricePerDay || 1000} /day
-                  </motion.button>
-                </div>
+                        <div className="border-t border-gray-100 flex items-center justify-between py-4 mt-auto">
+                            <div className="flex items-center gap-2">
+                               <Users className="text-[#eb662b]" size={16} />
+                               <div className="flex flex-col">
+                                  <span className="text-[10px] text-gray-800 font-bold uppercase" style={{ fontFamily: 'var(--font-manrope)'}}>Seats</span>
+                                  <span className="text-[10px] text-gray-500 font-medium">{seats} max</span>
+                               </div>
+                            </div>
+                            
+                            <div className="flex items-center gap-2">
+                               <Shield className="text-[#eb662b]" size={16} />
+                               <div className="flex flex-col">
+                                  <span className="text-[10px] text-gray-800 font-bold uppercase" style={{ fontFamily: 'var(--font-manrope)'}}>Standard</span>
+                                  <span className="text-[10px] text-gray-500 font-medium">Premium</span>
+                               </div>
+                            </div>
+                        </div>
+
+                        <div className="border-t border-gray-100 flex items-center justify-between pt-4 pb-2">
+                           <span className="text-lg font-black text-[#05073C]" style={{ fontFamily: 'var(--font-montserrat)' }}>
+                              ₹{price.toLocaleString()}<span className="text-[10px] text-gray-400 font-bold ml-1">/day</span>
+                           </span>
+                           <button 
+                              onClick={() => onBookNow?.({ vehicle })}
+                              className="px-5 py-2.5 bg-[#eb662b] hover:bg-[#ff9b6a] text-white text-xs font-bold uppercase rounded-xl transition-colors shadow-sm tracking-wide" 
+                              style={{ fontFamily: 'var(--font-manrope)' }}
+                           >
+                              BOOK NOW
+                           </button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
               </motion.div>
-            ))}
-          </div>
-        )}
+            </AnimatePresence>
+          )}
 
-        {filteredVehicles.length === 0 && !loading && (
-          <div className="text-center py-16">
-            <h3 className="text-xl font-bold text-gray-900 mb-2">
-              No vehicles found
-            </h3>
-            <button
-              onClick={clearFilters}
-              className="text-[#0056D2] font-semibold"
-            >
-              Clear Filters
-            </button>
-          </div>
-        )}
-      </div>
-    </section>
+          {/* No Results */}
+          {!loading && filteredVehicles.length === 0 && (
+            <div className="text-center py-20 bg-white rounded-3xl mt-10 shadow-sm border border-gray-100">
+               <h3 className="text-xl font-bold text-gray-900 mb-2" style={{ fontFamily: 'var(--font-montserrat)' }}>No vehicles found</h3>
+               <p className="text-gray-500" style={{ fontFamily: 'var(--font-manrope)' }}>Try selecting a different category or search term.</p>
+               <button 
+                  onClick={() => { setSearchTerm(""); setSelectedCategory("all"); }}
+                  className="mt-6 px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs font-bold uppercase rounded-xl transition-colors" 
+                  style={{ fontFamily: 'var(--font-manrope)' }}
+               >
+                  Clear Filters
+               </button>
+            </div>
+          )}
+        </div>
+      </section>
+    </>
   );
 };

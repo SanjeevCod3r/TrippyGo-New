@@ -35,7 +35,7 @@ export const FleetIntro = () => {
               <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-gray-900 leading-tight">
                 Premium Fleet for
                 <br />
-                <span className="bg-gradient-to-r from-[#0056D2] via-[#4A8BDF] to-[#43E0F8] bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-[#eb662b] via-[#ff9b6a] to-[#ff9b6a] bg-clip-text text-transparent">
                   Every Journey
                 </span>
               </h2>
@@ -64,7 +64,7 @@ export const FleetIntro = () => {
                 whileHover={{ scale: 1.05, y: -3 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => router.push("#fleet")}
-                className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#0056D2] via-[#4A8BDF] to-[#43E0F8] text-white font-bold rounded-2xl hover:shadow-2xl transition-all duration-300 group w-full sm:w-auto justify-center"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#eb662b] via-[#ff9b6a] to-[#ff9b6a] text-white font-bold rounded-2xl hover:shadow-2xl transition-all duration-300 group w-full sm:w-auto justify-center"
               >
                 <Car
                   size={20}

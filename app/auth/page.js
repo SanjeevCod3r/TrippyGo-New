@@ -77,7 +77,7 @@ export default function AuthPage() {
 
       localStorage.setItem("userToken", data.token);
       localStorage.setItem("userData", JSON.stringify(data.user));
-      toast.success("Welcome back to Excursion Travel!");
+      toast.success("Welcome back to Trippy Go!");
       router.push("/");
     } catch (error) {
       console.error("Login flow error:", error);
@@ -140,7 +140,7 @@ export default function AuthPage() {
       if (data.token) {
         localStorage.setItem("userToken", data.token);
         localStorage.setItem("userData", JSON.stringify(data.user));
-        toast.success("Welcome to the Excursion family!");
+        toast.success("Welcome to the Trippy Go family!");
         router.push("/");
       } else {
         toast.error(
@@ -165,12 +165,12 @@ export default function AuthPage() {
           alt="Background"
           className="w-full h-full object-cover scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/40 to-[#0056D2]/20" />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/40 to-[#eb662b]/20" />
       </div>
 
       {/* Floating Elements for Premium Feel */}
-      <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-[#0056D2]/20 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#43E0F8]/10 rounded-full blur-3xl animate-pulse delay-1000" />
+      <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-[#eb662b]/20 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#ff9b6a]/10 rounded-full blur-3xl animate-pulse delay-1000" />
 
       <motion.div
         layout
@@ -188,11 +188,7 @@ export default function AuthPage() {
               transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
               className="flex justify-center mb-6"
             >
-              <img
-                src="/asset/logo website.png"
-                alt="Excursion Travel"
-                className="h-12 w-auto filter drop-shadow-lg"
-              />
+             <img src="/asset/logo1.png" alt="Trippy Go" className="h-16 w-auto scale-125"/>
             </motion.div>
             <h1
               className="text-3xl font-black text-white mb-2 tracking-tight"
@@ -216,7 +212,7 @@ export default function AuthPage() {
                 onClick={() => setActiveTab("login")}
                 className={`py-3.5 rounded-[0.875rem] text-xs font-black uppercase tracking-widest transition-all duration-300 ${
                   activeTab === "login"
-                    ? "bg-white text-[#0056D2] shadow-md"
+                    ? "bg-white text-[#eb662b] shadow-md"
                     : "text-white/50 hover:text-white/80"
                 }`}
               >
@@ -227,7 +223,7 @@ export default function AuthPage() {
                 onClick={() => setActiveTab("signup")}
                 className={`py-3.5 rounded-[0.875rem] text-xs font-black uppercase tracking-widest transition-all duration-300 ${
                   activeTab === "signup"
-                    ? "bg-[#0056D2] text-white shadow-md"
+                    ? "bg-[#eb662b] text-white shadow-md"
                     : "text-white/50 hover:text-white/80"
                 }`}
               >
@@ -256,7 +252,7 @@ export default function AuthPage() {
                           placeholder="name@example.com"
                           value={loginEmail}
                           onChange={(e) => setLoginEmail(e.target.value)}
-                          className="bg-white/5 border-white/10 text-white placeholder:text-white/30 h-14 pl-12 rounded-2xl focus:ring-0 focus:border-[#0056D2] transition-all font-medium"
+                          className="bg-white/5 border-white/10 text-white placeholder:text-white/30 h-14 pl-12 rounded-2xl focus:ring-0 focus:border-[#eb662b] transition-all font-medium"
                           required
                         />
                       </div>
@@ -281,7 +277,7 @@ export default function AuthPage() {
                           placeholder="Your Secret Key"
                           value={loginPassword}
                           onChange={(e) => setLoginPassword(e.target.value)}
-                          className="bg-white/5 border-white/10 text-white placeholder:text-white/30 h-14 pl-12 pr-12 rounded-2xl focus:ring-0 focus:border-[#0056D2] transition-all font-medium"
+                          className="bg-white/5 border-white/10 text-white placeholder:text-white/30 h-14 pl-12 pr-12 rounded-2xl focus:ring-0 focus:border-[#eb662b] transition-all font-medium"
                           required
                         />
                         <button
@@ -297,7 +293,7 @@ export default function AuthPage() {
                     <Button
                       type="submit"
                       disabled={loading}
-                      className="w-full bg-gradient-to-r from-[#0056D2] to-[#0056D2] hover:scale-[1.02] active:scale-95 text-white font-black py-7 rounded-2xl shadow-xl shadow-blue-500/20 transition-all border-none text-lg mt-2"
+                      className="w-full bg-gradient-to-r from-[#eb662b] to-[#ff9b6a] hover:scale-[1.02] active:scale-95 text-white font-black py-7 rounded-2xl shadow-xl shadow-orange-500/20 transition-all border-none text-lg mt-2"
                     >
                       {loading ? "Verifying..." : "Login"}
                     </Button>
@@ -322,7 +318,7 @@ export default function AuthPage() {
                           placeholder="Adventurer Name"
                           value={signupName}
                           onChange={(e) => setSignupName(e.target.value)}
-                          className="bg-white/5 border-white/10 text-white placeholder:text-white/30 h-14 pl-12 rounded-2xl focus:ring-0 focus:border-[#43E0F8] transition-all font-medium"
+                          className="bg-white/5 border-white/10 text-white placeholder:text-white/30 h-14 pl-12 rounded-2xl focus:ring-0 focus:border-[#ff9b6a] transition-all font-medium"
                           required
                         />
                       </div>
@@ -338,7 +334,7 @@ export default function AuthPage() {
                           placeholder="Your Email"
                           value={signupEmail}
                           onChange={(e) => setSignupEmail(e.target.value)}
-                          className="bg-white/5 border-white/10 text-white placeholder:text-white/30 h-12 px-5 rounded-2xl focus:ring-0 focus:border-[#43E0F8] transition-all font-medium text-sm"
+                          className="bg-white/5 border-white/10 text-white placeholder:text-white/30 h-12 px-5 rounded-2xl focus:ring-0 focus:border-[#ff9b6a] transition-all font-medium text-sm"
                           required
                         />
                       </div>
@@ -351,7 +347,7 @@ export default function AuthPage() {
                           placeholder="Phone Number"
                           value={signupPhone}
                           onChange={(e) => setSignupPhone(e.target.value)}
-                          className="bg-white/5 border-white/10 text-white placeholder:text-white/30 h-12 px-5 rounded-2xl focus:ring-0 focus:border-[#43E0F8] transition-all font-medium text-sm"
+                          className="bg-white/5 border-white/10 text-white placeholder:text-white/30 h-12 px-5 rounded-2xl focus:ring-0 focus:border-[#ff9b6a] transition-all font-medium text-sm"
                         />
                       </div>
                     </div>
@@ -366,7 +362,7 @@ export default function AuthPage() {
                           placeholder="Min 6 chars"
                           value={signupPassword}
                           onChange={(e) => setSignupPassword(e.target.value)}
-                          className="bg-white/5 border-white/10 text-white placeholder:text-white/30 h-12 px-5 rounded-2xl focus:ring-0 focus:border-[#43E0F8] transition-all font-medium text-sm"
+                          className="bg-white/5 border-white/10 text-white placeholder:text-white/30 h-12 px-5 rounded-2xl focus:ring-0 focus:border-[#ff9b6a] transition-all font-medium text-sm"
                           required
                           minLength={6}
                         />
@@ -380,7 +376,7 @@ export default function AuthPage() {
                           placeholder="Match above"
                           value={signupConfirmPassword}
                           onChange={(e) => setSignupConfirmPassword(e.target.value)}
-                          className="bg-white/5 border-white/10 text-white placeholder:text-white/30 h-12 px-5 rounded-2xl focus:ring-0 focus:border-[#43E0F8] transition-all font-medium text-sm"
+                          className="bg-white/5 border-white/10 text-white placeholder:text-white/30 h-12 px-5 rounded-2xl focus:ring-0 focus:border-[#ff9b6a] transition-all font-medium text-sm"
                           required
                         />
                       </div>
@@ -389,7 +385,7 @@ export default function AuthPage() {
                     <Button
                       type="submit"
                       disabled={loading}
-                      className="w-full bg-gradient-to-r from-[#0056D2] to-[#0056D2] hover:scale-[1.02] active:scale-95 text-white font-black py-7 rounded-2xl shadow-xl transition-all border-none text-lg mt-2"
+                      className="w-full bg-gradient-to-r from-[#eb662b] to-[#ff9b6a] hover:scale-[1.02] active:scale-95 text-white font-black py-7 rounded-2xl shadow-xl shadow-orange-500/20 transition-all border-none text-lg mt-2"
                     >
                       {loading ? "Onboarding..." : "Sign Up"}
                     </Button>
@@ -428,7 +424,7 @@ export default function AuthPage() {
       {/* Footer Text */}
       {/* <div className="absolute bottom-6 left-0 right-0 text-center z-10 hidden md:block">
         <p className="text-white/20 text-[10px] font-black uppercase tracking-[0.5em]">
-          Excursion Travel Private Limited © 2024
+          Trippy Go Private Limited © 2024
         </p>
       </div> */}
     </div>

@@ -165,15 +165,15 @@ function LoginForm({ onLogin }) {
           <div className="text-center mb-10">
             <div className="flex justify-center mb-6">
               <div className="relative">
-                <div className="absolute inset-0 bg-primary/20 blur-2xl rounded-full" />
+                <div className="absolute inset-0 bg-[#eb662b]/20 blur-2xl rounded-full" />
                 <img 
-                  src="/asset/logo website.png" 
-                  alt="Excursion Travel Admin" 
-                  className="h-12 w-auto relative z-10 filter drop-shadow-xl"
+                  src="/asset/logo1.png" 
+                  alt="Trippy Go Admin" 
+                  className="h-14 w-auto relative z-10 filter drop-shadow-xl"
                 />
               </div>
             </div>
-            <h1 className="text-2xl font-black text-white mb-2 tracking-tight" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+            <h1 className="text-[#eb662b]xl font-black text-white mb-2 tracking-tight" style={{ fontFamily: 'Montserrat, sans-serif' }}>
              Admin Panel
             </h1>
             <p className="text-white/60 text-sm font-medium" style={{ fontFamily: 'Manrope, sans-serif' }}>
@@ -185,7 +185,7 @@ function LoginForm({ onLogin }) {
             <div className="space-y-2">
               <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-white/50 pl-1">Administrator Identity</Label>
               <div className="relative group">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-blue-500 rounded-2xl blur opacity-0 group-focus-within:opacity-20 transition-opacity" />
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-[#eb662b] to-[#ff9b6a] rounded-2xl blur opacity-0 group-focus-within:opacity-20 transition-opacity" />
                 <div className="relative">
                   <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
                   <Input
@@ -193,7 +193,7 @@ function LoginForm({ onLogin }) {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     placeholder="Username"
-                    className="bg-white/5 border-white/10 text-white placeholder:text-white/30 h-14 pl-12 rounded-2xl focus:ring-0 focus:border-primary transition-all font-medium"
+                    className="bg-white/5 border-white/10 text-white placeholder:text-white/30 h-14 pl-12 rounded-2xl focus:ring-0 focus:border-[#eb662b] transition-all font-medium"
                     required
                   />
                 </div>
@@ -203,7 +203,7 @@ function LoginForm({ onLogin }) {
             <div className="space-y-2">
               <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-white/50 pl-1">Access Key</Label>
               <div className="relative group">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-blue-500 rounded-2xl blur opacity-0 group-focus-within:opacity-20 transition-opacity" />
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-[#eb662b] to-[#ff9b6a] rounded-2xl blur opacity-0 group-focus-within:opacity-20 transition-opacity" />
                 <div className="relative">
                   <Settings className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
                   <Input
@@ -212,7 +212,7 @@ function LoginForm({ onLogin }) {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"
-                    className="bg-white/5 border-white/10 text-white placeholder:text-white/30 h-14 pl-12 rounded-2xl focus:ring-0 focus:border-primary transition-all font-medium"
+                    className="bg-white/5 border-white/10 text-white placeholder:text-white/30 h-14 pl-12 rounded-2xl focus:ring-0 focus:border-[#eb662b] transition-all font-medium"
                     required
                   />
                 </div>
@@ -221,7 +221,7 @@ function LoginForm({ onLogin }) {
 
             <Button 
               type="submit" 
-              className="w-full bg-primary hover:bg-primary/90 text-white font-black py-7 rounded-2xl shadow-xl shadow-primary/20 transition-all border-none text-lg mt-4 flex items-center justify-center gap-3"
+              className="w-full bg-[#eb662b] hover:bg-[#eb662b]/90 text-white font-black py-7 rounded-2xl shadow-xl shadow-orange-200 transition-all border-none text-lg mt-4 flex items-center justify-center gap-3"
               disabled={loading}
               style={{ fontFamily: 'Montserrat, sans-serif' }}
             >
@@ -241,7 +241,7 @@ function LoginForm({ onLogin }) {
 
           <div className="mt-10 pt-8 border-t border-white/5 text-center">
             <p className="text-[10px] text-white/20 font-black uppercase tracking-widest">
-              Excursion Travel Private Limited © 2026
+              Trippy Go Private Limited © 2026
             </p>
           </div>
         </div>
@@ -276,9 +276,9 @@ function Sidebar({ activeTab, setActiveTab, logout }) {
         {!collapsed && (
           <div className="flex items-center gap-3">
             <img 
-              src="/asset/logo website.png" 
+              src="/asset/logo1.png" 
               alt="Logo" 
-              className="h-8 w-auto filter brightness-0 invert"
+              className="h-10 w-auto filter brightness-0 invert"
             />
             {/* <span className="font-black text-xs uppercase tracking-widest text-[#0056D2] bg-white px-2 py-1 rounded">Admin</span> */}
           </div>
@@ -298,7 +298,7 @@ function Sidebar({ activeTab, setActiveTab, logout }) {
             onClick={() => setActiveTab(item.id)}
             className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg mb-1 transition-colors ${
               activeTab === item.id
-                ? "bg-primary text-white"
+                ? "bg-[#eb662b] text-white"
                 : "text-gray-400 hover:bg-gray-800 hover:text-white"
             }`}
           >
@@ -360,7 +360,7 @@ function DashboardTab() {
       label: "Total Bookings",
       value: stats?.bookings?.total || 0,
       icon: BookOpen,
-      color: "bg-paleBlue-500",
+      color: "bg-orange-500",
       subtext: `${stats?.bookings?.pending || 0} pending`,
     },
     {
@@ -374,21 +374,21 @@ function DashboardTab() {
       label: "Vendors",
       value: stats?.vendors || 0,
       icon: Users,
-      color: "bg-blue-600",
+      color: "bg-[#eb662b]",
       subtext: "Registered partners",
     },
     {
       label: "Inquiries",
       value: stats?.contacts || 0,
       icon: Mail,
-      color: "bg-pink-600",
+      color: "bg-orange-400",
       subtext: "Contact form messages",
     },
     {
       label: "Active Routes",
       value: `${stats?.routes?.active || 0}/${stats?.routes?.total || 0}`,
       icon: Route,
-      color: "bg-purple-500",
+      color: "bg-[#eb662b]",
       subtext: "Routes enabled",
     },
     {
@@ -403,7 +403,7 @@ function DashboardTab() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Dashboard</h1>
+        <h1 className="text-[#eb662b]xl font-bold">Dashboard</h1>
         <Button variant="outline" size="sm" onClick={fetchStats}>
           <RefreshCw className="w-4 h-4 mr-2" />
           Refresh
@@ -423,7 +423,7 @@ function DashboardTab() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-gray-500">{stat.label}</p>
-                    <p className="text-2xl font-bold mt-1">{stat.value}</p>
+                    <p className="text-[#eb662b]xl font-bold mt-1">{stat.value}</p>
                     <p className="text-xs text-gray-400 mt-1">{stat.subtext}</p>
                   </div>
                   <div
@@ -483,7 +483,7 @@ function DashboardTab() {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Car className="w-4 h-4 text-paleBlue-500" />
+                  <Car className="w-4 h-4 text-[#eb662b]" />
                   <span>Cab Bookings</span>
                 </div>
                 <Badge variant="outline">{stats?.bookings?.byCab || 0}</Badge>
@@ -574,7 +574,7 @@ function BookingsTab() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Bookings</h1>
+        <h1 className="text-[#eb662b]xl font-bold">Bookings</h1>
         <div className="flex gap-2">
           <Select value={filterType} onValueChange={setFilterType}>
             <SelectTrigger className="w-32">
@@ -639,14 +639,14 @@ function BookingsTab() {
                       <p className="font-semibold text-gray-900">{booking.customerName}</p>
                       <p className="text-xs text-gray-500 mt-0.5">{booking.customerPhone}</p>
                       {booking.customerEmail && (
-                        <p className="text-xs text-blue-500 mt-0.5 break-all">{booking.customerEmail}</p>
+                        <p className="text-xs text-[#eb662b] mt-0.5 break-all">{booking.customerEmail}</p>
                       )}
                     </TableCell>
 
                     {/* ── Type ── */}
                     <TableCell>
                       <Badge variant="outline" className={`capitalize font-semibold ${
-                        booking.type === 'cab' ? 'bg-blue-50 text-blue-700 border-blue-200' :
+                        booking.type === 'cab' ? 'bg-orange-50 text-[#eb662b] border-orange-200' :
                         booking.type === 'fleet' ? 'bg-orange-50 text-orange-700 border-orange-200' :
                         'bg-purple-50 text-purple-700 border-purple-200'
                       }`}>
@@ -718,7 +718,11 @@ function BookingsTab() {
                         </div>
                       )}
                       {booking.type === 'package' && (
-                        <div className="text-xs text-gray-400">—</div>
+                        <div className="text-xs space-y-0.5 text-gray-700">
+                          {booking.travelDate && <p><span className="font-semibold text-gray-500">Date:</span> {booking.travelDate}</p>}
+                          {booking.travelers && <p><span className="font-semibold text-gray-500">Travelers:</span> {booking.travelers}</p>}
+                          {!booking.travelDate && !booking.travelers && <span className="text-gray-400">—</span>}
+                        </div>
                       )}
                     </TableCell>
 
@@ -957,7 +961,7 @@ function PackagesTab() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Travel Packages</h1>
+        <h1 className="text-[#eb662b]xl font-bold">Travel Packages</h1>
         <Button
           onClick={() => {
             resetForm();
@@ -1377,7 +1381,7 @@ function VehiclesTab() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Fleet Vehicles</h1>
+        <h1 className="text-[#eb662b]xl font-bold">Fleet Vehicles</h1>
         <Button
           onClick={() => {
             resetForm();
@@ -1730,7 +1734,7 @@ function RoutesTab() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Route Management</h1>
+        <h1 className="text-[#eb662b]xl font-bold">Route Management</h1>
         <Button
           onClick={() => {
             resetForm();
@@ -1969,7 +1973,7 @@ function SettingsTab() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Settings</h1>
+        <h1 className="text-[#eb662b]xl font-bold">Settings</h1>
         <Button onClick={saveSettings} disabled={saving}>
           <Save className="w-4 h-4 mr-2" />
           {saving ? "Saving..." : "Save Changes"}
@@ -2225,7 +2229,7 @@ function BlogTab() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Blog Posts</h1>
+        <h1 className="text-[#eb662b]xl font-bold">Blog Posts</h1>
         <Button
           onClick={() => {
             resetForm();
@@ -2443,7 +2447,7 @@ function VendorsTab() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Vendor Registrations</h1>
+        <h1 className="text-[#eb662b]xl font-bold">Vendor Registrations</h1>
         <Button variant="outline" size="sm" onClick={fetchVendors}>
           <RefreshCw className="w-4 h-4 mr-2" />
           Refresh
@@ -2540,7 +2544,7 @@ function ContactsTab() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Contact Inquiries</h1>
+        <h1 className="text-[#eb662b]xl font-bold">Contact Inquiries</h1>
         <Button variant="outline" size="sm" onClick={fetchContacts}>
           <RefreshCw className="w-4 h-4 mr-2" />
           Refresh

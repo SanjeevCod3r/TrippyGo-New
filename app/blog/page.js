@@ -8,10 +8,9 @@ import {
   User,
   ArrowRight,
   Search,
-  Filter,
+  ChevronRight,
+  PhoneCall,
   Tag,
-  Bookmark,
-  Share2,
   Eye,
 } from "lucide-react";
 import Link from "next/link";
@@ -24,15 +23,10 @@ export default function Blog() {
   const [blogPosts, setBlogPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Derive categories from posts
-  const baseCategories = ["All"];
-  const categories = Array.from(
-    new Set(
-      baseCategories.concat(
-        blogPosts.map((post) => post.category).filter(Boolean)
-      )
-    )
-  );
+  // Derive categories and tags from posts
+  const categories = ["All", ...new Set(blogPosts.map((p) => p.category).filter(Boolean))];
+  const allTags = [...new Set(blogPosts.flatMap((p) => p.tags || []))].slice(0, 8);
+  const recentPosts = [...blogPosts].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 3);
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -51,443 +45,213 @@ export default function Blog() {
 
   const filteredPosts = blogPosts.filter((post) => {
     const searchLower = searchTerm.toLowerCase();
-    const titleMatch = post.title
-      ? post.title.toLowerCase().includes(searchLower)
-      : false;
-    const excerptMatch = post.excerpt
-      ? post.excerpt.toLowerCase().includes(searchLower)
-      : false;
-    const tagsMatch =
-      post.tags && Array.isArray(post.tags)
-        ? post.tags.some((tag) => tag.toLowerCase().includes(searchLower))
-        : false;
-
-    const matchesSearch = titleMatch || excerptMatch || tagsMatch;
-    const matchesCategory =
-      selectedCategory === "All" || post.category === selectedCategory;
-
+    const titleMatch = post.title?.toLowerCase().includes(searchLower);
+    const excerptMatch = post.excerpt?.toLowerCase().includes(searchLower);
+    const matchesSearch = titleMatch || excerptMatch;
+    const matchesCategory = selectedCategory === "All" || post.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
-  // Get the first featured post (if any)
-  const featuredPost = filteredPosts.find((post) => post.featured);
-  // Get all other posts to show in the grid to avoid hiding any blog if multiple are marked featured
-  const gridPosts = filteredPosts.filter(
-    (post) => post.id !== featuredPost?.id
-  );
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-paleBlue-50">
+    <div className="min-h-screen bg-gray-50/50">
       <Header />
 
-      {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-br from-[#0056D2]/5 to-[#43E0F8]/5 rounded-full filter blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-80 h-80 bg-gradient-to-tl from-[#43E0F8]/5 to-[#5DFDCB]/5 rounded-full filter blur-3xl"></div>
-      </div>
+      {/* Cinematic Hero Section */}
+      <section className="relative h-[45vh] min-h-[400px] flex items-center justify-center overflow-hidden pt-16">
+        <div className="absolute inset-0 z-0">
+          <img
+            src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=2000"
+            alt="Hot air balloons"
+            className="w-full h-full object-cover brightness-50"
+          />
+          <div className="absolute inset-0 bg-black/30" />
+        </div>
 
-      <div className="relative z-10 pt-24">
-        {/* Hero Section */}
-        <motion.section
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="relative pt-8 pb-16"
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-center mb-12"
-            >
-              <h1
-                className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-6"
-                style={{ fontFamily: "Montserrat, sans-serif" }}
-              >
-                Travel
-                <span className="bg-gradient-to-r from-[#0056D2] to-[#43E0F8] bg-clip-text text-transparent">
-                  {" "}
-                  Insights
-                </span>
-              </h1>
-              <p
-                className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto mb-8"
-                style={{ fontFamily: "Manrope, sans-serif" }}
-              >
-                Discover expert tips, destination guides, and the latest in
-                luxury travel from our experienced team
-              </p>
+        <div className="relative z-10 text-center text-white px-4">
+          <motion.h1
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            className="text-4xl md:text-6xl font-black mb-4 tracking-tight"
+            style={{ fontFamily: "var(--font-montserrat)" }}
+          >
+            Blog Grid Right Sidebar
+          </motion.h1>
+        </div>
+      </section>
 
-              {/* Search and Filter Bar */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="max-w-4xl mx-auto"
-              >
-                <div className="bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
-                  <div className="flex flex-col md:flex-row gap-4">
-                    {/* Search */}
-                    <div className="flex-1 relative">
-                      <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                      <input
-                        type="text"
-                        placeholder="Search articles..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full pl-12 pr-4 py-3 rounded-xl border border-gray-200 focus:border-[#0056D2] focus:ring-4 focus:ring-[#0056D2]/10 transition-all duration-300"
-                        style={{ fontFamily: "Manrope, sans-serif" }}
-                      />
-                    </div>
-
-                    {/* Category Filter */}
-                    <div className="relative">
-                      <Filter className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                      <select
-                        value={selectedCategory}
-                        onChange={(e) => setSelectedCategory(e.target.value)}
-                        className="pl-12 pr-8 py-3 rounded-xl border border-gray-200 focus:border-[#0056D2] focus:ring-4 focus:ring-[#0056D2]/10 transition-all duration-300 appearance-none bg-white"
-                        style={{ fontFamily: "Manrope, sans-serif" }}
-                      >
-                        {categories.map((category) => (
-                          <option key={category} value={category}>
-                            {category}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            </motion.div>
-          </div>
-        </motion.section>
-
+      {/* Main Content Area */}
+      <main className="max-w-screen-2xl mx-auto px-6 md:px-16 py-20 lg:py-24">
         {loading ? (
           <div className="flex justify-center items-center py-20">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#0056D2]"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#eb662b]"></div>
           </div>
         ) : (
-          <>
-            {/* Featured Article */}
-            {featuredPost && (
-              <motion.section
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="pb-16"
-              >
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-                  <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
-                    <div className="md:flex">
-                      <div className="md:w-1/2">
-                        <img
-                          src={
-                            featuredPost.image ||
-                            "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=600&h=400&fit=crop"
-                          }
-                          alt={featuredPost.title}
-                          className="w-full h-64 md:h-full object-cover"
-                        />
-                      </div>
-                      <div className="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
-                        <div className="flex items-center gap-2 mb-4">
-                          <span className="px-3 py-1 bg-gradient-to-r from-[#0056D2] to-[#43E0F8] text-white text-sm font-semibold rounded-full">
-                            Featured
-                          </span>
-                          <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-medium rounded-full">
-                            {featuredPost.category}
-                          </span>
-                        </div>
-                        <h2
-                          className="text-2xl md:text-3xl font-bold text-gray-900 mb-4"
-                          style={{ fontFamily: "Montserrat, sans-serif" }}
-                        >
-                          {featuredPost.title}
-                        </h2>
-                        <p
-                          className="text-gray-600 mb-6 text-lg line-clamp-3"
-                          style={{ fontFamily: "Manrope, sans-serif" }}
-                        >
-                          {featuredPost.excerpt}
-                        </p>
-                        <div className="flex items-center justify-between mb-6">
-                          <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-gradient-to-r from-[#0056D2] to-[#43E0F8] rounded-full flex items-center justify-center">
-                              <User size={16} className="text-white" />
-                            </div>
-                            <div>
-                              <p
-                                className="font-semibold text-gray-900 line-clamp-1 max-w-[150px]"
-                                style={{ fontFamily: "Manrope, sans-serif" }}
-                              >
-                                {featuredPost.author}
-                              </p>
-                              <div className="flex items-center gap-3 text-sm text-gray-500">
-                                <span className="flex items-center gap-1">
-                                  <Calendar size={14} />
-                                  {new Date(
-                                    featuredPost.createdAt || featuredPost.date
-                                  ).toLocaleDateString()}
-                                </span>
-                                <span className="flex items-center gap-1">
-                                  <Clock size={14} />
-                                  {featuredPost.readTime}
-                                </span>
-                                <span className="flex items-center gap-1">
-                                  <Eye size={14} />
-                                  {featuredPost.views || 0}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <Link href={`/blog/${featuredPost.id}`}>
-                          <motion.button
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="self-start px-6 py-3 bg-gradient-to-r from-[#0056D2] to-[#43E0F8] text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2"
-                            style={{ fontFamily: "Manrope, sans-serif" }}
-                          >
-                            Read More
-                            <ArrowRight size={16} />
-                          </motion.button>
-                        </Link>
+          <div className="grid lg:grid-cols-12 gap-12">
+
+            {/* LEFT: Blog Grid Content (8/12) */}
+            <div className="lg:col-span-8">
+              <div className="grid md:grid-cols-2 gap-8 lg:gap-10">
+                {filteredPosts.map((post, index) => (
+                  <motion.article
+                    key={post.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 * index }}
+                    className="group bg-white rounded-3xl overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.04)] border border-gray-100 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-all duration-500 h-full flex flex-col"
+                  >
+                    {/* Image Area */}
+                    <div className="relative h-64 overflow-hidden">
+                      <img
+                        src={post.image || "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=600&h=400&fit=crop"}
+                        alt={post.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                      <div className="absolute top-4 left-4">
+                        <span className="px-5 py-2 bg-white/95 backdrop-blur-sm text-[#05073C] text-xs font-black uppercase tracking-widest rounded-full shadow-sm">
+                          {post.category}
+                        </span>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </motion.section>
-            )}
 
-            {/* Articles Grid */}
-            <motion.section
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="pb-16"
-            >
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
-                  className="text-center mb-12"
-                >
-                  <h2
-                    className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
-                    style={{ fontFamily: "Montserrat, sans-serif" }}
-                  >
-                    Latest Articles
-                  </h2>
-                  <p
-                    className="text-lg text-gray-600"
-                    style={{ fontFamily: "Manrope, sans-serif" }}
-                  >
-                    Stay informed with our expert travel insights and tips
-                  </p>
-                </motion.div>
-
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {gridPosts.map((post, index) => (
-                    <motion.article
-                      key={post.id}
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.1 * index }}
-                      whileHover={{ y: -5 }}
-                      className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 group flex flex-col h-full"
-                    >
-                      <div className="relative overflow-hidden h-48 flex-shrink-0">
-                        <img
-                          src={
-                            post.image ||
-                            "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&h=400&fit=crop"
-                          }
-                          alt={post.title}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                        />
-                        <div className="absolute top-4 left-4">
-                          <span className="px-3 py-1 bg-white/90 backdrop-blur-sm text-gray-800 text-sm font-semibold rounded-full">
-                            {post.category}
-                          </span>
-                        </div>
-                        <div className="absolute top-4 right-4 flex gap-2">
-                          <motion.button
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                            className="p-2 bg-white/90 backdrop-blur-sm rounded-full text-gray-600 hover:text-[#0056D2] transition-colors"
-                          >
-                            <Bookmark size={16} />
-                          </motion.button>
-                          <motion.button
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                            className="p-2 bg-white/90 backdrop-blur-sm rounded-full text-gray-600 hover:text-[#0056D2] transition-colors"
-                          >
-                            <Share2 size={16} />
-                          </motion.button>
-                        </div>
+                    {/* Meta & Title */}
+                    <div className="p-8 flex-grow flex flex-col">
+                      <div className="flex items-center gap-5 text-gray-500 text-xs font-bold uppercase tracking-widest mb-4">
+                        <span className="flex items-center gap-1.5 hover:text-[#eb662b] transition-colors">
+                          <User size={14} className="text-[#eb662b]" />
+                          {post.author}
+                        </span>
+                        <span className="flex items-center gap-1.5 hover:text-[#eb662b] transition-colors">
+                          <Calendar size={14} className="text-[#eb662b]" />
+                          {new Date(post.date).toLocaleDateString()}
+                        </span>
                       </div>
 
-                      <div className="p-6 flex flex-col flex-grow">
-                        <Link href={`/blog/${post.id}`}>
-                          <h3
-                            className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#0056D2] transition-colors line-clamp-2"
-                            style={{ fontFamily: "Montserrat, sans-serif" }}
-                          >
-                            {post.title}
-                          </h3>
-                        </Link>
-                        <p
-                          className="text-gray-600 mb-4 line-clamp-3 flex-grow"
-                          style={{ fontFamily: "Manrope, sans-serif" }}
+                      <Link href={`/blog/${post.id}`}>
+                        <h3
+                          className="text-xl lg:text-2xl font-bold text-[#05073C] mb-4 group-hover:text-[#eb662b] transition-colors leading-tight"
+                          style={{ fontFamily: "var(--font-montserrat)" }}
                         >
-                          {post.excerpt}
-                        </p>
+                          {post.title}
+                        </h3>
+                      </Link>
 
-                        <div className="flex items-center justify-between mb-4">
-                          <div className="flex items-center gap-2">
-                            <div className="w-8 h-8 bg-gradient-to-r from-[#0056D2] to-[#43E0F8] rounded-full flex items-center justify-center">
-                              <User size={14} className="text-white" />
-                            </div>
-                            <span
-                              className="text-sm font-medium text-gray-700 line-clamp-1 max-w-[100px]"
-                              style={{ fontFamily: "Manrope, sans-serif" }}
-                            >
-                              {post.author}
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-3 text-sm text-gray-500">
-                            <span className="flex items-center gap-1">
-                              <Clock size={14} />
-                              {post.readTime}
-                            </span>
-                            <span className="flex items-center gap-1">
-                              <Eye size={14} />
-                              {post.views || 0}
-                            </span>
-                          </div>
-                        </div>
+                      <p
+                        className="text-gray-600 line-clamp-3 mb-6 flex-grow leading-relaxed"
+                        style={{ fontFamily: "var(--font-manrope)" }}
+                      >
+                        {post.excerpt}
+                      </p>
 
-                        <div className="flex flex-wrap gap-2 mb-4 h-6 overflow-hidden">
-                          {post.tags &&
-                            Array.isArray(post.tags) &&
-                            post.tags.slice(0, 3).map((tag) => (
-                              <span
-                                key={tag}
-                                className="px-2 py-1 bg-gray-100 text-gray-600 text-[10px] rounded-full flex items-center gap-1"
-                              >
-                                <Tag size={10} />
-                                {tag}
-                              </span>
-                            ))}
-                        </div>
-
-                        <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
-                          <span
-                            className="text-sm text-gray-500 flex items-center gap-1"
-                            style={{ fontFamily: "Manrope, sans-serif" }}
-                          >
-                            <Calendar size={14} />
-                            {new Date(
-                              post.createdAt || post.date
-                            ).toLocaleDateString()}
-                          </span>
-                          <Link href={`/blog/${post.id}`}>
-                            <motion.button
-                              whileHover={{ scale: 1.05, x: 5 }}
-                              whileTap={{ scale: 0.95 }}
-                              className="flex items-center gap-2 text-[#0056D2] font-semibold hover:text-[#0056D2]/80 transition-colors"
-                              style={{ fontFamily: "Manrope, sans-serif" }}
-                            >
-                              Read More
-                              <ArrowRight size={16} />
-                            </motion.button>
-                          </Link>
-                        </div>
+                    <Link
+                      href={`/blog/${post.id}`}
+                      className="flex items-center gap-3 text-[#05073C] font-black uppercase text-xs tracking-widest group/link"
+                    >
+                      <span className="group-hover/link:text-[#eb662b] transition-colors">Read More</span>
+                      <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center group-hover/link:bg-gradient-to-r from-[#eb662b] to-[#ff9b6a] transition-all group-hover/link:text-white group-hover/link:shadow-md">
+                        <ArrowRight size={14} />
                       </div>
-                    </motion.article>
+                    </Link>
+                    </div>
+                  </motion.article>
+                ))}
+              </div>
+
+              {/* Pagination */}
+              <div className="mt-16 flex items-center gap-3">
+                <button className="w-12 h-12 rounded-2xl bg-gradient-to-r from-[#eb662b] to-[#ff9b6a] text-white flex items-center justify-center font-bold shadow-lg shadow-orange-100">1</button>
+                <button className="w-12 h-12 rounded-2xl bg-white text-gray-400 flex items-center justify-center font-bold hover:bg-orange-50 hover:text-[#eb662b] transition-colors border border-gray-100">2</button>
+                <button className="w-12 h-12 rounded-2xl bg-white text-gray-400 flex items-center justify-center font-bold hover:bg-orange-50 hover:text-[#eb662b] transition-colors border border-gray-100">
+                  <ChevronRight size={20} />
+                </button>
+              </div>
+            </div>
+
+            {/* RIGHT: Sidebar (4/12) */}
+            <aside className="lg:col-span-4 space-y-12">
+
+              {/* Search Widget */}
+              <div className="bg-white rounded-3xl p-8 border border-gray-100 shadow-[0_10px_40px_rgba(0,0,0,0.04)]">
+                <h4 className="text-xl font-bold text-[#05073C] mb-6 tracking-tight">Search</h4>
+                <div className="relative group">
+                  <input
+                    type="text"
+                    placeholder="Search posts..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full px-6 py-4 rounded-2xl bg-gray-50/50 border border-gray-100 focus:outline-none focus:ring-4 focus:ring-orange-100/30 focus:border-[#eb662b] transition-all text-sm font-medium"
+                  />
+                  <Search size={18} className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#eb662b] transition-colors" />
+                </div>
+              </div>
+
+              {/* Recent Posts Widget */}
+              <div className="bg-white rounded-3xl p-8 border border-gray-100 shadow-[0_10px_40px_rgba(0,0,0,0.04)]">
+                <h4 className="text-xl font-bold text-[#05073C] mb-8 tracking-tight">Recent Post</h4>
+                <div className="space-y-6">
+                  {recentPosts.map((post) => (
+                    <div key={post.id} className="flex gap-4 group cursor-pointer">
+                      <div className="w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0">
+                        <img
+                          src={post.image || "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=200&h=200&fit=crop"}
+                          alt={post.title}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                      </div>
+                      <div className="flex flex-col justify-center">
+                        <Link href={`/blog/${post.id}`}>
+                          <h5 className="text-[15px] font-bold text-[#05073C] leading-snug mb-1 line-clamp-2 hover:text-[#eb662b] transition-colors">
+                            {post.title}
+                          </h5>
+                        </Link>
+                        <span className="text-xs font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1.5">
+                          <Calendar size={12} className="text-[#eb662b]" />
+                          {new Date(post.date).toLocaleDateString()}
+                        </span>
+                      </div>
+                    </div>
                   ))}
                 </div>
-
-                {gridPosts.length === 0 && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="text-center py-12"
-                  >
-                    <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Search size={24} className="text-gray-400" />
-                    </div>
-                    <h3
-                      className="text-xl font-semibold text-gray-900 mb-2"
-                      style={{ fontFamily: "Montserrat, sans-serif" }}
-                    >
-                      No articles found
-                    </h3>
-                    <p
-                      className="text-gray-600"
-                      style={{ fontFamily: "Manrope, sans-serif" }}
-                    >
-                      Try adjusting your search terms or category filter
-                    </p>
-                  </motion.div>
-                )}
               </div>
-            </motion.section>
-          </>
-        )}
 
-        {/* Newsletter Section */}
-        <motion.section
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.7 }}
-          className="py-16 bg-gradient-to-r from-[#0056D2] to-[#4A8BDF]"
-        >
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-8 text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
-            >
-              <h2
-                className="text-3xl md:text-4xl font-bold text-white mb-4"
-                style={{ fontFamily: "Montserrat, sans-serif" }}
-              >
-                Stay Updated
-              </h2>
-              <p
-                className="text-lg text-white/90 mb-8"
-                style={{ fontFamily: "Manrope, sans-serif" }}
-              >
-                Get the latest travel insights and exclusive tips delivered to
-                your inbox
-              </p>
-
-              <div className="max-w-md mx-auto flex gap-4">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-1 px-4 py-3 rounded-xl border-0 focus:ring-4 focus:ring-white/20 transition-all duration-300 text-gray-900 outline-none"
-                  style={{ fontFamily: "Manrope, sans-serif" }}
-                />
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-6 py-3 bg-white text-[#0056D2] font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
-                  style={{ fontFamily: "Manrope, sans-serif" }}
-                >
-                  Subscribe
-                </motion.button>
+              {/* Categories Widget */}
+              <div className="bg-white rounded-3xl p-8 border border-gray-100 shadow-[0_10px_40px_rgba(0,0,0,0.04)]">
+                <h4 className="text-xl font-bold text-[#05073C] mb-6 tracking-tight">Categories</h4>
+                <div className="space-y-1">
+                  {categories.map((cat) => (
+                    <button
+                      key={cat}
+                      onClick={() => setSelectedCategory(cat)}
+                      className={`w-full text-left px-5 py-4 rounded-xl text-sm font-bold tracking-wide transition-all ${selectedCategory === cat
+                          ? "bg-[#eb662b] text-white shadow-lg shadow-orange-100"
+                          : "text-gray-500 hover:bg-orange-50 hover:text-[#eb662b]"
+                        }`}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </motion.div>
+
+              {/* Tags Cloud */}
+              <div className="bg-white rounded-3xl p-8 border border-gray-100 shadow-[0_10px_40px_rgba(0,0,0,0.04)]">
+                <h4 className="text-xl font-bold text-[#05073C] mb-6 tracking-tight">Tags</h4>
+                <div className="flex flex-wrap gap-2.5">
+                  {allTags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-5 py-2.5 bg-gray-50 text-gray-500 text-xs font-bold uppercase tracking-widest rounded-xl hover:bg-[#eb662b] hover:text-white transition-all cursor-pointer border border-gray-100"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </aside>
           </div>
-        </motion.section>
+        )}
+      </main>
 
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 }

@@ -2,285 +2,187 @@
 
 import React from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import {
+  MapPin,
+  Phone,
+  Mail,
   Facebook,
   Twitter,
   Instagram,
   Linkedin,
-  Mail,
-  Phone,
-  MapPin,
-  Navigation,
+  ArrowRight,
 } from "lucide-react";
 
 export default function Footer() {
-  const quickLinks = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Services", href: "/services" },
-    { name: "Contact", href: "/contact" },
-    { name: "Vendor Registration", href: "/vendor-registration" },
-  ];
+  const currentYear = new Date().getFullYear();
 
-  const services = [
-    { name: "Corporate Car Rental", href: "/service/corporate-car-rental" },
-    {
-      name: "Employee Transport Services",
-      href: "/service/employee-transport",
-    },
-    { name: "Event Transportation", href: "/service/event-transportation" },
-    {
-      name: "Conferences & Delegation",
-      href: "/service/conferences-delegation",
-    },
-    { name: "Wedding Car Rental", href: "/service/wedding-car-rental" },
-    { name: "Hotel Travel Desk Service", href: "/service/hotel-travel-desk" },
+  const footerLinks = [
+    { label: "Home", href: "/" },
+    { label: "Destinations", href: "/destinations" },
+    { label: "Fleet", href: "/fleet" },
+    { label: "Blog", href: "/blog" },
+    { label: "About", href: "/about" },
+    { label: "Contact", href: "/contact" },
+    { label: "Privacy Policy", href: "/privacy-policy" },
+    { label: "Terms & Conditions", href: "/terms-conditions" },
   ];
 
   const socialLinks = [
-    {
-      icon: Facebook,
-      href: "https://www.facebook.com/profile.php?id=61571593164736&mibextid=rS40aB7S9Ucbxw6v",
-      label: "Facebook",
-    },
-    {
-      icon: Instagram,
-      href: "https://www.instagram.com/excursiontravel.in?igsh=OWl2N2tzc3Frdjl4",
-      label: "Instagram",
-    },
-    {
-      icon: Linkedin,
-      href: "https://www.linkedin.com/company/excursiontravel?trk=blended-typeahead",
-      label: "LinkedIn",
-    },
+    { icon: Facebook, href: "https://www.facebook.com/share/1Favmyizxy/" },
+    { icon: Twitter, href: "#" },
+    { icon: Instagram, href: "https://www.instagram.com/trippygo_india_technologies?igsh=bnRzOWRuMHVsdTA3&utm_source=qr" },
+    { icon: Linkedin, href: "#" },
   ];
 
   return (
-    <footer
-      className="bg-[#0F172A] text-white pt-16 pb-8"
-      data-testid="footer-section"
-    >
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-          {/* Company Info */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            data-testid="footer-company-info"
-          >
-            <div>
-            <div className="flex items-center mb-4">
-              <img 
-                src="/asset/logo website.png" 
-                alt="Excursion Travel" 
-                className="h-12 w-auto"
-              />
-            </div>
-            </div>
+    <footer className="relative w-full overflow-hidden text-white pt-24 pb-12">
+      {/* Background with Dark Overlay */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop"
+          alt="Mountain Background"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/90 z-0" />
+      </div>
 
+      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+        {/* Top: brand + compact link grid (matches reduced link set) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 mb-16 lg:mb-20 items-start">
+          <div className="lg:col-span-5 space-y-5">
             <p
-              className="text-gray-400 mb-6 leading-relaxed"
-              style={{ fontFamily: "Manrope, sans-serif" }}
-              data-testid="footer-company-description"
+              className="text-sm text-white/55 max-w-md leading-relaxed"
+              style={{ fontFamily: "var(--font-manrope)" }}
             >
-              Your trusted partner for cabs, packages, and fleet rentals
+              Reliable cab and travel services across India—book rides, explore
+              destinations, and travel with confidence.
             </p>
-            <div className="flex gap-4" data-testid="footer-social-links">
-              {socialLinks.map((social, index) => (
-                <motion.a
-                  key={index}
-                  href={social.href}
-                  whileHover={{ scale: 1.2, rotate: 5 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="w-10 h-10 bg-white/10 backdrop-blur-lg rounded-lg flex items-center justify-center hover:bg-[#4A8BDF] transition-all duration-300 group"
-                  aria-label={social.label}
-                  data-testid={`footer-social-${social.label.toLowerCase()}`}
-                >
-                  <social.icon size={18} className="text-white" />
-                </motion.a>
-              ))}
-            </div>
-          </motion.div>
+          </div>
 
-          {/* Quick Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            data-testid="footer-quick-links"
-          >
+          <div className="lg:col-span-7">
             <h4
-              className="text-lg font-bold mb-6"
-              style={{ fontFamily: "Montserrat, sans-serif" }}
-              data-testid="footer-quick-links-title"
+              className="text-lg font-black mb-6 tracking-wide"
+              style={{ fontFamily: "var(--font-montserrat)" }}
             >
-              Quick Links
+              Quick links
             </h4>
-            <ul className="space-y-3">
-              {quickLinks.map((link, index) => (
-                <li key={index}>
+            <ul className="grid grid-cols-2 sm:grid-cols-3 gap-x-8 gap-y-3.5">
+              {footerLinks.map((link) => (
+                <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-gray-400 hover:text-[#4A8BDF] transition-colors duration-300 inline-block hover:translate-x-2 transform"
-                    style={{ fontFamily: "Manrope, sans-serif" }}
-                    data-testid={`footer-quick-link-${link.name.toLowerCase()}`}
+                    className="text-white/60 hover:text-[#eb662b] text-sm font-medium transition-all inline-flex items-center gap-2 group"
+                    style={{ fontFamily: "var(--font-manrope)" }}
                   >
-                    {link.name}
+                    <ArrowRight
+                      size={14}
+                      className="opacity-0 -translate-x-2 shrink-0 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
+                    />
+                    {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
-          </motion.div>
-
-          {/* Services */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            data-testid="footer-services"
-          >
-            <h4
-              className="text-lg font-bold mb-6"
-              style={{ fontFamily: "Montserrat, sans-serif" }}
-              data-testid="footer-services-title"
-            >
-              Our Services
-            </h4>
-            <ul className="space-y-3">
-              {services.map((service, index) => (
-                <li key={index}>
-                  <Link
-                    href={service.href}
-                    className="text-gray-400 hover:text-[#4A8BDF] transition-colors duration-300 inline-block hover:translate-x-2 transform text-sm"
-                    style={{ fontFamily: "Manrope, sans-serif" }}
-                    data-testid={`footer-service-${service.name
-                      .toLowerCase()
-                      .replace(/\s+/g, "-")}`}
-                  >
-                    {service.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-
-          {/* Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-            data-testid="footer-contact-info"
-          >
-            <h4
-              className="text-lg font-bold mb-6"
-              style={{ fontFamily: "Montserrat, sans-serif" }}
-              data-testid="footer-contact-title"
-            >
-              Contact Us
-            </h4>
-            <ul className="space-y-4">
-              <li className="flex items-start gap-3">
-                <Phone
-                  size={18}
-                  className="text-[#4A8BDF] mt-1 flex-shrink-0"
-                />
-                <a
-                  href="tel:+919990817615"
-                  className="text-gray-400 hover:text-[#4A8BDF] transition-colors"
-                  style={{ fontFamily: "Manrope, sans-serif" }}
-                  data-testid="footer-phone"
-                >
-                 +91 9990-817-615
-                </a>
-              </li>
-              <li className="flex items-start gap-3">
-                <Mail size={18} className="text-[#4A8BDF] mt-1 flex-shrink-0" />
-                <div>
-                  <a
-                    href="mailto:contact@excursiontravel.in"
-                    className="text-gray-400 hover:text-[#4A8BDF] transition-colors block"
-                    style={{ fontFamily: "Manrope, sans-serif" }}
-                    data-testid="footer-email-contact"
-                  >
-                   contact@excursiontravel.in
-                  </a>
-                </div>
-              </li>
-
-              {/* Business Registration Details */}
-              <li className="pt-4 mt-4 border-t border-gray-700">
-                <div className="space-y-2">
-                  <div
-                    className="text-xs bg-gradient-to-r from-blue-600/20 to-cyan-600/20 px-3 py-2 rounded-lg border border-blue-500/30 text-gray-300"
-                    style={{ fontFamily: "Manrope, sans-serif" }}
-                  >
-                    <span className="font-semibold text-blue-400">
-                      UDYAM REGISTRATION:
-                    </span>{" "}
-                    UDYAM-UP-33-0019624
-                  </div>
-                  <div
-                    className="text-xs bg-gradient-to-r from-blue-600/20 to-cyan-600/20 px-3 py-2 rounded-lg border border-blue-500/30 text-gray-300"
-                    style={{ fontFamily: "Manrope, sans-serif" }}
-                  >
-                    <span className="font-semibold text-blue-400">
-                      GSTIN:
-                    </span>{" "}
-                    09DLIPR0084K1ZL
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </motion.div>
+          </div>
         </div>
 
-        {/* Bottom Bar */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="pt-8 border-t border-white/10"
-          data-testid="footer-bottom-bar"
-        >
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex gap-6 w-full md:w-1/3 justify-center md:justify-start">
-              <Link
-                href="/privacy-policy"
-                className="text-gray-400 hover:text-[#4A8BDF] transition-colors text-sm"
-                style={{ fontFamily: "Manrope, sans-serif" }}
-                data-testid="footer-privacy-policy"
-              >
-                Privacy Policy
-              </Link>
+        {/* Contact Bar (Glassmorphism Effect) */}
+        <div className="relative group">
+          {/* Glass Effect Background */}
+          <div className="absolute inset-0 bg-white/[0.05] backdrop-blur-xl rounded-[2rem] border border-white/10 shadow-2xl -z-10 group-hover:bg-white/[0.08] transition-all duration-500" />
+
+          {/* Bar Content */}
+          <div className="flex flex-col lg:flex-row justify-between items-center px-10 py-8 gap-8">
+            {/* Address */}
+            <div className="flex items-center gap-4 group/item cursor-pointer">
+              <div className="w-12 h-12 rounded-full bg-[#eb662b]/10 text-[#eb662b] flex items-center justify-center group-hover/item:bg-[#eb662b] group-hover/item:text-white transition-all duration-300">
+                <MapPin size={20} />
+              </div>
+              <div className="space-y-0.5">
+                <span className="text-[11px] font-black uppercase text-[#eb662b] tracking-widest block">
+                  Location
+                </span>
+                <span className="text-sm font-bold text-white/80">
+                D-193, G/F Saurabh Vihar Gali No. 7, Harinagar Extension
+                Jaitpur, Badarpur New Delhi – 110044
+                </span>
+              </div>
             </div>
 
-            <div className="w-full md:w-1/3 text-center">
-              <p
-                className="text-gray-400 text-sm inline-block"
-                style={{ fontFamily: "Manrope, sans-serif" }}
-                data-testid="footer-copyright"
-              >
-                © {new Date().getFullYear()}  Excursion Travel. All rights reserved
-              </p>
+            {/* Phone */}
+            <div className="flex items-center gap-4 group/item cursor-pointer">
+              <div className="w-12 h-12 rounded-full bg-[#eb662b]/10 text-[#eb662b] flex items-center justify-center group-hover/item:bg-[#eb662b] group-hover/item:text-white transition-all duration-300">
+                <Phone size={20} />
+              </div>
+              <div className="space-y-0.5">
+                <span className="text-[11px] font-black uppercase text-[#eb662b] tracking-widest block">
+                  Call Us
+                </span>
+                <a
+                  href="tel:+8076449902"
+                  className="text-sm font-bold text-white/80 hover:text-white"
+                >
+                  8076449902
+                </a>
+              </div>
             </div>
 
-            <div className="w-full md:w-1/3 flex justify-center md:justify-end">
-              <Link
-                href="/terms-conditions"
-                className="text-gray-400 hover:text-[#4A8BDF] transition-colors text-sm"
-                style={{ fontFamily: "Manrope, sans-serif" }}
-                data-testid="footer-terms-conditions"
-              >
-                Terms & Conditions
-              </Link>
+            {/* Email */}
+            <div className="flex items-center gap-4 group/item cursor-pointer">
+              <div className="w-12 h-12 rounded-full bg-[#eb662b]/10 text-[#eb662b] flex items-center justify-center group-hover/item:bg-[#eb662b] group-hover/item:text-white transition-all duration-300">
+                <Mail size={20} />
+              </div>
+              <div className="space-y-0.5">
+                <span className="text-[11px] font-black uppercase text-[#eb662b] tracking-widest block">
+                  Support
+                </span>
+                <a
+                  href="mailto:info@trippygo.co.in"
+                  className="text-sm font-bold text-white/80 hover:text-white"
+                >
+                 info@trippygo.co.in 
+                </a>
+              </div>
+            </div>
+
+            {/* Social Icons Bar */}
+            <div className="flex items-center gap-3">
+              {socialLinks.map((social, idx) => (
+                <Link
+                  key={idx}
+                  href={social.href}
+                  className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/40 hover:bg-[#eb662b] hover:text-white hover:border-[#eb662b] hover:-translate-y-1 transition-all duration-300"
+                >
+                  <social.icon size={18} />
+                </Link>
+              ))}
             </div>
           </div>
-        </motion.div>
+        </div>
+
+        {/* Footer Bottom */}
+        <div className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p
+            className="text-xs font-medium text-white/30 tracking-wider"
+            style={{ fontFamily: "var(--font-manrope)" }}
+          >
+            © {currentYear} Trippy Go. All Rights Reserved.
+          </p>
+          <div className="flex flex-wrap justify-center md:justify-end items-center gap-x-8 gap-y-2 text-[11px] font-black uppercase tracking-widest text-white/30">
+            <Link
+              href="/privacy-policy"
+              className="hover:text-white transition-colors"
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href="/terms-conditions"
+              className="hover:text-white transition-colors"
+            >
+              Terms & Conditions
+            </Link>
+          </div>
+        </div>
       </div>
     </footer>
   );

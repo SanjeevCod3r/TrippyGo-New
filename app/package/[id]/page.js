@@ -6,22 +6,8 @@ import { motion } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/app/footer/page";
 import {
-  MapPin,
-  Clock,
-  Users,
-  Star,
-  IndianRupee,
-  CheckCircle,
-  X,
-  Phone,
-  Mail,
-  ArrowLeft,
-  Mountain,
-  Waves,
-  TreePine,
-  Camera,
-  Tent,
-  MessageCircle,
+  MapPin, Clock, Users, Star, IndianRupee, CheckCircle, XCircle, Share, Heart,
+  CalendarDays, Ticket, Plane, Sparkles, Check, Image as ImageIcon
 } from "lucide-react";
 
 export default function PackageDetail() {
@@ -31,19 +17,14 @@ export default function PackageDetail() {
 
   const [packageData, setPackageData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState("overview");
-  const [bookingForm, setBookingForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    travelers: 1,
-    travelDate: "",
-    specialRequests: "",
-  });
 
+  // Booking State
   const [user, setUser] = useState(null);
-
-  const handleBackClick = () => router.back();
+  const [bookingForm, setBookingForm] = useState({ name: "", email: "", phone: "", specialRequests: "" });
+  
+  // Refined Sidebar State
+  const [selectedDate, setSelectedDate] = useState("");
+  const [travelers, setTravelers] = useState(1);
 
   useEffect(() => {
     if (id) fetchPackageDetails();
@@ -95,6 +76,12 @@ export default function PackageDetail() {
     }
   };
 
+  const basePrice = packageData?.price || 0;
+  
+  const calculateTotal = () => {
+    return travelers * basePrice;
+  };
+
   const handleBookingSubmit = async (e) => {
     e.preventDefault();
 
@@ -105,10 +92,19 @@ export default function PackageDetail() {
       return;
     }
 
-    const totalPrice = (packageData.price || 0) * bookingForm.travelers;
+    if (!selectedDate) {
+      alert("Please select a date for your travel.");
+      return;
+    }
+
+    if (!bookingForm.name || !bookingForm.phone || !bookingForm.email) {
+      alert("Please ensure your contact details are filled.");
+      return;
+    }
+
+    const totalPrice = calculateTotal();
 
     try {
-      // 1. Create Order
       const orderRes = await fetch("/api/payment/create-order", {
         method: "POST",
         headers: {
@@ -116,7 +112,7 @@ export default function PackageDetail() {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          amount: totalPrice * 100, // Amount in paise
+          amount: totalPrice * 100,
           bookingType: "package",
           bookingId: id,
         }),
@@ -125,17 +121,15 @@ export default function PackageDetail() {
       const orderData = await orderRes.json();
       if (orderData.error) throw new Error(orderData.error);
 
-      // 2. Open Razorpay Checkout
       const options = {
         key: orderData.keyId,
         amount: orderData.amount,
         currency: orderData.currency,
-        name: "Excursion Travel",
+        name: "Trippy Go",
         description: `Booking for ${packageData.title}`,
         image: "/logo.png",
         order_id: orderData.orderId,
         handler: async function (response) {
-          // 3. Verify Payment
           try {
             const verifyRes = await fetch("/api/payment/verify", {
               method: "POST",
@@ -156,8 +150,8 @@ export default function PackageDetail() {
                   customerName: bookingForm.name,
                   customerPhone: bookingForm.phone,
                   customerEmail: bookingForm.email,
-                  travelers: bookingForm.travelers,
-                  travelDate: bookingForm.travelDate,
+                  travelers: travelers,
+                  travelDate: selectedDate,
                   specialRequests: bookingForm.specialRequests,
                 },
               }),
@@ -165,15 +159,10 @@ export default function PackageDetail() {
 
             const verifyData = await verifyRes.json();
             if (verifyData.success) {
-              alert(
-                "Booking Confirmed! Thank you for choosing Excursion Travel."
-              );
-              // Refresh or stay on page
+              alert("Booking Confirmed! Thank you for choosing Trippy Go.");
               window.location.reload();
             } else {
-              throw new Error(
-                verifyData.error || "Payment verification failed"
-              );
+              throw new Error(verifyData.error || "Payment verification failed");
             }
           } catch (error) {
             console.error("Verification Error:", error);
@@ -186,7 +175,7 @@ export default function PackageDetail() {
           contact: bookingForm.phone,
         },
         theme: {
-          color: "#0056D2",
+          color: "#eb662b",
         },
       };
 
@@ -198,541 +187,313 @@ export default function PackageDetail() {
     }
   };
 
-  const getRegionIcon = (region) => {
-    switch (region?.toLowerCase()) {
-      case "north":
-        return <Mountain size={20} />;
-      case "south":
-        return <Waves size={20} />;
-      case "east":
-        return <TreePine size={20} />;
-      case "west":
-        return <Camera size={20} />;
-      case "central":
-        return <Tent size={20} />;
-      default:
-        return <MapPin size={20} />;
-    }
-  };
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex flex-col">
+      <div className="min-h-screen bg-white flex flex-col">
         <Header />
         <div className="flex-1 flex items-center justify-center">
-          <div className="text-center">
-            <div className="animate-spin w-12 h-12 border-4 border-[#0056D2] border-t-transparent rounded-full mx-auto mb-4"></div>
-            <p className="text-gray-600">Loading package details...</p>
-          </div>
+          <div className="animate-spin w-12 h-12 border-4 border-[#eb662b] border-t-transparent rounded-full mx-auto mb-4"></div>
         </div>
         <Footer />
       </div>
     );
   }
 
-  if (!packageData) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex flex-col">
-        <Header />
-        <div className="flex-1 flex items-center justify-center">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
-              Package Not Found
-            </h2>
-            <p className="text-gray-600 mb-4">
-              The package you are looking for does not exist.
-            </p>
-            <button
-              onClick={() => router.push("/destinations")}
-              className="bg-[#0056D2] text-white px-6 py-2 rounded-xl border-none cursor-pointer"
-            >
-              Browse Destinations
-            </button>
-          </div>
-        </div>
-        <Footer />
-      </div>
-    );
-  }
+  if (!packageData) return null;
 
-  const price = packageData.price || 0;
   const title = packageData.title || "Beautiful Destination";
-  const type = packageData.type || "holidays";
+  const region = packageData.region ? packageData.region.charAt(0).toUpperCase() + packageData.region.slice(1) : "Global";
+
+  // Ensure 4 images for masonry
+  const images = [...packageData.images];
+  while (images.length < 4) {
+    images.push("https://images.unsplash.com/photo-1544551763-47a0159c92b2?w=800&q=80"); 
+  }
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900">
+    <div className="min-h-screen flex flex-col bg-[#FAFAFD] text-gray-900 font-sans">
       <Header />
 
-      {/* Hero Section */}
-      <div className="relative h-96 lg:h-[500px] overflow-hidden pt-20">
-        <img
-          src={
-            packageData.images?.[0] ||
-            "https://images.unsplash.com/photo-1534695215921-52f8a19e7909?w=1600"
-          }
-          alt={title}
-          className="absolute top-0 left-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
-
-        {/* Back Button */}
-        <button
-          onClick={handleBackClick}
-          className="hidden md:flex absolute top-28 left-6 z-50 bg-white/20 backdrop-blur-md text-white p-3 rounded-full hover:bg-white/40 transition-all duration-200 cursor-pointer border border-white/30 items-center justify-center"
-          aria-label="Go back"
-          style={{ minWidth: "48px", minHeight: "48px" }}
-        >
-          <ArrowLeft size={24} />
-        </button>
-
-        {/* Package Info Overlay */}
-        <div className="absolute bottom-0 left-0 right-0 p-8 text-white z-10">
-          <div className="max-w-7xl mx-auto">
-            <div className="flex items-center gap-3 mb-4">
-              {packageData.region && (
-                <span className="bg-[#0056D2]/80 backdrop-blur-md px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2">
-                  {getRegionIcon(packageData.region)}
-                  {packageData.region.charAt(0).toUpperCase() +
-                    packageData.region.slice(1)}{" "}
-                  India
-                </span>
-              )}
-              {type && (
-                <span className="bg-[#43E0F8]/80 backdrop-blur-md px-4 py-2 rounded-full text-sm font-medium">
-                  {type.replace("-", " ").toUpperCase()}
-                </span>
-              )}
-            </div>
-
-            <h1
-              className="text-4xl lg:text-6xl font-bold mb-4"
-              style={{ fontFamily: "Montserrat, sans-serif" }}
-            >
-              {title}
-            </h1>
-
-            <div className="flex flex-wrap items-center gap-6 text-lg">
-              <div className="flex items-center gap-2">
-                <Clock size={20} />
-                <span>{packageData.duration || "Flexible"}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <IndianRupee size={20} />
-                <span className="text-2xl font-bold">
-                  {price.toLocaleString()}
-                </span>
-              </div>
-            </div>
-          </div>
+      <main className="mt-20 flex-1 max-w-[1200px] w-full mx-auto px-4 pt-28 pb-20">
+        
+        {/* Breadcrumb Row */}
+        <div className="text-[11px] md:text-xs text-gray-500 font-bold mb-6 uppercase tracking-wide flex justify-between items-center" style={{ fontFamily: "var(--font-manrope)" }}>
+           <div className="flex items-center gap-2">
+             <span className="hover:text-[#eb662b] transition-colors cursor-pointer text-[#eb662b]/60">Home</span> {'>'} 
+             <span className="hover:text-[#eb662b] transition-colors cursor-pointer text-[#eb662b]/60">Tours</span> {'>'} 
+             <span className="text-[#eb662b] font-black">{region}</span>
+           </div>
+           <div className="hidden md:block text-[#eb662b] font-bold">
+             THE 10 BEST {region} Tours & Excursions
+           </div>
         </div>
-      </div>
 
-      {/* Content Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-2">
-            <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
-              <div className="flex flex-wrap gap-2 mb-6">
-                {["overview", "itinerary", "includes", "policies"].map(
-                  (tab) => (
-                    <button
-                      key={tab}
-                      onClick={() => setActiveTab(tab)}
-                      className={`px-6 py-3 rounded-xl font-medium transition-all capitalize border-none cursor-pointer ${
-                        activeTab === tab
-                          ? "bg-[#0056D2] text-white"
-                          : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                      }`}
-                      style={{ fontFamily: "Manrope, sans-serif" }}
-                    >
-                      {tab}
-                    </button>
-                  )
-                )}
-              </div>
-
-              {/* Tab Content */}
-              <div className="min-h-[300px]">
-                {activeTab === "overview" && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <h3
-                      className="text-2xl font-bold text-gray-900 mb-4"
-                      style={{ fontFamily: "Montserrat, sans-serif" }}
-                    >
-                      Package Overview
-                    </h3>
-                    <p
-                      className="text-gray-700 mb-6 leading-relaxed"
-                      style={{ fontFamily: "Manrope, sans-serif" }}
-                    >
-                      {packageData.description ||
-                        "No description available for this package."}
-                    </p>
-
-                    <div className="grid md:grid-cols-2 gap-6 mb-6">
-                      <div>
-                        <h4 className="font-semibold text-gray-900 mb-3">
-                          Key Highlights
-                        </h4>
-                        <div className="space-y-2">
-                          {packageData.highlights.length > 0 ? (
-                            packageData.highlights.map((highlight, index) => (
-                              <div
-                                key={index}
-                                className="flex items-start gap-3"
-                              >
-                                <CheckCircle
-                                  size={18}
-                                  className="text-green-500 mt-0.5 flex-shrink-0"
-                                />
-                                <span className="text-gray-700">
-                                  {highlight}
-                                </span>
-                              </div>
-                            ))
-                          ) : (
-                            <p className="text-gray-500 italic">
-                              No specific highlights listed.
-                            </p>
-                          )}
-                        </div>
-                      </div>
-
-                      <div>
-                        <h4 className="font-semibold text-gray-900 mb-3">
-                          Trip Details
-                        </h4>
-                        <div className="space-y-3">
-                          <div className="flex justify-between border-b border-gray-100 pb-2">
-                            <span className="text-gray-600">Duration:</span>
-                            <span className="font-medium text-gray-900">
-                              {packageData.duration || "N/A"}
-                            </span>
-                          </div>
-                          <div className="flex justify-between border-b border-gray-100 pb-2">
-                            <span className="text-gray-600">Difficulty:</span>
-                            <span className="font-medium text-gray-900">
-                              {packageData.difficulty || "N/A"}
-                            </span>
-                          </div>
-                          <div className="flex justify-between border-b border-gray-100 pb-2">
-                            <span className="text-gray-600">Best Time:</span>
-                            <span className="font-medium text-gray-900">
-                              {packageData.bestTime || "N/A"}
-                            </span>
-                          </div>
-                          <div className="flex justify-between pb-2">
-                            <span className="text-gray-600">Max Altitude:</span>
-                            <span className="font-medium text-gray-900">
-                              {packageData.maxAltitude || "N/A"}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-
-                {activeTab === "itinerary" && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <h3
-                      className="text-2xl font-bold text-gray-900 mb-6"
-                      style={{ fontFamily: "Montserrat, sans-serif" }}
-                    >
-                      Detailed Itinerary
-                    </h3>
-                    <div className="space-y-4">
-                      {packageData.itinerary.length > 0 ? (
-                        packageData.itinerary.map((day, index) => {
-                          const parts = day.split(":");
-                          const hasDayPrefix =
-                            parts.length > 1 &&
-                            parts[0].toLowerCase().includes("day");
-                          const title = hasDayPrefix
-                            ? parts[0]
-                            : `Day ${index + 1}`;
-                          const description = hasDayPrefix
-                            ? parts.slice(1).join(":").trim()
-                            : day;
-
-                          return (
-                            <div
-                              key={index}
-                              className="flex gap-4 p-4 bg-gray-50 rounded-xl border border-gray-100"
-                            >
-                              <div className="flex-shrink-0 w-12 h-12 bg-[#0056D2] text-white rounded-full flex items-center justify-center font-bold text-lg shadow-md">
-                                {index + 1}
-                              </div>
-                              <div className="pt-1">
-                                <h4 className="font-bold text-gray-900 mb-1">
-                                  {title}
-                                </h4>
-                                <p className="text-gray-700 leading-relaxed">
-                                  {description}
-                                </p>
-                              </div>
-                            </div>
-                          );
-                        })
-                      ) : (
-                        <p className="text-gray-500 italic">
-                          No specific itinerary listed.
-                        </p>
-                      )}
-                    </div>
-                  </motion.div>
-                )}
-
-                {activeTab === "includes" && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <h3
-                      className="text-2xl font-bold text-gray-900 mb-6"
-                      style={{ fontFamily: "Montserrat, sans-serif" }}
-                    >
-                      Inclusions & Exclusions
-                    </h3>
-                    <div className="grid md:grid-cols-2 gap-8">
-                      <div className="bg-green-50/50 p-5 rounded-xl border border-green-100">
-                        <h4 className="font-bold mb-4 text-green-800 flex items-center gap-2">
-                          <CheckCircle size={20} /> Included
-                        </h4>
-                        <div className="space-y-3">
-                          {packageData.inclusions.length > 0 ? (
-                            packageData.inclusions.map((item, index) => (
-                              <div
-                                key={index}
-                                className="flex items-start gap-3"
-                              >
-                                <CheckCircle
-                                  size={16}
-                                  className="text-green-500 mt-1 flex-shrink-0"
-                                />
-                                <span className="text-gray-800">{item}</span>
-                              </div>
-                            ))
-                          ) : (
-                            <p className="text-gray-500 italic text-sm">
-                              No specific inclusions listed.
-                            </p>
-                          )}
-                        </div>
-                      </div>
-
-                      <div className="bg-red-50/50 p-5 rounded-xl border border-red-100">
-                        <h4 className="font-bold mb-4 text-red-800 flex items-center gap-2">
-                          <X size={20} /> Not Included
-                        </h4>
-                        <div className="space-y-3">
-                          {packageData.exclusions.length > 0 ? (
-                            packageData.exclusions.map((item, index) => (
-                              <div
-                                key={index}
-                                className="flex items-start gap-3"
-                              >
-                                <X
-                                  size={16}
-                                  className="text-red-400 mt-1 flex-shrink-0"
-                                />
-                                <span className="text-gray-800">{item}</span>
-                              </div>
-                            ))
-                          ) : (
-                            <p className="text-gray-500 italic text-sm">
-                              No specific exclusions listed.
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-
-                {activeTab === "policies" && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <h3
-                      className="text-2xl font-bold text-gray-900 mb-6"
-                      style={{ fontFamily: "Montserrat, sans-serif" }}
-                    >
-                      Booking Policies
-                    </h3>
-                    <div className="space-y-6 text-gray-700">
-                      <div className="bg-blue-50/50 p-5 rounded-xl">
-                        <h4 className="font-bold mb-3 text-blue-900">
-                          Cancellation Policy
-                        </h4>
-                        <ul className="list-disc pl-5">
-                          <li>25% charge for 30+ days before travel</li>
-                          <li>50% charge for 15-30 days before travel</li>
-                          <li>75% charge for 7-14 days before travel</li>
-                          <li className="text-red-600 font-bold">
-                            100% charge for less than 7 days
-                          </li>
-                        </ul>
-                      </div>
-                      <div className="bg-gray-50 p-5 rounded-xl">
-                        <h4 className="font-bold mb-3 text-gray-900">
-                          Important Notes
-                        </h4>
-                        <ul className="list-disc pl-5">
-                          <li>Valid ID proof required for all travelers</li>
-                          <li>
-                            Itinerary may change due to weather conditions
-                          </li>
-                          <li>
-                            All permits and entry fees included as mentioned
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Booking Sidebar */}
-          <div className="lg:col-span-1">
-            <div className="sticky top-24">
-              <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6">
-                <h3
-                  className="text-xl font-bold mb-4 text-gray-900"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  Book This Package
-                </h3>
-                <div className="bg-gradient-to-br from-blue-50 to-cyan-50 p-4 rounded-xl border border-blue-100 mb-6 text-center">
-                  <div className="flex items-center justify-center gap-1 mb-1">
-                    <span className="text-3xl font-bold text-[#0056D2]">
-                      ₹{price.toLocaleString()}
-                    </span>
-                  </div>
-                  <span className="text-sm font-medium text-gray-600 uppercase tracking-wide">
-                    per person
-                  </span>
-                  <div className="mt-3 pt-3 border-t border-blue-200 text-sm text-gray-700 font-medium">
-                    Duration: {packageData.duration || "Flexible"} | Group: 2-12
-                  </div>
-                </div>
-
-                <form onSubmit={handleBookingSubmit} className="space-y-4">
-                  <input
-                    type="text"
-                    required
-                    value={bookingForm.name}
-                    onChange={(e) =>
-                      setBookingForm({ ...bookingForm, name: e.target.value })
-                    }
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl"
-                    placeholder="Full Name"
-                  />
-                  <input
-                    type="email"
-                    required
-                    value={bookingForm.email}
-                    onChange={(e) =>
-                      setBookingForm({ ...bookingForm, email: e.target.value })
-                    }
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl"
-                    placeholder="Email Address"
-                  />
-                  <input
-                    type="tel"
-                    required
-                    value={bookingForm.phone}
-                    onChange={(e) =>
-                      setBookingForm({ ...bookingForm, phone: e.target.value })
-                    }
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl"
-                    placeholder="Phone Number"
-                  />
-                  <div className="grid grid-cols-2 gap-4">
-                    <select
-                      value={bookingForm.travelers}
-                      onChange={(e) =>
-                        setBookingForm({
-                          ...bookingForm,
-                          travelers: parseInt(e.target.value),
-                        })
-                      }
-                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl"
-                    >
-                      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((num) => (
-                        <option key={num} value={num}>
-                          {num} Person{num > 1 ? "s" : ""}
-                        </option>
-                      ))}
-                    </select>
-                    <input
-                      type="date"
-                      required
-                      value={bookingForm.travelDate}
-                      onChange={(e) =>
-                        setBookingForm({
-                          ...bookingForm,
-                          travelDate: e.target.value,
-                        })
-                      }
-                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl"
-                    />
-                  </div>
-                  <textarea
-                    rows={3}
-                    value={bookingForm.specialRequests}
-                    onChange={(e) =>
-                      setBookingForm({
-                        ...bookingForm,
-                        specialRequests: e.target.value,
-                      })
-                    }
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl resize-none"
-                    placeholder="Special Requests..."
-                  ></textarea>
-                  <button
-                    type="submit"
-                    className="w-full mt-2 bg-gradient-to-r from-[#0056D2] to-[#43E0F8] text-white font-bold py-4 px-6 rounded-xl hover:shadow-lg border-none cursor-pointer"
-                  >
-                    Book for ₹{(price * bookingForm.travelers).toLocaleString()}
-                  </button>
-                </form>
-
-                <div className="mt-8 pt-6 border-t border-gray-100 flex flex-col gap-3">
-                  <div className="bg-gray-50 p-4 rounded-xl space-y-3">
-                    <div className="flex items-center gap-3 text-sm font-medium text-gray-800">
-                      <Phone size={14} className="text-[#0056D2]" /> +91
-                      9990-817-615
-                    </div>
-                    <div className="flex items-center gap-3 text-sm font-medium text-gray-800">
-                      <Mail size={14} className="text-[#0056D2]" />{" "}
-                      bookings@travel.com
-                    </div>
-                    <div className="flex items-center gap-3 text-sm font-medium text-gray-800">
-                      <MessageCircle size={14} className="text-green-600" />{" "}
-                      WhatsApp support
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        {/* Tags */}
+        <div className="flex gap-3 mb-4" style={{ fontFamily: "var(--font-manrope)" }}>
+           <span className="bg-[#05073C] text-white px-3 py-1.5 text-xs font-bold rounded-md shadow-sm">Bestseller</span>
+           <span className="bg-green-100 text-green-800 px-3 py-1.5 text-xs font-bold rounded-md shadow-sm">Free cancellation</span>
         </div>
-      </div>
+
+        {/* Title */}
+        <h1 className="text-3xl md:text-5xl font-black text-[#05073C] leading-snug lg:leading-tight mb-4 max-w-4xl" style={{ fontFamily: "var(--font-montserrat)" }}>
+           {title}
+        </h1>
+
+        {/* Ratings and Actions */}
+        <div className="flex flex-wrap items-center justify-between mb-8 pb-4" style={{ fontFamily: "var(--font-manrope)" }}>
+           <div className="flex items-center gap-5 text-sm font-bold text-gray-700">
+              <span className="flex items-center gap-1.5 bg-yellow-50 text-yellow-700 px-3 py-1 rounded-full border border-yellow-100">
+                 <Star size={16} fill="currentColor" color="currentColor" />
+                 4.8 (269)
+              </span>
+              <span className="flex items-center gap-1.5 text-gray-600">
+                 <MapPin size={16} />
+                 {region}, India
+              </span>
+              <span className="text-[#05073C] font-semibold flex items-center gap-1.5">
+                 <Sparkles size={16} className="text-gray-400"/> 30K+ booked
+              </span>
+           </div>
+
+           <div className="flex items-center gap-6 text-sm font-bold mt-4 sm:mt-0">
+              <button className="flex items-center gap-2 text-gray-600 hover:text-[#eb662b] transition-colors"><Share size={18}/> Share</button>
+              <button className="flex items-center gap-2 text-gray-600 hover:text-[#eb662b] transition-colors"><Heart size={18}/> Wishlist</button>
+           </div>
+        </div>
+
+
+        {/* Masonry Image Gallery */}
+        <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 h-auto md:h-[450px] gap-2 md:gap-3 mb-10 shadow-sm rounded-2xl overflow-hidden bg-white p-1.5">
+           {/* Main Left Large Image */}
+           <div className="col-span-1 md:col-span-2 row-span-1 md:row-span-2">
+              <img src={images[0]} alt={title} className="w-full h-64 md:h-full object-cover rounded-xl" />
+           </div>
+
+           {/* Top Right Wide Image */}
+           <div className="col-span-1 md:col-span-2 row-span-1">
+              <img src={images[1]} alt={title} className="w-full h-40 md:h-full object-cover rounded-xl" />
+           </div>
+
+           {/* Bottom Right Two Squares */}
+           <div className="col-span-1 md:col-span-2 row-span-1 grid grid-cols-2 gap-2 md:gap-3">
+              <img src={images[2]} alt={title} className="w-full h-40 md:h-full object-cover rounded-xl" />
+              
+              {/* Last Image with Overlay Button */}
+              <div className="relative w-full h-40 md:h-full rounded-xl overflow-hidden group cursor-pointer">
+                 <img src={images[3]} alt={title} className="w-full h-full object-cover brightness-[0.75] group-hover:scale-110 transition-transform duration-700" />
+              </div>
+           </div>
+        </div>
+
+
+        {/* Quick Info Bar - Colorful Orange Highlights */}
+        <div className="flex flex-wrap items-center justify-between gap-4 p-5 mb-10 bg-white rounded-xl shadow-sm border border-gray-100" style={{ fontFamily: "var(--font-manrope)" }}>
+           <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-[#FFF3EE] text-[#eb662b] rounded-xl flex items-center justify-center shadow-sm"><Clock size={18}/></div>
+              <div className="flex flex-col">
+                 <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Duration</span>
+                 <span className="text-sm font-black text-[#05073C]">{packageData.duration || "4 days"}</span>
+              </div>
+           </div>
+           
+           <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-[#FFF3EE] text-[#eb662b] rounded-xl flex items-center justify-center shadow-sm"><Users size={18}/></div>
+              <div className="flex flex-col">
+                 <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Group Size</span>
+                 <span className="text-sm font-black text-[#05073C]">Max 12 people</span>
+              </div>
+           </div>
+
+           <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-[#FFF3EE] text-[#eb662b] rounded-xl flex items-center justify-center shadow-sm"><CalendarDays size={18}/></div>
+              <div className="flex flex-col">
+                 <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Ages</span>
+                 <span className="text-sm font-black text-[#05073C]">Family Friendly</span>
+              </div>
+           </div>
+
+           <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-[#FFF3EE] text-[#eb662b] rounded-xl flex items-center justify-center shadow-sm"><Ticket size={18}/></div>
+              <div className="flex flex-col">
+                 <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Languages</span>
+                 <span className="text-sm font-black text-[#05073C]">English, Local</span>
+              </div>
+           </div>
+        </div>
+
+        {/* Flex Layout for Body vs Sidebar */}
+        <div className="flex flex-col lg:flex-row gap-8 relative items-start">
+           
+           {/* LEFT CONTENT */}
+           <div className="flex-1 max-w-full lg:max-w-3xl overflow-hidden bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-100">
+              
+              {/* Tour Overview */}
+              <section className="mb-10">
+                 <h2 className="text-xl font-black text-[#05073C] mb-4 flex items-center gap-2" style={{ fontFamily: "var(--font-montserrat)" }}>
+                    <span className="bg-[#FFF3EE] p-1.5 rounded-md text-[#eb662b]"><MapPin size={20}/></span>
+                    Tour Overview
+                 </h2>
+                 <p className="text-gray-600 leading-relaxed text-[15px] font-medium space-y-4 whitespace-pre-line" style={{ fontFamily: "var(--font-manrope)", lineHeight: "1.8" }}>
+                    {packageData.description || "The archipelago is a must-visit. You will be whisked around islands in one day. Visit emerald lagoons, snorkel on beautiful islands, and enjoy complimentary meals throughout the journey. Hotel pickup and drop-off is seamlessly included so you don't have to worry about a thing."}
+                 </p>
+              </section>
+
+              {/* Tour Highlights - Orange Bullets */}
+              <section className="mb-10">
+                 <h2 className="text-lg font-bold text-[#05073C] mb-4" style={{ fontFamily: "var(--font-manrope)" }}>Tour Highlights</h2>
+                 <ul className="space-y-3 bg-[#FAFAFD] p-5 rounded-xl border border-gray-100">
+                    {(packageData.highlights.length > 0 ? packageData.highlights : [
+                       "Experience the thrill of exploring beautiful islands.",
+                       "Be amazed by the variety of marine and terrestrial life.",
+                       "Enjoy relaxing in paradise with white sand beaches.",
+                       "Feel the comfort of a strictly limited group size.",
+                       "Catch a glimpse of authentic regional cultures."
+                    ]).map((highlight, idx) => (
+                       <li key={idx} className="flex items-start gap-3 text-[#05073C] font-semibold text-sm leading-relaxed" style={{ fontFamily: "var(--font-manrope)" }}>
+                          <span className="w-5 h-5 rounded-full bg-[#eb662b] text-white flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm">
+                             <Check size={10} strokeWidth={4}/>
+                          </span>
+                          {highlight}
+                       </li>
+                    ))}
+                 </ul>
+              </section>
+
+              <hr className="border-gray-100 mb-10" />
+
+              {/* What's included */}
+              <section className="mb-10">
+                 <h2 className="text-xl font-black text-[#05073C] mb-6" style={{ fontFamily: "var(--font-montserrat)" }}>What's included</h2>
+                 
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-y-3 gap-x-6" style={{ fontFamily: "var(--font-manrope)" }}>
+                    {(packageData.inclusions.length > 0 ? packageData.inclusions : [
+                       "Beverages, drinking water, morning tea",
+                       "Local taxes",
+                       "Hotel pickup and drop-off by air-conditioned minivan",
+                       "Insurance Transfer to a private pier",
+                       "Soft drinks",
+                       "Tour Guide"
+                    ]).map((inc, i) => (
+                       <div key={i} className="flex items-start gap-3 text-sm text-gray-800 font-bold bg-green-50/50 p-2.5 rounded-lg border border-green-100">
+                          <CheckCircle className="text-green-500 mt-[1px]" size={18} />
+                          <span className="leading-relaxed">{inc}</span>
+                       </div>
+                    ))}
+
+                    <div className="flex items-start gap-3 text-sm text-gray-500 font-bold bg-red-50/50 p-2.5 rounded-lg border border-red-50">
+                       <XCircle className="text-[#eb662b] mt-[1px]" size={18} />
+                       <span className="leading-relaxed line-through">Towels</span>
+                    </div>
+                    <div className="flex items-start gap-3 text-sm text-gray-500 font-bold bg-red-50/50 p-2.5 rounded-lg border border-red-50">
+                       <XCircle className="text-[#eb662b] mt-[1px]" size={18} />
+                       <span className="leading-relaxed line-through">Personal Expenses</span>
+                    </div>
+                 </div>
+              </section>
+
+              <hr className="border-gray-100 mb-10" />
+
+              {/* Itinerary */}
+              <section className="mb-4 relative z-0">
+                 <h2 className="text-xl font-black text-[#05073C] mb-8" style={{ fontFamily: "var(--font-montserrat)" }}>Itinerary</h2>
+                 
+                 <div className="relative border-l-2 border-dashed border-[#eb662b]/30 ml-[10px] pl-8 space-y-10">
+                    {(packageData.itinerary.length > 0 ? packageData.itinerary : [
+                       "Day 1: Airport Pick Up: We collect you direct from the terminal.",
+                       "Day 2: Temples & River Cruise: A scenic tour through historical locations.",
+                       "Day 3: Massage & Overnight Train: Like on all of our trips, we collect you from the airport when you land and take you",
+                       "Day 4: National Park: Trek through lush green forests."
+                    ]).map((dayLine, i) => {
+                       const parts = dayLine.split(":");
+                       const hasPrefix = parts.length > 1 && parts[0].toLowerCase().includes("day");
+                       const titleStr = hasPrefix ? parts[0] + ": " + (parts[1] || "").trim() : `Day ${i+1}: ${parts[0] || ""}`;
+                       const descStr = hasPrefix ? parts.slice(2).join(":").trim() : parts.slice(1).join(":").trim(); 
+
+                       return (
+                          <div key={i} className="relative z-10 bg-[#FAFAFD] p-5 rounded-xl border border-gray-100 shadow-sm">
+                             <div className="absolute -left-[43px] top-4 w-5 h-5 rounded-full border-[3px] border-white bg-[#eb662b] shadow-sm"></div>
+                             <h4 className="font-black text-[#05073C] text-[15px] mb-1.5" style={{ fontFamily: "var(--font-montserrat)" }}>{titleStr}</h4>
+                             {descStr && (
+                                <p className="text-gray-600 text-[13px] font-medium leading-relaxed max-w-2xl" style={{ fontFamily: "var(--font-manrope)" }}>{descStr}</p>
+                             )}
+                          </div>
+                       )
+                    })}
+                 </div>
+              </section>
+
+           </div>
+
+           
+           {/* RIGHT CONTENT - BOOKING WIDGET */}
+           <div className="w-full lg:w-[380px] z-20" style={{ fontFamily: "var(--font-manrope)" }}>
+              <div className="bg-white border border-gray-200 p-6 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
+                 <div className="flex flex-col gap-5">
+                    
+                    {/* Price Header */}
+                    <div className="text-center bg-gray-50 border border-gray-100 py-4 rounded-xl mb-1 shadow-inner">
+                       <span className="text-3xl font-black text-[#05073C]" style={{ fontFamily: "var(--font-montserrat)" }}>₹{basePrice.toLocaleString()}</span>
+                       <span className="text-gray-500 font-bold text-[12px] ml-1 uppercase tracking-wide">/ person</span>
+                    </div>
+
+                    {/* Simple Booking Form */}
+                    <div className="flex flex-col gap-3">
+                       
+                       <div className="flex flex-col gap-1">
+                          <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider ml-1">Travel Date</label>
+                          <input 
+                            type="date" 
+                            value={selectedDate}
+                            onChange={(e) => setSelectedDate(e.target.value)}
+                            className="w-full outline-none text-sm font-bold text-[#05073C] bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 cursor-pointer focus:bg-white focus:border-[#eb662b] transition-colors"
+                          />
+                       </div>
+
+                       <div className="flex flex-col gap-1">
+                          <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider ml-1">Number of Travelers</label>
+                          <div className="w-full flex items-center justify-between bg-gray-50 border border-gray-200 rounded-lg px-3 py-1.5 focus-within:bg-white focus-within:border-[#eb662b] transition-colors">
+                             <span className="text-sm font-bold text-[#05073C]">Travelers</span>
+                             <div className="flex items-center gap-3">
+                                <button onClick={(e) => { e.preventDefault(); setTravelers(Math.max(1, travelers - 1)); }} className="w-7 h-7 rounded-md bg-white border border-gray-200 text-[#05073C] font-bold hover:bg-[#eb662b] hover:text-white hover:border-[#eb662b] transition-colors shadow-sm">-</button>
+                                <span className="font-bold text-[#05073C] w-3 text-center text-sm">{travelers}</span>
+                                <button onClick={(e) => { e.preventDefault(); setTravelers(travelers + 1); }} className="w-7 h-7 rounded-md bg-white border border-gray-200 text-[#05073C] font-bold hover:bg-[#eb662b] hover:text-white hover:border-[#eb662b] transition-colors shadow-sm">+</button>
+                             </div>
+                          </div>
+                       </div>
+                    </div>
+
+                    <div className="w-full h-px bg-gray-100 my-1" />
+
+                    {/* Required User Details */}
+                    <div>
+                       <label className="text-[10px] font-bold text-gray-400 uppercase tracking-wider ml-1 mb-1 block">Your Details</label>
+                       <div className="flex flex-col gap-2.5">
+                          <input type="text" placeholder="Full Name" value={bookingForm.name} onChange={e=>setBookingForm({...bookingForm, name: e.target.value})} className="w-full text-xs font-bold px-3 py-2.5 text-[#05073C] bg-gray-50 rounded-lg outline-none border border-gray-200 focus:border-[#eb662b] focus:bg-white transition-colors" required />
+                          <input type="tel" placeholder="Phone Number" value={bookingForm.phone} onChange={e=>setBookingForm({...bookingForm, phone: e.target.value})} className="w-full text-xs font-bold px-3 py-2.5 text-[#05073C] bg-gray-50 rounded-lg outline-none border border-gray-200 focus:border-[#eb662b] focus:bg-white transition-colors" required />
+                          <input type="email" placeholder="Email Address" value={bookingForm.email} onChange={e=>setBookingForm({...bookingForm, email: e.target.value})} className="w-full text-xs font-bold px-3 py-2.5 text-[#05073C] bg-gray-50 rounded-lg outline-none border border-gray-200 focus:border-[#eb662b] focus:bg-white transition-colors" required />
+                       </div>
+                    </div>
+                    
+                    {/* Total and Submit */}
+                    <div className="pt-2 mt-2">
+                       <div className="flex items-center justify-between mb-5 bg-gray-50 px-4 py-3 rounded-xl border border-gray-200">
+                          <span className="text-sm font-black text-gray-800 tracking-wide">Total Price</span>
+                          <span className="text-2xl font-black text-[#05073C]" style={{ fontFamily: "var(--font-montserrat)" }}>₹{calculateTotal().toLocaleString()}</span>
+                       </div>
+
+                       <button onClick={handleBookingSubmit} className="w-full bg-[#eb662b] hover:bg-[#d45a20] hover:shadow-lg hover:shadow-[#eb662b]/30 hover:-translate-y-0.5 text-white py-4 rounded-xl text-[15px] font-black tracking-wide transition-all duration-300">
+                          Proceed to Booking
+                       </button>
+                    </div>
+
+                 </div>
+              </div>
+           </div>
+        </div>
+
+      </main>
+
       <Footer />
     </div>
   );

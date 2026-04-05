@@ -15,7 +15,6 @@ import {
   TreePine,
   Tent,
   Calendar,
-  ArrowRight,
 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/app/footer/page";
@@ -26,7 +25,6 @@ export default function DestinationsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("all");
   const [selectedType, setSelectedType] = useState("all");
-  const [hoveredCard, setHoveredCard] = useState(null);
 
   useEffect(() => {
     fetchPackages();
@@ -60,8 +58,16 @@ export default function DestinationsPage() {
     { id: "trekking", name: "Trekking", icon: Tent },
   ];
 
-  // Filter packages based on search and filters
-  // Backend packages use 'title', 'description', etc.
+  // Map Region to distinct tag colors based on the design
+  const getRegionTagColor = (region) => {
+    const r = region?.toLowerCase() || '';
+    if (r === 'north') return 'bg-[#eb662b]'; // Cyan/Green 
+    if (r === 'south') return 'bg-[#f49e34]'; // Orange/Yellow
+    if (r === 'east') return 'bg-[#67bdda]'; // Light Blue
+    if (r === 'west') return 'bg-[#eb662b]'; // Deep Orange
+    return 'bg-[#eb662b]'; // Default
+  };
+
   const filteredPackages = useMemo(() => {
     return packages.filter((pkg) => {
       const title = pkg.title || pkg.name || "";
@@ -85,7 +91,7 @@ export default function DestinationsPage() {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.3 },
+      transition: { staggerChildren: 0.1, delayChildren: 0.2 },
     },
   };
 
@@ -99,203 +105,159 @@ export default function DestinationsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#F6F9F8]">
       <Header />
 
-      <section
-        id="destinations"
-        className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50 relative overflow-hidden pt-24"
-      >
-        {/* Enhanced Background Pattern */}
-        <div className="absolute inset-0 opacity-30 pointer-events-none">
-          <div className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-br from-[#0056D2]/20 to-[#43E0F8]/20 rounded-full filter blur-3xl" />
-          <div className="absolute bottom-20 right-10 w-80 h-80 bg-gradient-to-tl from-[#43E0F8]/20 to-[#5DFDCB]/20 rounded-full filter blur-3xl" />
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-[#0056D2]/10 to-[#43E0F8]/10 rounded-full filter blur-2xl" />
-        </div>
+      {/* Hero Section */}
+      <section className="relative w-full h-[60vh] md:h-[80vh] flex items-center justify-center overflow-hidden">
+         {/* Background Image */}
+         <div className="absolute inset-0 z-0">
+            <img 
+              src="https://images.unsplash.com/photo-1534695215921-52f8a19e7909?q=80&w=2670&auto=format&fit=crop" 
+              alt="Solo Travellers Having Fun" 
+              className="w-full h-full object-cover select-none"
+            />
+            <div className="absolute inset-0 bg-black/30"></div>
+         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 py-16 sm:py-20 md:py-24 relative z-10">
-          {/* Enhanced Header */}
+         {/* Hero Text */}
+         <div className="relative z-10 text-center px-4 mt-16 max-w-2xl">
+             <h1 
+               className="text-4xl md:text-6xl text-white font-serif leading-tight drop-shadow-md mb-4"
+               style={{ fontStyle: 'italic', fontFamily: 'Georgia, serif' }} // Fallback cursive aesthetic
+             >
+               Great Trip<br/>for Solo Travellers
+             </h1>
+             <p className="text-white text-sm md:text-base font-medium mb-8 max-w-[500px] mx-auto drop-shadow-sm" style={{ fontFamily: 'var(--font-manrope)' }}>
+               Since 2014, we've helped more than 500,000 people of all ages enjoy the best outdoor experience.
+             </p>
+             <button className="px-10 py-4 bg-gradient-to-r from-[#eb662b] to-[#ff9b6a] hover:shadow-xl hover:scale-105 active:scale-95 text-white font-black text-sm tracking-widest uppercase rounded-full shadow-lg transition-all duration-300" style={{ fontFamily: 'var(--font-montserrat)' }}>
+               EXPLORE TOURS
+             </button>
+         </div>
+
+         {/* Torn Paper Bottom Edge */}
+         <div className="absolute bottom-0 left-0 right-0 z-20 w-full overflow-hidden pointer-events-none translate-y-[2px]">
+            <svg 
+              viewBox="0 0 1200 120" 
+              preserveAspectRatio="none" 
+              className="w-full h-12 md:h-20 text-[#F6F9F8] fill-current"
+            >
+               <path d="M0,0 L0,120 L1200,120 L1200,0 C1100,50 900,10 800,40 C700,70 500,10 400,30 C300,50 100,10 0,0 Z" />
+            </svg>
+         </div>
+      </section>
+
+      <section className="relative min-h-screen py-16 bg-[#F6F9F8]">
+         {/* Topography faint backdrop */}
+         <div className="absolute inset-0 opacity-10 pointer-events-none z-0">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="topography2" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+                  <path d="M10 10C20 20 40 10 50 30C60 50 80 40 90 60" fill="none" stroke="#000" strokeWidth="0.5" />
+                  <path d="M10 90C30 80 40 100 60 80C80 60 90 90 100 70" fill="none" stroke="#000" strokeWidth="0.5" />
+                  <path d="M50 0C60 20 80 10 100 30" fill="none" stroke="#000" strokeWidth="0.5" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#topography2)" />
+            </svg>
+         </div>
+
+        <div className="max-w-7xl mx-auto px-4 md:px-12 relative z-10">
+          
+          {/* Header Title section */}
+          <div className="flex flex-col items-center mb-10 text-center">
+             <span className="text-[#eb662b] font-medium italic text-lg mb-2" style={{ fontFamily: 'Georgia, serif' }}>
+                Flash Deals
+             </span>
+             <h2 className="text-3xl md:text-4xl font-black text-[#05073C] mb-4" style={{ fontFamily: 'var(--font-montserrat)' }}>
+                We've Got Some Great Deals
+             </h2>
+             <div className="flex items-center gap-1">
+                <svg width="40" height="10" viewBox="0 0 40 10" className="text-[#eb662b] fill-none stroke-current stroke-2">
+                   <path d="M0 5 Q 5 0, 10 5 T 20 5 T 30 5 T 40 5" />
+                </svg>
+             </div>
+          </div>
+
+          {/* Search and Filters */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16 sm:mb-20"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-12 bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100"
           >
-            {/* Modern Badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#0056D2]/10 via-[#43E0F8]/10 to-[#0056D2]/10 backdrop-blur-xl rounded-full border border-[#43E0F8]/30 mb-8 shadow-lg"
-            >
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                className="w-3 h-3 bg-gradient-to-r from-[#0056D2] to-[#43E0F8] rounded-full"
-              />
-              <span
-                className="text-[#0056D2] font-bold text-sm uppercase tracking-wider"
-                style={{ fontFamily: "Montserrat, sans-serif" }}
-              >
-                EXPLORE INDIA'S DIVERSITY
-              </span>
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight"
-              style={{
-                fontFamily: "Montserrat, sans-serif",
-                letterSpacing: "-0.02em",
-              }}
-            >
-              Travel{" "}
-              <span className="bg-gradient-to-r from-[#0056D2] via-[#4A8BDF] to-[#43E0F8] bg-clip-text text-transparent">
-                Destinations
-              </span>{" "}
-              Across India
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-              className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed px-4 sm:px-0"
-              style={{ fontFamily: "Manrope, sans-serif" }}
-            >
-              Discover India's breathtaking landscapes, rich culture, and
-              adventure opportunities with our curated travel packages across
-              all regions.
-            </motion.p>
-          </motion.div>
-
-          {/* Search and Filter Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5 }}
-            className="mb-12"
-          >
-            <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-6 sm:p-8 border border-white/50 shadow-xl">
-              {/* Search Bar */}
               <div className="relative mb-6">
-                <Search
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
-                  size={20}
-                />
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
                 <input
                   type="text"
                   placeholder="Search destinations, activities, or places..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-12 pr-4 py-4 bg-white/50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#0056D2] focus:border-transparent text-gray-900 placeholder-gray-500"
-                  style={{ fontFamily: "Manrope, sans-serif" }}
+                  className="w-full pl-12 pr-4 py-4 bg-gray-50 border-none rounded-xl focus:outline-none focus:ring-2 focus:ring-[#eb662b] text-sm text-gray-900 placeholder-gray-400"
+                  style={{ fontFamily: "var(--font-manrope)" }}
                 />
               </div>
 
-              {/* Filter Buttons */}
-              <div className="space-y-6">
+              <div className="flex flex-col md:flex-row gap-8">
                 {/* Region Filter */}
-                <div>
-                  <h3
-                    className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2"
-                    style={{ fontFamily: "Manrope, sans-serif" }}
-                  >
-                    <MapPin size={16} />
+                <div className="flex-1">
+                  <h3 className="text-xs font-bold text-gray-800 uppercase tracking-wider mb-4" style={{ fontFamily: "var(--font-manrope)" }}>
                     Filter by Region
                   </h3>
-                  <div className="flex flex-wrap gap-3">
-                    {regions.map((region) => {
-                      const IconComponent = region.icon;
-                      return (
-                        <motion.button
+                  <div className="flex flex-wrap gap-2">
+                    {regions.map((region) => (
+                        <button
                           key={region.id}
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
                           onClick={() => setSelectedRegion(region.id)}
-                          className={`flex items-center gap-2 px-4 py-2 rounded-xl border transition-all duration-300 ${
+                          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
                             selectedRegion === region.id
-                              ? "bg-[#0056D2] text-white border-[#0056D2] shadow-lg"
-                              : "bg-white text-gray-700 border-gray-200 hover:border-[#0056D2] hover:text-[#0056D2]"
+                              ? "bg-[#eb662b] text-white shadow-md shadow-orange-100"
+                              : "bg-gray-50 text-gray-600 hover:bg-gray-100"
                           }`}
-                          style={{ fontFamily: "Manrope, sans-serif" }}
+                          style={{ fontFamily: "var(--font-manrope)" }}
                         >
-                          <IconComponent size={16} />
                           {region.name}
-                        </motion.button>
-                      );
-                    })}
+                        </button>
+                    ))}
                   </div>
                 </div>
 
                 {/* Package Type Filter */}
-                <div>
-                  <h3
-                    className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2"
-                    style={{ fontFamily: "Manrope, sans-serif" }}
-                  >
-                    <Star size={16} />
-                    Filter by Package Type
+                <div className="flex-1">
+                  <h3 className="text-xs font-bold text-gray-800 uppercase tracking-wider mb-4" style={{ fontFamily: "var(--font-manrope)" }}>
+                    Filter by Type
                   </h3>
-                  <div className="flex flex-wrap gap-3">
-                    {packageTypes.map((type) => {
-                      const IconComponent = type.icon;
-                      return (
-                        <motion.button
+                  <div className="flex flex-wrap gap-2">
+                    {packageTypes.map((type) => (
+                        <button
                           key={type.id}
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
                           onClick={() => setSelectedType(type.id)}
-                          className={`flex items-center gap-2 px-4 py-2 rounded-xl border transition-all duration-300 ${
+                          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
                             selectedType === type.id
-                              ? "bg-[#0056D2] text-white border-[#0056D2] shadow-lg"
-                              : "bg-white text-gray-700 border-gray-200 hover:border-[#0056D2] hover:text-[#0056D2]"
+                              ? "bg-[#eb662b] text-white shadow-md shadow-orange-100"
+                              : "bg-gray-50 text-gray-600 hover:bg-gray-100"
                           }`}
-                          style={{ fontFamily: "Manrope, sans-serif" }}
+                          style={{ fontFamily: "var(--font-manrope)" }}
                         >
-                          <IconComponent size={16} />
                           {type.name}
-                        </motion.button>
-                      );
-                    })}
+                        </button>
+                    ))}
                   </div>
                 </div>
               </div>
-
-              {/* Results Count */}
-              <div className="mt-6 pt-6 border-t border-gray-200">
-                <p
-                  className="text-sm text-gray-600"
-                  style={{ fontFamily: "Manrope, sans-serif" }}
-                >
-                  {loading
-                    ? "Loading packages..."
-                    : `Showing ${filteredPackages.length} of ${packages.length} packages`}
-                </p>
-              </div>
-            </div>
           </motion.div>
 
           {/* Travel Packages Grid */}
           {loading ? (
-            <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8 mb-16">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[...Array(6)].map((_, i) => (
-                <div
-                  key={i}
-                  className="animate-pulse bg-white rounded-3xl overflow-hidden shadow-xl border border-white/60"
-                >
-                  <div className="bg-gray-200 h-72 w-full" />
+                <div key={i} className="animate-pulse bg-white rounded-[2rem] overflow-hidden shadow-sm h-[480px]">
+                  <div className="bg-gray-200 h-56 w-full m-4 rounded-[1.5rem]" />
                   <div className="p-6">
-                    <div className="h-6 bg-gray-200 rounded w-3/4 mb-4" />
-                    <div className="h-4 bg-gray-200 rounded w-full mb-2" />
-                    <div className="h-4 bg-gray-200 rounded w-5/6 mb-6" />
-                    <div className="h-12 bg-gray-200 rounded-2xl w-full" />
+                    <div className="h-4 bg-gray-200 rounded w-3/4 mb-4" />
+                    <div className="h-3 bg-gray-200 rounded w-full mb-2" />
+                    <div className="h-3 bg-gray-200 rounded w-5/6 mb-8" />
+                    <div className="h-8 bg-gray-200 rounded w-full" />
                   </div>
                 </div>
               ))}
@@ -307,219 +269,80 @@ export default function DestinationsPage() {
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
-                className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8 mb-16"
+                className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
               >
                 {filteredPackages.map((pkg) => {
                   const title = pkg.title || pkg.name || "Package";
-                  const image =
-                    pkg.images?.[0] ||
-                    pkg.image ||
-                    "https://images.unsplash.com/photo-1534695215921-52f8a19e7909";
+                  const image = pkg.images?.[0] || pkg.image || "https://images.unsplash.com/photo-1544551763-47a0159c92b2?w=800&q=80";
                   const price = pkg.price || 0;
-                  const duration = pkg.duration || "";
-                  const rating = pkg.rating || 4.5;
-                  const reviews = pkg.reviews || 0;
-                  const region = pkg.region || "";
-                  const type = pkg.type || "";
-                  const description = pkg.description || "";
-                  const highlights = pkg.highlights || pkg.inclusions || [];
-                  const bestTime = pkg.bestTime || "";
-                  const difficulty = pkg.difficulty || "";
+                  const duration = pkg.duration || "4 days";
+                  const region = pkg.region || "Vietnam";
+                  const description = pkg.description || "Beautiful sightseeing and stunning nature. Join us on this amazing journey.";
 
                   return (
                     <motion.div
                       key={pkg.id || pkg._id}
                       variants={itemVariants}
-                      whileHover={{ y: -8, scale: 1.02 }}
-                      onHoverStart={() => setHoveredCard(pkg.id)}
-                      onHoverEnd={() => setHoveredCard(null)}
-                      className="group relative bg-white/90 backdrop-blur-xl rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/60"
+                      className="group bg-white rounded-[2rem] overflow-hidden shadow-sm border border-gray-50 hover:shadow-xl transition-shadow duration-300 flex flex-col pt-3 px-3 relative"
                     >
-                      {/* Image Container */}
-                      <div className="relative h-64 sm:h-72 overflow-hidden">
+                      {/* Image Container with inner radius */}
+                      <div className="relative h-56 overflow-hidden rounded-[1.5rem] w-full shrink-0">
                         <img
                           src={image}
                           alt={title}
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         />
-
-                        {/* Dynamic Overlay */}
-                        <div
-                          className={`absolute inset-0 bg-gradient-to-t transition-all duration-500 ${
-                            hoveredCard === pkg.id
-                              ? "from-[#0056D2]/95 via-[#43E0F8]/80 to-transparent"
-                              : "from-black/70 via-black/40 to-transparent"
-                          }`}
-                        />
-
-                        {/* Package Type Badge */}
-                        {type && (
-                          <div className="absolute top-4 left-4 bg-white/20 backdrop-blur-md rounded-full px-3 py-1 border border-white/30">
-                            <div className="flex items-center gap-1">
-                              {type === "holidays" && (
-                                <Calendar className="text-white" size={12} />
-                              )}
-                              {type === "hill-station" && (
-                                <Mountain className="text-white" size={12} />
-                              )}
-                              {type === "trekking" && (
-                                <Tent className="text-white" size={12} />
-                              )}
-                              <span
-                                className="text-white text-xs font-medium capitalize"
-                                style={{ fontFamily: "Manrope, sans-serif" }}
-                              >
-                                {type.replace("-", " ")}
-                              </span>
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Region Badge */}
-                        {region && (
-                          <div className="absolute top-4 right-4 bg-[#0056D2]/80 backdrop-blur-md rounded-full px-3 py-1">
-                            <span
-                              className="text-white text-xs font-medium capitalize"
-                              style={{ fontFamily: "Manrope, sans-serif" }}
-                            >
-                              {region} India
-                            </span>
-                          </div>
-                        )}
-
-                        {/* Rating */}
-                        <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-md rounded-full px-3 py-1 flex items-center gap-1">
-                          <Star
-                            className="text-yellow-400 fill-current"
-                            size={12}
-                          />
-                          <span
-                            className="text-gray-900 text-xs font-semibold"
-                            style={{ fontFamily: "Manrope, sans-serif" }}
-                          >
-                            {rating}
-                          </span>
-                          {reviews > 0 && (
-                            <span
-                              className="text-gray-600 text-xs"
-                              style={{ fontFamily: "Manrope, sans-serif" }}
-                            >
-                              ({reviews})
-                            </span>
-                          )}
-                        </div>
-
-                        {/* Price Badge */}
-                        <div
-                          className="absolute bottom-4 right-4 bg-[#0056D1] text-white rounded-full px-4 py-2 font-bold shadow-lg"
-                          style={{ fontFamily: "Manrope, sans-serif" }}
-                        >
-                          ₹{price.toLocaleString()}
+                        
+                        {/* Colored Tag (Top Left) */}
+                        <div className={`absolute top-4 left-4 ${getRegionTagColor(region)} text-white text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded`}>
+                           {region}
                         </div>
                       </div>
 
                       {/* Content Section */}
-                      <div className="p-6">
-                        <div className="mb-4">
-                          <h3
-                            className="text-xl font-bold text-gray-900 mb-2 group-hover:text-[#0056D2] transition-colors"
-                            style={{ fontFamily: "Montserrat, sans-serif" }}
-                          >
-                            {title}
-                          </h3>
-                          <p
-                            className="text-gray-600 text-sm leading-relaxed mb-3"
-                            style={{ fontFamily: "Manrope, sans-serif" }}
-                          >
-                            {description}
-                          </p>
+                      <div className="p-4 pt-6 flex flex-col flex-1">
+                        <h3
+                          className="text-lg font-black text-[#05073C] mb-2 leading-snug line-clamp-2"
+                          style={{ fontFamily: "var(--font-montserrat)" }}
+                        >
+                          {title}
+                        </h3>
+                        <p
+                          className="text-gray-400 text-xs leading-relaxed mb-6 line-clamp-2 font-medium"
+                          style={{ fontFamily: "var(--font-manrope)" }}
+                        >
+                          {description}
+                        </p>
 
-                          {/* Package Details */}
-                          <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
-                            {duration && (
-                              <div className="flex items-center gap-1">
-                                <Clock size={14} />
-                                <span>{duration}</span>
-                              </div>
-                            )}
-                            <div className="flex items-center gap-1">
-                              <Users size={14} />
-                              <span>2-12 people</span>
+                        <div className="border-t border-gray-100 flex items-center justify-between py-4 mt-auto">
+                            <div className="flex items-center gap-2">
+                               <Calendar className="text-[#eb662b]" size={16} />
+                               <div className="flex flex-col">
+                                  <span className="text-[10px] text-gray-800 font-bold uppercase" style={{ fontFamily: 'var(--font-manrope)'}}>Duration</span>
+                                  <span className="text-[10px] text-gray-500 font-medium">{duration}</span>
+                               </div>
                             </div>
-                          </div>
-
-                          {/* Highlights */}
-                          {highlights.length > 0 && (
-                            <div className="mb-4">
-                              <p
-                                className="text-xs text-gray-500 mb-2 font-medium"
-                                style={{ fontFamily: "Manrope, sans-serif" }}
-                              >
-                                Key Highlights:
-                              </p>
-                              <div className="flex flex-wrap gap-1">
-                                {highlights.slice(0, 3).map((highlight, i) => (
-                                  <span
-                                    key={i}
-                                    className="px-2 py-1 bg-[#0056D2]/10 text-[#0056D2] rounded-full text-xs font-medium"
-                                    style={{
-                                      fontFamily: "Manrope, sans-serif",
-                                    }}
-                                  >
-                                    {highlight}
-                                  </span>
-                                ))}
-                                {highlights.length > 3 && (
-                                  <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-medium">
-                                    +{highlights.length - 3} more
-                                  </span>
-                                )}
-                              </div>
+                            
+                            <div className="flex items-center gap-2">
+                               <Users className="text-[#eb662b]" size={16} />
+                               <div className="flex flex-col">
+                                  <span className="text-[10px] text-gray-800 font-bold uppercase" style={{ fontFamily: 'var(--font-manrope)'}}>Group Size</span>
+                                  <span className="text-[10px] text-gray-500 font-medium">8 people</span> {/* Defaulting to 8 as requested */}
+                               </div>
                             </div>
-                          )}
-
-                          {/* Package Info */}
-                          {(bestTime || difficulty) && (
-                            <div className="grid grid-cols-2 gap-3 text-xs text-gray-600 mb-4">
-                              {bestTime && (
-                                <div>
-                                  <span className="font-medium">
-                                    Best Time:
-                                  </span>
-                                  <p>{bestTime}</p>
-                                </div>
-                              )}
-                              {difficulty && (
-                                <div>
-                                  <span className="font-medium">
-                                    Difficulty:
-                                  </span>
-                                  <p>{difficulty}</p>
-                                </div>
-                              )}
-                            </div>
-                          )}
                         </div>
 
-                        {/* Action Button */}
-                        <Link href={`/package/${pkg.id}`}>
-                          <motion.button
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                            className="w-full bg-gradient-to-r from-[#0056D2] to-[#43E0F8] text-white font-bold py-3 px-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 group"
-                            style={{ fontFamily: "Manrope, sans-serif" }}
-                          >
-                            <span>View Details</span>
-                            <ArrowRight
-                              className="transition-transform duration-300 group-hover:translate-x-1"
-                              size={16}
-                            />
-                          </motion.button>
-                        </Link>
+                        <div className="border-t border-gray-100 flex items-center justify-between pt-4 pb-2">
+                           <span className="text-lg font-black text-[#05073C]" style={{ fontFamily: 'var(--font-montserrat)' }}>
+                              ₹{price.toLocaleString()}
+                           </span>
+                           <Link href={`/package/${pkg.id || pkg._id}`}>
+                              <button className="px-5 py-2.5 bg-[#eb662b] hover:bg-[#ff9b6a] text-white text-xs font-bold uppercase rounded-xl transition-colors shadow-sm tracking-wide" style={{ fontFamily: 'var(--font-manrope)' }}>
+                                 BOOK NOW
+                              </button>
+                           </Link>
+                        </div>
                       </div>
-
-                      {/* Glow Effect */}
-                      <div className="absolute inset-0 border-2 border-transparent group-hover:border-[#43E0F8]/60 rounded-3xl transition-all duration-500 pointer-events-none" />
                     </motion.div>
                   );
                 })}
@@ -529,69 +352,11 @@ export default function DestinationsPage() {
 
           {/* No Results */}
           {!loading && filteredPackages.length === 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-center py-16"
-            >
-              <div className="bg-white/80 backdrop-blur-xl rounded-3xl p-12 border border-white/50 shadow-xl max-w-md mx-auto">
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                  className="w-16 h-16 bg-gradient-to-r from-[#0056D2] to-[#43E0F8] rounded-2xl flex items-center justify-center mx-auto mb-4"
-                >
-                  <Search className="text-white" size={24} />
-                </motion.div>
-                <h3
-                  className="text-xl font-bold text-gray-900 mb-2"
-                  style={{ fontFamily: "Montserrat, sans-serif" }}
-                >
-                  No packages found
-                </h3>
-                <p
-                  className="text-gray-600"
-                  style={{ fontFamily: "Manrope, sans-serif" }}
-                >
-                  Try adjusting your search terms or filters
-                </p>
-              </div>
-            </motion.div>
-          )}
-
-          {/* Call to Action */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.8 }}
-            className="text-center mt-16 sm:mt-20"
-          >
-            <div className="bg-gradient-to-r from-[#0056D2]/5 via-[#43E0F8]/5 to-[#0056D2]/5 backdrop-blur-xl rounded-3xl p-8 sm:p-12 border border-[#43E0F8]/20">
-              <h3
-                className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4"
-                style={{ fontFamily: "Montserrat, sans-serif" }}
-              >
-                Ready to Start Your Indian Adventure?
-              </h3>
-              <p
-                className="text-gray-600 mb-8 max-w-2xl mx-auto"
-                style={{ fontFamily: "Manrope, sans-serif" }}
-              >
-                Choose from our curated collection of travel packages and create
-                unforgettable memories across India's diverse landscapes.
-              </p>
-              <Link href="/contact">
-                <motion.button
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-gradient-to-r from-[#0056D2] to-[#43E0F8] text-white font-bold rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 text-lg"
-                  style={{ fontFamily: "Manrope, sans-serif" }}
-                >
-                  Contact Us to Book
-                </motion.button>
-              </Link>
+            <div className="text-center py-20 bg-white rounded-3xl mt-10 shadow-sm border border-gray-100">
+               <h3 className="text-xl font-bold text-gray-900 mb-2">No packages found</h3>
+               <p className="text-gray-500">Try adjusting your filters to discover more.</p>
             </div>
-          </motion.div>
+          )}
         </div>
       </section>
 

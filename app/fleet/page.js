@@ -266,7 +266,7 @@ function FleetBookingModal({ open, onClose, vehicle, onSuccess }) {
         key: orderData.keyId,
         amount: orderData.amount,
         currency: orderData.currency,
-        name: "EXCURSION TRAVEL",
+        name: "TRIPPY GO",
         description: `Fleet Booking - ${vehicle?.name}`,
         order_id: orderData.orderId,
         handler: async function (response) {
@@ -395,7 +395,7 @@ function FleetBookingModal({ open, onClose, vehicle, onSuccess }) {
         }}
       >
         {/* Header Section */}
-        <div className="bg-gradient-to-br from-[#0056D2] to-[#43E0F8] p-8 text-white relative h-48 flex flex-col justify-end">
+        <div className="bg-gradient-to-br from-[#eb662b] to-[#ff9b6a] p-8 text-white relative h-48 flex flex-col justify-end">
           <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16 blur-2xl"></div>
           <div className="relative z-10">
             <h2
@@ -423,7 +423,7 @@ function FleetBookingModal({ open, onClose, vehicle, onSuccess }) {
                   <div
                     className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
                       step.id <= currentStep
-                        ? "bg-[#0056D2] text-white shadow-lg"
+                        ? "bg-[#eb662b] text-white shadow-lg"
                         : "bg-gray-100 text-gray-400"
                     }`}
                   >
@@ -432,7 +432,7 @@ function FleetBookingModal({ open, onClose, vehicle, onSuccess }) {
                   <span
                     className={`text-[10px] font-black uppercase tracking-widest ${
                       step.id <= currentStep
-                        ? "text-[#0056D2]"
+                        ? "text-[#eb662b]"
                         : "text-gray-400"
                     }`}
                   >
@@ -442,7 +442,7 @@ function FleetBookingModal({ open, onClose, vehicle, onSuccess }) {
                 {idx < steps.length - 1 && (
                   <div
                     className={`flex-1 h-1 mx-2 rounded-full ${
-                      step.id < currentStep ? "bg-[#0056D2]" : "bg-gray-100"
+                      step.id < currentStep ? "bg-[#eb662b]" : "bg-gray-100"
                     }`}
                   />
                 )}
@@ -652,7 +652,7 @@ function FleetBookingModal({ open, onClose, vehicle, onSuccess }) {
                       <span className="text-lg font-black text-gray-900 uppercase">
                         Total amount
                       </span>
-                      <span className="text-2xl font-black text-[#0056D2]">
+                      <span className="text-2xl font-black text-[#eb662b]">
                         ₹{totalAmount.toLocaleString()}
                       </span>
                     </div>
@@ -707,7 +707,7 @@ function FleetBookingModal({ open, onClose, vehicle, onSuccess }) {
             <Button
               onClick={handlePayment}
               disabled={loading}
-              className="flex-[2] bg-[#0056D2] hover:bg-black text-white font-black rounded-2xl py-4 h-auto shadow-xl transition-all gap-2"
+              className="flex-[2] bg-[#eb662b] hover:bg-[#eb662b] text-white font-black rounded-2xl py-4 h-auto shadow-xl transition-all gap-2"
             >
               {loading ? (
                 <>

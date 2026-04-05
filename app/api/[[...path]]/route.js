@@ -803,7 +803,7 @@ async function handleRoute(request, { params }) {
         title: body.title || 'Untitled',
         excerpt: body.excerpt || '',
         content: body.content || '',
-        author: body.author || 'Excursion Travel Team',
+        author: body.author || 'Trippy Go Team',
         date: body.date || new Date().toISOString().split('T')[0],
         readTime: body.readTime || '5 min read',
         category: body.category || 'Uncategorized',

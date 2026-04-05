@@ -34,7 +34,7 @@ export default function PrivacyPage (){
               className="text-lg text-gray-600"
               style={{ fontFamily: 'Manrope, sans-serif' }}
             >
-              Your privacy is important to us. This Privacy Policy explains how Excursion Travel collects, uses, and protects your information.
+              Your privacy is important to us. This Privacy Policy explains how Trippy Go collects, uses, and protects your information.
             </motion.p>
           </motion.div>
 
@@ -60,7 +60,7 @@ export default function PrivacyPage (){
               </motion.h3>
               <div className="text-gray-700" style={{ fontFamily: 'Manrope, sans-serif' }}>
                 <p className="mb-4">
-                  Excursion Travel ("we," "us," or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, use our services, or interact with us.
+                  Trippy Go ("we," "us," or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, use our services, or interact with us.
                 </p>
                 <p>
                   By using our services, you agree to the collection and use of information in accordance with this policy.
@@ -324,7 +324,7 @@ export default function PrivacyPage (){
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 1.0 }}
-              className="bg-gradient-to-r from-[#0056D2] to-[#2563eB] rounded-xl shadow-lg p-8 text-white text-center"
+              className="bg-gradient-to-r from-[#eb662b] to-[#d45a20] rounded-xl shadow-lg p-8 text-white text-center"
             >
               <motion.h3
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -353,8 +353,8 @@ export default function PrivacyPage (){
                 transition={{ duration: 0.6, delay: 1.3 }}
                 className="space-y-2"
               >
-                <p className="text-xl font-semibold">Phone: +1 234 567 890</p>
-                <p className="text-xl font-semibold">Email: contact@excursiontravel.in</p>
+                <p className="text-xl font-semibold">Phone: +91 8076449902</p>
+                <p className="text-xl font-semibold">Email: info@trippygo.co.in</p>
               </motion.div>
             </motion.div>
           </div>

@@ -32,7 +32,7 @@ export default function ServiceDetail() {
         galleryImage: "/asset/Corporate Car Rental Image 2.jpeg",
         subtitle: "Sit back and enjoy – Let our chauffeurs drive you",
         description:
-          "Excursion Travel Car rental promises a seamless and comfortable journey, be it for client meetings, corporate events, site visits, or airport pick and drops. Our Corporate car rental service in Pan India meets a wide range of business requirements, providing a combination of flexibility, convenience, and professionalism that meets the high standards of contemporary businesses.",
+          "Trippy Go Car rental promises a seamless and comfortable journey, be it for client meetings, corporate events, site visits, or airport pick and drops. Our Corporate car rental service in Pan India meets a wide range of business requirements, providing a combination of flexibility, convenience, and professionalism that meets the high standards of contemporary businesses.",
         details:
           "Intended to fit the ever-changing pace of business life, our services offer chauffeur-driven cars that ensure timely arrival and hassle-free travel. Elegant interiors make the journey a work area, enabling professionals to prepare for conferences or make calls while on the move. Further, we can uphold a sophisticated and professional reputation by utilizing top-notch vehicles coupled with well-trained and polite drivers.",
         galleryImages: [
@@ -44,14 +44,14 @@ export default function ServiceDetail() {
           {
             title: "Diverse Fleet Options",
             description:
-              "A Diverse Fleet of economy cars, luxury sedans, SUVs, among others, is bound to leave you spoilt for choice. Our trained chauffeurs, are certain to take you on a journey that is as smooth as it is enjoyable. Luxury cars for the officious, stately sedans for those on important duties, and large coaches and SUVs for large groups of family or friends, Excursion Travel can arrange for the vehicle that suits all your needs and ticks all boxes.",
+              "A Diverse Fleet of economy cars, luxury sedans, SUVs, among others, is bound to leave you spoilt for choice. Our trained chauffeurs, are certain to take you on a journey that is as smooth as it is enjoyable. Luxury cars for the officious, stately sedans for those on important duties, and large coaches and SUVs for large groups of family or friends, Trippy Go can arrange for the vehicle that suits all your needs and ticks all boxes.",
             icon: Star,
             image: "/asset/Corporate Car Rental Image 1.jpeg",
           },
           {
             title: "Professional Chauffeurs",
             description:
-              "Chauffeurs will not only look to getting you to your destination but take care to see that you are not inconvenienced in any way throughout your journey with Excursion Travel. Our trained chauffeurs are everything that Excursion Travel stands for – reliability, safety, comfort, and professionalism.",
+              "Chauffeurs will not only look to getting you to your destination but take care to see that you are not inconvenienced in any way throughout your journey with Trippy Go. Our trained chauffeurs are everything that Trippy Go stands for – reliability, safety, comfort, and professionalism.",
             icon: Users,
             image: "/asset/Corporate Car Rental Image 2.jpeg",
           },
@@ -90,9 +90,9 @@ export default function ServiceDetail() {
         galleryImage: "/asset/Employee Transport Services Image 2.jpeg",
         subtitle: "A smooth ride for your workforce",
         description:
-          "Looking for safe, comfortable and reliable employee transportation services for your team? Then you have come to the right place. At Excursion Travel, we understand that assurance of reliable transportation services boosts employee morale, and drives productivity at the workplace by increasing punctuality and eliminating anxiety over finding rides.",
+          "Looking for safe, comfortable and reliable employee transportation services for your team? Then you have come to the right place. At Trippy Go, we understand that assurance of reliable transportation services boosts employee morale, and drives productivity at the workplace by increasing punctuality and eliminating anxiety over finding rides.",
         details:
-          "Our large fleet of cars and experienced chauffeurs, Excursion Travel can help businesses put in place systems that can effectively save time and energy for the employees, and prevent wastage of valuable resources in mobility planning. Regardless of the size of the workforce, Excursion Travel can ensure a seamless transition to a more efficient and easy transportation system that is beneficial to both employees and businesses. Get all your doubts soundly answered with a presentation. Call us to arrange a presentation for you as per your convenience.",
+          "Our large fleet of cars and experienced chauffeurs, Trippy Go can help businesses put in place systems that can effectively save time and energy for the employees, and prevent wastage of valuable resources in mobility planning. Regardless of the size of the workforce, Trippy Go can ensure a seamless transition to a more efficient and easy transportation system that is beneficial to both employees and businesses. Get all your doubts soundly answered with a presentation. Call us to arrange a presentation for you as per your convenience.",
         galleryImages: [
           "/asset/Employee Transport Services Image 3.jpeg",
           "/asset/Employee Transport Services Image 4.jpeg",
@@ -101,7 +101,7 @@ export default function ServiceDetail() {
           {
             title: "24/7 Availability",
             description:
-              "Irregular shift is no hurdle to us. Excursion Travel ensures availability of cars to ferry employees regardless of their shift – early morning hours or late-night. Arrangements to pick-up or drop employees at irregular hours are made such that businesses can rest assured of the workforce arriving at the office on time or reaching home comfortable and safe. Excursion Travel expert team is available round-the-clock to assist clients, and answer any queries you may have.",
+              "Irregular shift is no hurdle to us. Trippy Go ensures availability of cars to ferry employees regardless of their shift – early morning hours or late-night. Arrangements to pick-up or drop employees at irregular hours are made such that businesses can rest assured of the workforce arriving at the office on time or reaching home comfortable and safe. Trippy Go expert team is available round-the-clock to assist clients, and answer any queries you may have.",
             icon: Clock,
             image: "/asset/Employee Transport Services Image 1.jpeg",
           },
@@ -115,14 +115,14 @@ export default function ServiceDetail() {
           {
             title: "Optimal Resource Utilization",
             description:
-              "Optimal utilisation of resources ensures efficiency of operations on the one hand, while trimming the number of variable parameters involved in the management equation. Streamlining of operations through use of technology and expert personnel has enabled Excursion Travel to ensure quality service, while preventing incidence of unforeseen disruptions.",
+              "Optimal utilisation of resources ensures efficiency of operations on the one hand, while trimming the number of variable parameters involved in the management equation. Streamlining of operations through use of technology and expert personnel has enabled Trippy Go to ensure quality service, while preventing incidence of unforeseen disruptions.",
             icon: Star,
             image: "/asset/Employee Transport Services Image 3.jpeg",
           },
           {
             title: "Tailored Solutions",
             description:
-              "Tailored solution best describes Excursion Travel employee transport service. We handle end-to-end solutions, and flexibility in back-end operations has allowed us to adopt a technology-agnostic approach to management, thereby enabling us to tailor our model to meet the specific requirements of each client.",
+              "Tailored solution best describes Trippy Go employee transport service. We handle end-to-end solutions, and flexibility in back-end operations has allowed us to adopt a technology-agnostic approach to management, thereby enabling us to tailor our model to meet the specific requirements of each client.",
             icon: Heart,
             image: "/asset/Employee Transport Services Image 4.jpeg",
           },
@@ -149,7 +149,7 @@ export default function ServiceDetail() {
         description:
           "Events, personal or corporate, big or small, entail logistics that require expert hands to handle them, with arranging transport being one of the major tasks that requires meticulous planning and execution. Be it a high-profile wedding, corporate celebrations, an intra-office celebration, arranging vehicles for all invitees to arrive at the venue on time, or ensuring that they return home safely, is a task that may consume a very large portion of time and your energies. That is precisely why it is best to leave this task in the hands of experienced mobility managers.",
         details:
-          "Excursion Travel has not only the technical expertise to handle the mandate for ceremonial events, but our people are also acutely sensitive to the cultural sensibilities involved in many such celebratory events. While our trained drivers, with their acute knowledge of the roads try to ensure that you are never late for any of the events or rituals, those working tirelessly at the back-end, arranging trips, finalizing routes and schedules, try to ensure that all contingencies are accounted for. Entrusting the mobility mandate of your events to Excursion Travel will relieve you of all the attendant stress, while leaving you with a bundle of joyous memories.",
+          "Trippy Go has not only the technical expertise to handle the mandate for ceremonial events, but our people are also acutely sensitive to the cultural sensibilities involved in many such celebratory events. While our trained drivers, with their acute knowledge of the roads try to ensure that you are never late for any of the events or rituals, those working tirelessly at the back-end, arranging trips, finalizing routes and schedules, try to ensure that all contingencies are accounted for. Entrusting the mobility mandate of your events to Trippy Go will relieve you of all the attendant stress, while leaving you with a bundle of joyous memories.",
         galleryImages: [
           "/asset/Event Transportation Image 3.jpeg",
           "/asset/Event Transportation Image 4.jpeg",
@@ -158,7 +158,7 @@ export default function ServiceDetail() {
           {
             title: "Event-Specific Arrangements",
             description:
-              "Event-Specific Transportation arrangements guaranteed by Excursion Travel. Once you enlist our assistance for the event, and furnish all the required information about the event, and the number of guests to be expected, you can rid your mind of all worry about the guests arriving at the venue on time. It could be a wedding or a corporate event, our solutions are specific, and tailored to meet the unique demands and necessities of that situation.",
+              "Event-Specific Transportation arrangements guaranteed by Trippy Go. Once you enlist our assistance for the event, and furnish all the required information about the event, and the number of guests to be expected, you can rid your mind of all worry about the guests arriving at the venue on time. It could be a wedding or a corporate event, our solutions are specific, and tailored to meet the unique demands and necessities of that situation.",
             icon: Calendar,
             image: "/asset/Event Transportation Image 1.jpeg",
           },
@@ -204,9 +204,9 @@ export default function ServiceDetail() {
         galleryImage: "/asset/Conferences & Delegation Image 2.jpeg",
         subtitle: "Conferences & Delegations Transportation Services",
         description:
-          "Conferences and delegations are quite common in this corporate world. Many corporate organizations arrange these conferences for their firm to promote it. In these conferences, they not only discuss things but also interact or even join in the debate with many other different businesses. So we all can understand how important these conferences and delegations can be for any business. That is why Excursion Travel, one of the best providers of car rental services for conferences and delegations offers the best vehicles at your doorstep at an affordable price.",
+          "Conferences and delegations are quite common in this corporate world. Many corporate organizations arrange these conferences for their firm to promote it. In these conferences, they not only discuss things but also interact or even join in the debate with many other different businesses. So we all can understand how important these conferences and delegations can be for any business. That is why Trippy Go, one of the best providers of car rental services for conferences and delegations offers the best vehicles at your doorstep at an affordable price.",
         details:
-          "Attentive and Experienced Personnel at Excursion Travel will liaise with conference organizers to understand their requirements, and suitably deploy the required number of cars and coaches for ferrying delegates and participants to and from the event venue. Similarly, delegates attending any big conference from outside the town can reserve either one or multiple cars – depending on the side of their group – so they can focus entirely on the event, and not worry about getting to the venue on time. Our experienced personnel are adept at tailoring solutions to suit your requirements.",
+          "Attentive and Experienced Personnel at Trippy Go will liaise with conference organizers to understand their requirements, and suitably deploy the required number of cars and coaches for ferrying delegates and participants to and from the event venue. Similarly, delegates attending any big conference from outside the town can reserve either one or multiple cars – depending on the side of their group – so they can focus entirely on the event, and not worry about getting to the venue on time. Our experienced personnel are adept at tailoring solutions to suit your requirements.",
         galleryImages: [
           "/asset/Conferences & Delegation Image 3.jpeg",
           "/asset/Conferences & Delegation Image 4.jpeg",
@@ -215,7 +215,7 @@ export default function ServiceDetail() {
           {
             title: "Expert Coordination",
             description:
-              "Attentive and Experienced Personnel at Excursion Travel will liaise with conference organizers to understand their requirements, and suitably deploy the required number of cars and coaches for ferrying delegates and participants to and from the event venue. Similarly, delegates attending any big conference from outside the town can reserve either one or multiple cars – depending on the side of their group – so they can focus entirely on the event, and not worry about getting to the venue on time. Our experienced personnel are adept at tailoring solutions to suit your requirements.",
+              "Attentive and Experienced Personnel at Trippy Go will liaise with conference organizers to understand their requirements, and suitably deploy the required number of cars and coaches for ferrying delegates and participants to and from the event venue. Similarly, delegates attending any big conference from outside the town can reserve either one or multiple cars – depending on the side of their group – so they can focus entirely on the event, and not worry about getting to the venue on time. Our experienced personnel are adept at tailoring solutions to suit your requirements.",
             icon: Users,
             image: "/asset/Conferences & Delegation Image 1.jpeg",
           },
@@ -229,14 +229,14 @@ export default function ServiceDetail() {
           {
             title: "Diverse Fleet Options",
             description:
-              "A Diverse Fleet of Cars to choose from. Excursion Travel fleet of more than 9,000 cars has in its ranks a number of premium luxury sedans, and SUVs, which can be reserved. Delegates, organisers and VIPs, all of them can rest assured of a comfortable ride on board our well-maintained cars.",
+              "A Diverse Fleet of Cars to choose from. Trippy Go fleet of more than 9,000 cars has in its ranks a number of premium luxury sedans, and SUVs, which can be reserved. Delegates, organisers and VIPs, all of them can rest assured of a comfortable ride on board our well-maintained cars.",
             icon: Car,
             image: "/asset/Conferences & Delegation Image 3.jpeg",
           },
           {
             title: "24/7 Support",
             description:
-              "Assistance Guaranteed round-the-clock. Stakeholders can reach out to Excursion Travel personnel at any time of day or night seeking assistance, and rest assured of being lent a patient ear. You may be seeking clarity on billing or you may wish to reschedule your trip or make a fresh reservation besides an existing one, our co-operation is guaranteed.",
+              "Assistance Guaranteed round-the-clock. Stakeholders can reach out to Trippy Go personnel at any time of day or night seeking assistance, and rest assured of being lent a patient ear. You may be seeking clarity on billing or you may wish to reschedule your trip or make a fresh reservation besides an existing one, our co-operation is guaranteed.",
             icon: Clock,
             image: "/asset/Conferences & Delegation Image 4.jpeg",
           },
@@ -260,11 +260,11 @@ export default function ServiceDetail() {
       content: {
         galleryImage: "/asset/Wedding Car Rental Image 2.jpeg",
         subtitle:
-          "Make the special day, extra special with Excursion Travel relax Wedding Car Rentals",
+          "Make the special day, extra special with Trippy Go relax Wedding Car Rentals",
         description:
-          "Weddings are amongst the most special and memorable occasions in people's lives. The entire planning and execution are a huge event in itself, regardless of the size of the weddings. In India, weddings hold a special place in the lives of the bride and groom as well as their families and guests. Knowing how important, intimate, and eventful the wedding ceremonies can be, Excursion Travel prides itself in providing exclusive and effortless car rental services that will take a huge part of the planning off the hands of the already occupied family members.",
+          "Weddings are amongst the most special and memorable occasions in people's lives. The entire planning and execution are a huge event in itself, regardless of the size of the weddings. In India, weddings hold a special place in the lives of the bride and groom as well as their families and guests. Knowing how important, intimate, and eventful the wedding ceremonies can be, Trippy Go prides itself in providing exclusive and effortless car rental services that will take a huge part of the planning off the hands of the already occupied family members.",
         details:
-          "From the bride and groom arriving in style, to organizing airport to venue to airport pick-up and drop, to arranging dream wedding transport for the entire bride and groom gang, the team at Excursion Travel will effortlessly handle the planning logistics and management. Stylish Cars, well maintained and, decked up as suits the occasion, will be at your disposal throughout the duration of the wedding ceremony, including the many events leading up to the big day. You can reserve any number of cars of varying size – sedans, SUVs among others – depending on the preferences of your guest list.",
+          "From the bride and groom arriving in style, to organizing airport to venue to airport pick-up and drop, to arranging dream wedding transport for the entire bride and groom gang, the team at Trippy Go will effortlessly handle the planning logistics and management. Stylish Cars, well maintained and, decked up as suits the occasion, will be at your disposal throughout the duration of the wedding ceremony, including the many events leading up to the big day. You can reserve any number of cars of varying size – sedans, SUVs among others – depending on the preferences of your guest list.",
         galleryImages: [
           "/asset/Wedding Car Rental Image 3.jpeg",
           "/asset/Wedding Car Rental Image 4.jpeg",
@@ -280,7 +280,7 @@ export default function ServiceDetail() {
           {
             title: "Courteous Chauffeurs",
             description:
-              "Courteous Chauffeurs will ensure that there is no dampening of the celebratory spirit even on the most congested streets leading up to the venue. Excursion Travel trained chauffeurs, with their knowledge of the streets, coupled with their thoroughly professional approach to their jobs, will take care not only to secure your comfort but ensure that you arrive in time for all the auspicious events well ahead of time.",
+              "Courteous Chauffeurs will ensure that there is no dampening of the celebratory spirit even on the most congested streets leading up to the venue. Trippy Go trained chauffeurs, with their knowledge of the streets, coupled with their thoroughly professional approach to their jobs, will take care not only to secure your comfort but ensure that you arrive in time for all the auspicious events well ahead of time.",
             icon: Star,
             image: "/asset/Wedding Car Rental Image 2.jpeg",
           },
@@ -991,7 +991,7 @@ export default function ServiceDetail() {
                     style={{ fontFamily: "Manrope, sans-serif" }}
                   >
                     Book your premium transportation service today and discover
-                    why discerning clients choose Excursion Travel for all their
+                    why discerning clients choose Trippy Go for all their
                     mobility needs.
                   </p>
 

@@ -8,19 +8,30 @@ import {
   Navigation,
   Menu,
   X,
-  Car,
   Phone,
   Mail,
   MapPin,
   Users,
   BookOpen,
+  Globe,
+  Compass,
+  Map,
+  Plane,
+  Camera,
+  Heart,
+  Search,
 } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
+  const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [user, setUser] = useState(null);
+
+  // Always use solid white navbar as per user request
+  const shouldBeSolid = true;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,32 +57,31 @@ export default function Header() {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "Services", href: "/services" },
-    { name: "Fleet", href: "/fleet" },
-    { name: "Blog", href: "/blog" },
     { name: "About", href: "/about" },
     { name: "Destinations", href: "/destinations" },
+    { name: "Fleet", href: "/fleet" },
+    { name: "Blog", href: "/blog" },
     { name: "Contact", href: "/contact" },
   ];
 
   const getIcon = (name) => {
     switch (name) {
       case "Home":
-        return <MapPin size={20} />;
-      case "Services":
-        return <Car size={20} />;
+        return <Globe size={20} />;
+      case "Destinations":
+        return <Map size={20} />;
+      case "Tours":
+        return <Compass size={20} />;
       case "Fleet":
-        return <Users size={20} />;
+        return <Plane size={20} />;
+      case "Experience":
+        return <Camera size={20} />;
       case "Blog":
         return <BookOpen size={20} />;
-      case "About":
-        return <Navigation size={20} />;
-      case "Destinations":
-        return <MapPin size={20} />;
       case "Contact":
         return <Phone size={20} />;
       default:
-        return <Car size={20} />;
+        return <Navigation size={20} />;
     }
   };
 
@@ -80,92 +90,87 @@ export default function Header() {
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`fixed top-4 left-4 right-4 z-50 transition-all duration-500 ${
-          isScrolled ? "top-2 left-2 right-2" : ""
-        }`}
-      >
-        <div
-          className={`max-w-7xl mx-auto px-6 py-4 flex items-center justify-between rounded-3xl border transition-all duration-500 ${
-            isScrolled
-              ? "bg-white/95 backdrop-blur-xl shadow-2xl"
-              : "bg-white/80 backdrop-blur-lg"
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 bg-white shadow-[0_10px_40px_rgba(0,0,0,0.06)] border-b border-gray-100 ${isScrolled ? "py-2.5" : "py-4"
           }`}
-        >
-          {/* Logo */}
-          <div>
-            <div className="flex items-center mb-2">
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.2 }}
-                className="flex items-center"
-                data-testid="logo-container"
-              >
-                <Link href="/" className="mt-3 flex items-center">
-                  <img
-                    src="/asset/logo website.png"
-                    alt="Excursion Travel"
-                    className="h-8 w-auto md:h-10 transition-all duration-300"
-                  />
-                </Link>
-              </motion.div>
-            </div>
+      >
+        <div className="max-w-screen-2xl mx-auto px-10 md:px-16 flex items-center justify-between">
+
+          {/* Left: Logo (Mega Prominent) */}
+          <div className="flex-shrink-0 w-1/4">
+            <Link href="/" className="flex items-center group">
+              <img
+                src="/asset/logo1.png"
+                alt="Trippy Go"
+                className={`h-14 w-auto md:h-20 object-contain transition-transform duration-500 group-hover:scale-105 drop-shadow-sm`}
+              />
+            </Link>
           </div>
 
-          {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="relative text-gray-700 hover:text-primary transition"
-              >
-                {link.name}
-                <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-primary hover:w-full transition-all"></span>
-              </a>
-            ))}
-          </div>
-
-          {/* Right Section - Desktop */}
-          <div className="hidden lg:flex items-center gap-4">
-            {user ? (
-              <>
-                <a
-                  href="/my-bookings"
-                  className="text-gray-600 hover:text-paleBlue"
+          {/* Center: Symmetric Navigation Links */}
+          <div className="hidden lg:flex flex-1 justify-center">
+            <nav className="flex items-center gap-10">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={`relative text-[15.5px] font-bold tracking-wide transition-colors duration-500 group ${shouldBeSolid ? "text-[#05073C] hover:text-[#eb662b]" : "text-[#eb662b] hover:text-[#eb662b]"
+                    }`}
+                  style={{ fontFamily: 'var(--font-manrope)' }}
                 >
-                  {user.name || "My Bookings"}
-                </a>
-                <Button variant="outline" size="sm" onClick={handleLogout}>
+                  {link.name}
+                  <span className={`absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0.5 rounded-full transition-all duration-300 group-hover:w-8 ${shouldBeSolid ? "bg-[#eb662b]" : "bg-white"
+                    }`} />
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          {/* Right: Auth & CTA Buttons */}
+          <div className="flex items-center justify-end gap-10 w-1/4">
+            {user ? (
+              <div className="flex items-center gap-4 bg-gray-50/50 p-1.5 rounded-full pl-5 border border-gray-100 shadow-sm">
+                <span className={`text-sm font-bold ${shouldBeSolid ? "text-[#05073C]" : "text-[#eb662b]"}`}>
+                  {user.name.split(' ')[0]}
+                </span>
+                <button
+                  onClick={handleLogout}
+                  className="text-[10px] font-black uppercase tracking-widest text-[#eb662b] bg-gray-100 hover:bg-gray-200 px-5 py-2.5 rounded-full transition-all shadow-md active:scale-95"
+                >
                   Logout
-                </Button>
-              </>
+                </button>
+              </div>
             ) : (
-              <>
+              <div className="hidden lg:flex items-center gap-10">
                 <Link href="/auth">
                   <motion.button
-                    whileHover={{
-                      scale: 1.05,
-                      boxShadow: "0 8px 25px rgba(0,86,210,0.3)",
-                    }}
-                    whileTap={{ scale: 0.97 }}
-                    className="px-6 py-2.5 bg-gradient-to-r from-[#0056D2] to-[#43E0F8] text-white font-semibold rounded-full shadow-lg transition-all duration-300 text-sm"
-                    style={{ fontFamily: "Manrope, sans-serif" }}
+                    whileHover={{ scale: 1.05, boxShadow: shouldBeSolid ? "0 15px 30px -10px rgba(235, 102, 43, 0.4)" : "0 15px 30px -10px rgba(255, 255, 255, 0.2)" }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`px-10 py-4 font-black rounded-full transition-all duration-500 text-[13.5px] uppercase tracking-[0.12em] shadow-xl ${shouldBeSolid
+                        ? "bg-gradient-to-r from-[#eb662b] to-[#ff9b6a] text-white"
+                        : "bg-white text-[#05073C]"
+                      }`}
+                    style={{ fontFamily: "var(--font-montserrat)" }}
                   >
-                    Login
+                    Log in
                   </motion.button>
                 </Link>
-              </>
+              </div>
             )}
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden p-2.5 rounded-xl transition-all duration-300 text-gray-700 bg-gray-100 hover:bg-gray-200"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            data-testid="mobile-menu-toggle"
-          >
-            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
+          {/* Mobile Menu Button Wrapper */}
+          <div className="lg:hidden">
+            <button
+              className={`p-3.5 rounded-2xl transition-all duration-300 ${shouldBeSolid
+                ? "text-gray-700 bg-gray-50 border border-gray-200 shadow-sm shadow-black/5 hover:bg-gray-100"
+                : "text-[#eb662b] bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20"
+                }`}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              data-testid="mobile-menu-toggle"
+            >
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </motion.header>
 
@@ -193,79 +198,41 @@ export default function Header() {
               className="lg:hidden fixed top-0 right-0 bottom-0 w-80 max-w-[85vw] bg-white shadow-2xl z-50 overflow-hidden"
               data-testid="mobile-menu-drawer"
             >
-              {/* Road Pattern Background */}
-              <div className="absolute inset-0 opacity-10">
+              {/* Background Decor */}
+              <div className="absolute inset-0 opacity-5 pointer-events-none">
                 <div
                   className="absolute inset-0"
                   style={{
-                    backgroundImage: `
-                      repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.1) 40px, rgba(255,255,255,0.1) 42px),
-                      repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(255,255,255,0.05) 20px, rgba(255,255,255,0.05) 22px)
-                    `,
+                    backgroundImage: `radial-gradient(circle at 2px 2px, rgba(0,0,0,0.1) 1px, transparent 0)`,
+                    backgroundSize: '24px 24px'
                   }}
                 ></div>
               </div>
 
-              {/* Animated Car Silhouette */}
-              <div className="absolute top-8 right-8 opacity-20">
-                <motion.div
-                  animate={{ x: [-20, 20, -20] }}
-                  transition={{
-                    duration: 8,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                >
-                  <Car size={60} className="text-white" />
-                </motion.div>
-              </div>
-
               {/* Drawer Header */}
-              <div className="relative bg-gradient-to-br from-[#0056D2] via-[#1e7aed] to-[#43E0F8] px-6 py-8 overflow-hidden">
-                {/* Road lines animation */}
-                <div className="absolute bottom-0 left-0 right-0 h-2 bg-white/20">
-                  <motion.div
-                    animate={{ x: ["-100%", "100%"] }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                    className="h-full w-8 bg-white"
-                  ></motion.div>
-                </div>
-
+              <div className="relative bg-gradient-to-br from-[#eb662b] to-[#ff9b6a] px-6 py-10 overflow-hidden">
                 <div className="relative z-10 flex items-center justify-between">
-                  <div className="text-white">
-                    <motion.div className="flex items-center gap-2 mb-2">
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{
-                          duration: 20,
-                          repeat: Infinity,
-                          ease: "linear",
-                        }}
-                      >
-                        <Car size={24} />
-                      </motion.div>
-                      <motion.h3
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="text-2xl font-bold"
-                        style={{ fontFamily: "Montserrat, sans-serif" }}
-                      >
-                        Excursion
-                      </motion.h3>
-                    </motion.div>
+                  <div className="text-[#eb662b]">
+                  <motion.div className="flex items-center gap-2">
+  <img
+    src="/asset/logo-icon.png"  // use your cropped icon here
+    alt="Trippy Go"
+    className="h-10 w-auto"
+  />
+
+  {/* Brand Text */}
+  <span className="text-xl md:text-2xl font-bold text-orange-500 tracking-wide">
+    Trippy Go
+  </span>
+</motion.div>
                     <motion.p
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.2 }}
-                      className="text-blue-100 text-sm"
-                      style={{ fontFamily: "Manrope, sans-serif" }}
+                      className="text-[#eb662b]/80 text-sm font-medium"
+                      style={{ fontFamily: "var(--font-manrope)" }}
                     >
-                      Your journey starts here
+                      Search destinations or activities
                     </motion.p>
                   </div>
 
@@ -279,7 +246,7 @@ export default function Header() {
                     className="p-3 rounded-2xl bg-white/20 hover:bg-white/30 transition-all duration-300 backdrop-blur-sm"
                     data-testid="close-drawer-button"
                   >
-                    <X size={20} className="text-white" />
+                    <X size={20} className="text-[#eb662b]" />
                   </motion.button>
                 </div>
               </div>
@@ -296,51 +263,33 @@ export default function Header() {
                     <Link
                       href={link.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="group relative flex items-center justify-between p-5 rounded-2xl transition-all duration-300 border border-gray-200 hover:border-[#0056D2]/50 overflow-hidden bg-gray-50 hover:bg-gray-100"
-                      data-testid={`mobile-nav-link-${link.name.toLowerCase()}`}
+                      className="group relative flex items-center justify-between p-5 rounded-2xl transition-all duration-300 border border-gray-100 hover:border-blue-600/30 overflow-hidden bg-white hover:bg-blue-50/30"
                     >
-                      {/* Headlight beam effect */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#43E0F8]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
                       <div className="relative flex items-center gap-4">
                         <motion.div
                           initial={{ scale: 0 }}
                           animate={{ scale: 1 }}
                           transition={{ delay: 0.1 + index * 0.08 }}
-                          className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0056D2] to-[#43E0F8] flex items-center justify-center text-white border border-[#0056D2]/30 shadow-lg"
+                          className="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center text-[#eb662b]"
                         >
                           {getIcon(link.name)}
                         </motion.div>
                         <span
-                          className="text-gray-700 font-semibold text-lg group-hover:text-[#0056D2] transition-all duration-300"
-                          style={{ fontFamily: "Manrope, sans-serif" }}
+                          className="text-gray-900 font-bold text-lg group-hover:text-[#eb662b] transition-all duration-300"
+                          style={{ fontFamily: "var(--font-manrope)" }}
                         >
                           {link.name}
                         </span>
                       </div>
 
                       <motion.div
-                        initial={{ rotate: -180 }}
-                        animate={{ rotate: 0 }}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.2 + index * 0.08 }}
-                        className="relative w-8 h-8 rounded-full bg-gradient-to-r from-white/10 to-white/5 group-hover:from-[#43E0F8] group-hover:to-[#0056D2] transition-all duration-300 flex items-center justify-center"
+                        className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-[#eb662b] group-hover:text-[#eb662b] transition-all duration-300"
                       >
-                        <div className="w-3 h-0.5 bg-gray-400 group-hover:bg-white transition-all duration-300 transform group-hover:translate-x-1"></div>
+                        <Navigation size={14} className="rotate-90" />
                       </motion.div>
-
-                      {/* Road line animation */}
-                      <div className="absolute bottom-2 left-10 right-10 h-px bg-gray-200">
-                        <motion.div
-                          className="h-full w-4 bg-[#43E0F8]"
-                          animate={{ x: ["-100%", "100%"] }}
-                          transition={{
-                            duration: 1.5,
-                            repeat: Infinity,
-                            ease: "linear",
-                            delay: index * 0.2,
-                          }}
-                        ></motion.div>
-                      </div>
                     </Link>
                   </motion.div>
                 ))}
@@ -350,7 +299,7 @@ export default function Header() {
                   initial={{ opacity: 0, scaleX: 0 }}
                   animate={{ opacity: 1, scaleX: 1 }}
                   transition={{ delay: 0.5 }}
-                  className="relative h-px bg-gradient-to-r from-transparent via-[#43E0F8]/50 to-transparent my-8"
+                  className="relative h-px bg-gradient-to-r from-transparent via-[#eb662b]/50 to-transparent my-8"
                 >
                   <motion.div
                     className="absolute inset-0 flex items-center justify-center gap-2"
@@ -358,9 +307,9 @@ export default function Header() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.6 }}
                   >
-                    <div className="w-2 h-2 bg-[#43E0F8] rounded-full"></div>
-                    <div className="w-2 h-2 bg-[#43E0F8] rounded-full"></div>
-                    <div className="w-2 h-2 bg-[#43E0F8] rounded-full"></div>
+                    <div className="w-2 h-2 bg-[#eb662b] rounded-full"></div>
+                    <div className="w-2 h-2 bg-[#eb662b] rounded-full"></div>
+                    <div className="w-2 h-2 bg-[#eb662b] rounded-full"></div>
                   </motion.div>
                 </motion.div>
 
@@ -402,7 +351,7 @@ export default function Header() {
                         transition={{ duration: 0.6 }}
                         className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#FE805A] to-[#FE6B47] flex items-center justify-center shadow-lg"
                       >
-                        <Phone size={18} className="text-white" />
+                        <Phone size={18} className="text-[#eb662b]" />
                       </motion.div>
                       <div>
                         <p
@@ -425,7 +374,7 @@ export default function Header() {
                   {user ? (
                     <div className="space-y-3">
                       <div className="flex items-center gap-3 px-4 py-3 bg-gray-50 rounded-2xl">
-                        <div className="w-10 h-10 bg-[#0056D2]/10 rounded-full flex items-center justify-center text-[#0056D2] font-bold">
+                        <div className="w-10 h-10 bg-[#eb662b]/10 rounded-full flex items-center justify-center text-[#eb662b] font-bold">
                           {user.name?.[0] || "U"}
                         </div>
                         <div>
@@ -434,7 +383,7 @@ export default function Header() {
                           </p>
                           <a
                             href="/my-bookings"
-                            className="text-xs text-[#0056D2] font-semibold"
+                            className="text-xs text-[#eb662b] font-semibold"
                           >
                             View Bookings
                           </a>
@@ -452,7 +401,7 @@ export default function Header() {
                     <div className="space-y-3">
                       <Link
                         href="/auth"
-                        className="block w-full py-4 text-center font-bold text-gray-700 hover:text-[#0056D2] border border-gray-200 rounded-2xl transition-colors"
+                        className="block w-full py-4 text-center font-bold text-gray-700 hover:text-[#eb662b] border border-gray-200 rounded-2xl transition-colors"
                         onClick={() => setMobileMenuOpen(false)}
                         style={{ fontFamily: "Manrope, sans-serif" }}
                       >
@@ -466,36 +415,21 @@ export default function Header() {
                         transition={{ delay: 0.7 }}
                         whileHover={{
                           scale: 1.02,
-                          boxShadow: "0 10px 30px rgba(254, 128, 90, 0.4)",
+                          boxShadow: "0 10px 30px rgba(235, 102, 43, 0.3)",
                         }}
                         whileTap={{ scale: 0.98 }}
                         onClick={() => {
                           setMobileMenuOpen(false);
                           window.location.href = "/contact";
                         }}
-                        className="relative w-full px-6 py-4 bg-gradient-to-br from-[#4A8BDF] via-[#4A8BDF] to-[#43E0F8] text-white font-bold rounded-2xl shadow-xl transition-all duration-300 text-lg overflow-hidden group"
-                        style={{ fontFamily: "Manrope, sans-serif" }}
-                        data-testid="mobile-book-now-button"
+                        className="relative w-full px-6 py-4 bg-gradient-to-br from-[#eb662b] to-[#d45821] text-[#eb662b] font-bold rounded-2xl shadow-xl transition-all duration-300 text-lg overflow-hidden group"
+                        style={{ fontFamily: "var(--font-manrope)" }}
                       >
-                        {/* Car animation on button */}
-                        <motion.div
-                          animate={{ x: [-30, 30] }}
-                          transition={{
-                            duration: 3,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                          }}
-                          className="absolute top-1/2 -translate-y-1/2 left-4 opacity-20"
-                        >
-                          <Car size={16} />
-                        </motion.div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
 
-                        {/* Button shine effect */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-
-                        <span className="relative z-10 flex items-center justify-center gap-2">
-                          <Car size={18} />
-                          Book Your Ride
+                        <span className="relative z-10 flex items-center justify-center gap-3">
+                          <Plane size={20} className="group-hover:rotate-12 transition-transform" />
+                          Plan Your Trip
                         </span>
                       </motion.button>
                     </div>

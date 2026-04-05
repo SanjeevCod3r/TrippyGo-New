@@ -34,7 +34,7 @@ export default function TermsPage () {
               className="text-lg text-gray-600"
               style={{ fontFamily: 'Manrope, sans-serif' }}
             >
-              Welcome to Excursion Travel. These Terms and Conditions outline the rules and regulations for using our services.
+              Welcome to Trippy Go. These Terms and Conditions outline the rules and regulations for using our services.
             </motion.p>
           </motion.div>
 
@@ -59,7 +59,7 @@ export default function TermsPage () {
             <div className="overflow-x-auto">
               <table className="w-full border-collapse border border-gray-300">
                 <thead>
-                  <tr className="bg-[#0056D2] text-white">
+                  <tr className="bg-[#eb662b] text-white">
                     <th className="border border-gray-300 px-4 py-3 text-left font-semibold" style={{ fontFamily: 'Manrope, sans-serif' }}>S.No.</th>
                     <th className="border border-gray-300 px-4 py-3 text-left font-semibold" style={{ fontFamily: 'Manrope, sans-serif' }}>Cancellation Time</th>
                     <th className="border border-gray-300 px-4 py-3 text-left font-semibold" style={{ fontFamily: 'Manrope, sans-serif' }}>Charges</th>
@@ -117,8 +117,8 @@ export default function TermsPage () {
                 1. Company Details
               </motion.h3>
               <div className="text-gray-700" style={{ fontFamily: 'Manrope, sans-serif' }}>
-                <p className="font-semibold text-lg mb-2">EXCURSION TRAVEL</p>
-                <p>Address: Sector-58, Noida, Near by HDFC Bank, Noida, (U.P) India</p>
+                <p className="font-semibold text-lg mb-2">TRIPPY GO</p>
+                <p>Address: D-193, G/F Saurabh Vihar Gali No. 7, Harinagar Extension Jaitpur, Badarpur New Delhi – 110044</p>
               </div>
             </motion.div>
 
@@ -314,7 +314,7 @@ export default function TermsPage () {
               </motion.h3>
               <ul className="text-gray-700 space-y-2" style={{ fontFamily: 'Manrope, sans-serif' }}>
                 <li>• Customer data is securely stored and used only for booking and service improvement purposes.</li>
-                <li>• Excursion Travel will not share personal data with third parties without consent.</li>
+                <li>• Trippy Go will not share personal data with third parties without consent.</li>
               </ul>
             </motion.div>
 
@@ -347,7 +347,7 @@ export default function TermsPage () {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 1.1 }}
-              className="bg-gradient-to-r from-[#0056D2] to-[#2563eB] rounded-xl shadow-lg p-8 text-white text-center"
+              className="bg-gradient-to-r from-[#eb662b] to-[#d45a20] rounded-xl shadow-lg p-8 text-white text-center"
             >
               <motion.h3
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -376,8 +376,8 @@ export default function TermsPage () {
                 transition={{ duration: 0.6, delay: 1.4 }}
                 className="space-y-2"
               >
-                <p className="text-xl font-semibold">Phone: +91 9990-817-615</p>
-                <p className="text-xl font-semibold">Email: contact@excursiontravel.in</p>
+                <p className="text-xl font-semibold">Phone: +91 8076449902</p>
+                <p className="text-xl font-semibold">Email: info@trippygo.co.in</p>
               </motion.div>
             </motion.div>
           </div>

@@ -163,7 +163,7 @@ export const CabBookingForm = () => {
       } else {
         const result = await calculateDistance();
         if (!result) throw new Error('Distance calculation failed');
-        
+
         setDistance(result.distance);
         setDuration(result.duration);
         const price = calculateKMPrice(result.distance);
@@ -253,7 +253,7 @@ export const CabBookingForm = () => {
       // 1. Create order
       const orderRes = await fetch('/api/payment/create-order', {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
@@ -273,7 +273,7 @@ export const CabBookingForm = () => {
         key: orderData.keyId,
         amount: orderData.amount,
         currency: orderData.currency,
-        name: 'Excursion Travel',
+        name: 'Trippy Go',
         description: `${selectedCar} - ${activeTab} Booking`,
         order_id: orderData.orderId,
         handler: async (response) => {
@@ -281,7 +281,7 @@ export const CabBookingForm = () => {
             // 3. Verify payment and create booking in one go
             const verifyRes = await fetch('/api/payment/verify', {
               method: 'POST',
-              headers: { 
+              headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
               },
@@ -336,7 +336,7 @@ export const CabBookingForm = () => {
           contact: userDetails.phone
         },
         theme: {
-          color: '#3B82F6'
+          color: '#eb662b'
         },
         modal: {
           ondismiss: () => {
@@ -361,10 +361,10 @@ export const CabBookingForm = () => {
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.8 }}
       className="bg-[#FFFFFFCC] rounded-3xl shadow-2xl p-6 sm:p-8 md:p-8 w-full max-w-md mx-auto lg:mx-0"
-      // style={{
-      //   background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%)',
-      //   boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1)'
-      // }}
+    // style={{
+    //   background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%)',
+    //   boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1)'
+    // }}
     >
       <div className="text-center mb-6">
         <h3 className="text-2xl font-bold text-black mb-2" style={{ fontFamily: 'Montserrat, sans-serif' }}>
@@ -391,7 +391,7 @@ export const CabBookingForm = () => {
                 <button
                   key={tab.id}
                   onClick={() => { setActiveTab(tab.id); if (tab.id !== 'airport') setAirportDirection('from'); }}
-                  className={`flex-1 py-2.5 px-3 text-sm font-medium rounded-lg transition-all duration-300 ${activeTab === tab.id ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg' : 'text-black hover:bg-white/10'}`}
+                  className={`flex-1 py-2.5 px-3 text-sm font-medium rounded-lg transition-all duration-300 ${activeTab === tab.id ? 'bg-gradient-to-r from-[#eb662b] to-[#ff9b6a] text-white shadow-lg' : 'text-black hover:bg-white/10'}`}
                 >
                   {tab.label}
                 </button>
@@ -401,7 +401,7 @@ export const CabBookingForm = () => {
             {activeTab === 'airport' && (
               <div className="flex gap-3 bg-white/5 rounded-xl p-2 backdrop-blur-sm mb-4">
                 {['from', 'to'].map((dir) => (
-                  <button key={dir} onClick={() => setAirportDirection(dir)} className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${airportDirection === dir ? 'bg-blue-500 text-white' : 'text-black hover:bg-white/10'}`}>
+                  <button key={dir} onClick={() => setAirportDirection(dir)} className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${airportDirection === dir ? 'bg-[#eb662b] text-white' : 'text-black hover:bg-white/10'}`}>
                     {dir === 'from' ? 'From Airport' : 'To Airport'}
                   </button>
                 ))}
@@ -415,11 +415,10 @@ export const CabBookingForm = () => {
                     key={type}
                     type="button"
                     onClick={() => setTripType(type)}
-                    className={`flex-1 py-2 px-3 text-sm font-medium rounded-lg transition-all duration-300 ${
-                      tripType === type
-                        ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md'
-                        : 'text-black hover:bg-white/50'
-                    }`}
+                    className={`flex-1 py-2 px-3 text-sm font-medium rounded-lg transition-all duration-300 ${tripType === type
+                      ? 'bg-gradient-to-r from-[#eb662b] to-[#ff9b6a] text-white shadow-md'
+                      : 'text-black hover:bg-white/50'
+                      }`}
                   >
                     {type === 'oneway' ? 'One Way' : 'Round Trip'}
                   </button>
@@ -430,12 +429,12 @@ export const CabBookingForm = () => {
             <form onSubmit={handleBasicNext} className="space-y-4">
               <div className="space-y-1">
 
-                <EnhancedLocationInput 
-                  name="pickupLocation" 
-                  value={formData.pickupLocation} 
-                  onChange={handleInputChange} 
-                  placeholder="Enter Pickup Location" 
-                  required 
+                <EnhancedLocationInput
+                  name="pickupLocation"
+                  value={formData.pickupLocation}
+                  onChange={handleInputChange}
+                  placeholder="Enter Pickup Location"
+                  required
                   theme="light"
                   customInputStyles="!bg-white !text-gray-500 shadow-sm"
                 />
@@ -443,13 +442,13 @@ export const CabBookingForm = () => {
 
               {activeTab !== 'local' && (
                 <div className="space-y-1">
-                  
-                  <EnhancedLocationInput 
-                    name="destination" 
-                    value={formData.destination} 
-                    onChange={handleInputChange} 
-                    placeholder="Enter Destination" 
-                    required 
+
+                  <EnhancedLocationInput
+                    name="destination"
+                    value={formData.destination}
+                    onChange={handleInputChange}
+                    placeholder="Enter Destination"
+                    required
                     theme="light"
                     customInputStyles="!bg-white !text-gray-500 shadow-sm"
                   />
@@ -457,12 +456,12 @@ export const CabBookingForm = () => {
               )}
               {activeTab === 'local' && (
                 <div className="relative group">
-                  <Car className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-blue-300 z-10" />
-                  <select name="localPackage" value={formData.localPackage} onChange={handleInputChange} className="w-full pl-12 pr-10 py-4 bg-white/10 border border-white/20 rounded-xl text-black text-sm appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all hover:bg-white/20" required>
+                  <Car className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#eb662b]/60 z-10" />
+                  <select name="localPackage" value={formData.localPackage} onChange={handleInputChange} className="w-full pl-12 pr-10 py-4 bg-white/10 border border-white/20 rounded-xl text-black text-sm appearance-none focus:outline-none focus:ring-2 focus:ring-[#eb662b]/50 transition-all hover:bg-white/20" required>
                     <option value="" className="bg-gray-900 text-black">Select Package</option>
                     {localPackages.map(pkg => <option key={pkg.id} value={pkg.id} className="bg-gray-800 text-black">{pkg.label}</option>)}
                   </select>
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-blue-300">
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#eb662b]/60">
                     <Navigation className="w-4 h-4 rotate-180" />
                   </div>
                 </div>
@@ -477,7 +476,7 @@ export const CabBookingForm = () => {
                   <input type="time" name="returnTime" value={formData.returnTime} onChange={handleInputChange} className="w-full px-4 py-3.5 bg-white border border-white/20 rounded-xl text-black text-sm" required />
                 </div>
               )}
-              <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold shadow-lg flex items-center justify-center gap-2">
+              <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="w-full bg-gradient-to-r from-[#eb662b] to-[#ff9b6a] text-white py-4 rounded-xl font-bold shadow-lg flex items-center justify-center gap-2">
                 Next <ArrowRight className="w-5 h-5" />
               </motion.button>
             </form>
@@ -493,18 +492,18 @@ export const CabBookingForm = () => {
             </div>
             <form onSubmit={handleSearchCabs} className="space-y-4">
               <div className="relative group">
-                <Car className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-blue-300 z-10" />
-                <select value={selectedCar} onChange={(e) => setSelectedCar(e.target.value)} className="w-full pl-12 pr-10 py-4 bg-white/10 border border-white/20 rounded-xl text-black appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all hover:bg-white/20" required>
+                <Car className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#eb662b]/60 z-10" />
+                <select value={selectedCar} onChange={(e) => setSelectedCar(e.target.value)} className="w-full pl-12 pr-10 py-4 bg-white/10 border border-white/20 rounded-xl text-black appearance-none focus:outline-none focus:ring-2 focus:ring-[#eb662b]/50 transition-all hover:bg-white/20" required>
                   <option value="" className="bg-gray-900 text-black">Select Car Type</option>
                   {carTypes.map(car => <option key={car} value={car} className="bg-gray-800 text-black">{car}</option>)}
                 </select>
-                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-blue-300">
+                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#eb662b]/60">
                   <Navigation className="w-4 h-4 rotate-180" />
                 </div>
               </div>
               <div className="flex gap-3">
                 <button type="button" onClick={() => setBookingStep('basic')} className="flex-1 py-4 bg-white/10 text-black rounded-xl font-bold">Back</button>
-                <button type="submit" disabled={loading} className="flex-1 py-4 bg-blue-600 text-white rounded-xl font-bold disabled:opacity-50">
+                <button type="submit" disabled={loading} className="flex-1 py-4 bg-gradient-to-r from-[#eb662b] to-[#ff9b6a] text-white rounded-xl font-bold disabled:opacity-50">
                   {loading ? 'Calculating...' : 'Get Price'}
                 </button>
               </div>
@@ -512,46 +511,46 @@ export const CabBookingForm = () => {
           </motion.div>
         )}
 
-          {bookingStep === 'pricing' && (
-            <motion.div key="pricing" initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }}>
-              <div className="bg-white/10 rounded-2xl p-6 text-center mb-6">
-                <p className="text-black-100 text-base mb-2">Estimated Price</p>
-                <h2 className="text-4xl font-bold text-black mb-4">₹{calculatedPrice}</h2>
-                <div className="text-base text-black-300 space-y-2">
-                  <p>{selectedCar} • {distance.toFixed(1)} KM • {duration}</p>
-                  {activeTab === 'outstation' && distance < 250 && (
-                    <p className="text-blue-300 font-medium italic">Note: Minimum 250 KM charge applies</p>
-                  )}
-                  {activeTab === 'airport' && (
-                    <p className="text-blue-300 font-medium italic">Flat rate for first 40 KM</p>
-                  )}
-                </div>
+        {bookingStep === 'pricing' && (
+          <motion.div key="pricing" initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }}>
+            <div className="bg-white/10 rounded-2xl p-6 text-center mb-6">
+              <p className="text-black-100 text-base mb-2">Estimated Price</p>
+              <h2 className="text-4xl font-bold text-black mb-4">₹{calculatedPrice}</h2>
+              <div className="text-base text-black-300 space-y-2">
+                <p>{selectedCar} • {distance.toFixed(1)} KM • {duration}</p>
+                {activeTab === 'outstation' && distance < 250 && (
+                  <p className="text-[#eb662b]/80 font-medium italic">Note: Minimum 250 KM charge applies</p>
+                )}
+                {activeTab === 'airport' && (
+                  <p className="text-[#eb662b]/80 font-medium italic">Flat rate for first 40 KM</p>
+                )}
               </div>
-              <div className="flex gap-3">
-                <button onClick={() => setBookingStep('details')} className="flex-1 py-4 bg-white/10 text-black rounded-xl font-bold">Back</button>
-                <button onClick={handleAcceptPrice} className="flex-1 py-4 bg-blue-600 text-white rounded-xl font-bold">Continue</button>
-              </div>
-            </motion.div>
-          )}
+            </div>
+            <div className="flex gap-3">
+              <button onClick={() => setBookingStep('details')} className="flex-1 py-4 bg-white/10 text-black rounded-xl font-bold">Back</button>
+              <button onClick={handleAcceptPrice} className="flex-1 py-4 bg-gradient-to-r from-[#eb662b] to-[#ff9b6a] text-white rounded-xl font-bold">Continue</button>
+            </div>
+          </motion.div>
+        )}
 
         {bookingStep === 'userDetails' && (
           <motion.div key="userDetails" initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }}>
             <form onSubmit={handleUserFormSubmit} className="space-y-4">
               <div className="relative">
-                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-blue-300" />
+                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#eb662b]/60" />
                 <input type="text" name="name" value={userDetails.name} onChange={handleUserDetailsChange} placeholder="Your Name" className="w-full pl-12 pr-4 py-4 bg-white/10 border border-white/20 rounded-xl text-black" required />
               </div>
               <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-blue-300" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#eb662b]/60" />
                 <input type="email" name="email" value={userDetails.email} onChange={handleUserDetailsChange} placeholder="Your Email" className="w-full pl-12 pr-4 py-4 bg-white/10 border border-white/20 rounded-xl text-black" required />
               </div>
               <div className="relative">
-                <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-blue-300" />
+                <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#eb662b]/60" />
                 <input type="tel" name="phone" value={userDetails.phone} onChange={handleUserDetailsChange} placeholder="Your Phone" className="w-full pl-12 pr-4 py-4 bg-white/10 border border-white/20 rounded-xl text-black" required />
               </div>
               <div className="flex gap-3">
                 <button type="button" onClick={() => setBookingStep('pricing')} className="flex-1 py-4 bg-white/10 text-black rounded-xl font-bold">Back</button>
-                <button type="submit" className="flex-1 py-4 bg-blue-600 text-white rounded-xl font-bold">Review</button>
+                <button type="submit" className="flex-1 py-4 bg-gradient-to-r from-[#eb662b] to-[#ff9b6a] text-white rounded-xl font-bold">Review</button>
               </div>
             </form>
           </motion.div>
@@ -565,7 +564,7 @@ export const CabBookingForm = () => {
               <p><span className="text-base text-black">Car:</span> {selectedCar}</p>
               <p><span className="text-base text-black">Customer:</span> {userDetails.name}</p>
             </div>
-            <button onClick={handleConfirmBooking} disabled={loading} className="w-full py-4 bg-[#0056D2] text-white rounded-xl font-bold shadow-xl">
+            <button onClick={handleConfirmBooking} disabled={loading} className="w-full py-4 bg-gradient-to-r from-[#eb662b] to-[#ff9b6a] text-white rounded-xl font-bold shadow-xl">
               {loading ? 'Confirming...' : 'Confirm Booking'}
             </button>
           </motion.div>
@@ -579,7 +578,7 @@ export const CabBookingForm = () => {
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"><Check className="w-8 h-8 text-green-600" /></div>
               <h3 className="text-2xl font-bold text-gray-900 mb-2">Booking Requested!</h3>
               <p className="text-gray-600 mb-6">Our team will contact you shortly to confirm your ride.</p>
-              <button onClick={() => window.location.reload()} className="w-full py-3 bg-blue-600 text-white rounded-xl font-bold">Back to Home</button>
+              <button onClick={() => window.location.reload()} className="w-full py-3 bg-[#eb662b] text-white rounded-xl font-bold">Back to Home</button>
             </motion.div>
           </motion.div>
         )}
