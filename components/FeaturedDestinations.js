@@ -60,7 +60,7 @@ export const FeaturedDestinations = () => {
             Find Popular Tours
           </h2>
           <Link 
-            href="/tours" 
+            href="/destinations" 
             className="text-xs font-bold text-gray-500 hover:text-[#eb662b] transition-all flex items-center gap-1.5 group"
             style={{ fontFamily: 'var(--font-manrope)' }}
           >

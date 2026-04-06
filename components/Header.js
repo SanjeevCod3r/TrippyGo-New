@@ -214,12 +214,7 @@ export default function Header() {
                 <div className="relative z-10 flex items-center justify-between">
                   <div className="text-[#eb662b]">
                   <motion.div className="flex items-center gap-2">
-  <img
-    src="/asset/logo1.png"  // use your cropped icon here
-    alt="Trippy Go"
-    className="h-12 w-auto"
-  />
-</motion.div>
+                  <img src="/asset/logo1.png" alt="Trippy Go" className="h-12 w-auto" /> </motion.div>
                     <motion.p
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -247,7 +242,7 @@ export default function Header() {
               </div>
 
               {/* Drawer Content */}
-              <div className="relative z-10 px-6 py-6 space-y-3 overflow-y-auto h-full pb-32">
+              <div className="relative z-10 px-6 py-3 space-y-3 overflow-y-auto h-full pb-32">
                 {navLinks.map((link, index) => (
                   <motion.div
                     key={link.name}
@@ -344,7 +339,7 @@ export default function Header() {
                       <motion.div
                         whileHover={{ rotate: 360, scale: 1.1 }}
                         transition={{ duration: 0.6 }}
-                        className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#FE805A] to-[#FE6B47] flex items-center justify-center shadow-lg"
+                        className="w-12 h-12 rounded-2xl bg-gradient-to-br flex items-center justify-center shadow-lg"
                       >
                         <Phone size={18} className="text-[#eb662b]" />
                       </motion.div>
@@ -417,7 +412,7 @@ export default function Header() {
                           setMobileMenuOpen(false);
                           window.location.href = "/contact";
                         }}
-                        className="relative w-full px-6 py-4 bg-gradient-to-br from-[#eb662b] to-[#d45821] text-[#eb662b] font-bold rounded-2xl shadow-xl transition-all duration-300 text-lg overflow-hidden group"
+                        className="relative w-full px-6 py-4 bg-gradient-to-br from-[#eb662b] to-[#d45821] text-white font-bold rounded-2xl shadow-xl transition-all duration-300 text-lg overflow-hidden group"
                         style={{ fontFamily: "var(--font-manrope)" }}
                       >
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
