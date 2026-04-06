@@ -210,20 +210,15 @@ export default function Header() {
               </div>
 
               {/* Drawer Header */}
-              <div className="relative bg-gradient-to-br from-[#eb662b] to-[#ff9b6a] px-6 py-10 overflow-hidden">
+              <div className="relative bg-gradient-to-br px-6 py-10 overflow-hidden">
                 <div className="relative z-10 flex items-center justify-between">
                   <div className="text-[#eb662b]">
                   <motion.div className="flex items-center gap-2">
   <img
-    src="/asset/logo-icon.png"  // use your cropped icon here
+    src="/asset/logo1.png"  // use your cropped icon here
     alt="Trippy Go"
-    className="h-10 w-auto"
+    className="h-12 w-auto"
   />
-
-  {/* Brand Text */}
-  <span className="text-xl md:text-2xl font-bold text-orange-500 tracking-wide">
-    Trippy Go
-  </span>
 </motion.div>
                     <motion.p
                       initial={{ opacity: 0, y: -10 }}
