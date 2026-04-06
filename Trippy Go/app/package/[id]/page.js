@@ -159,7 +159,7 @@ export default function PackageDetail() {
 
             const verifyData = await verifyRes.json();
             if (verifyData.success) {
-              alert("Booking Confirmed! Thank you for choosing Trippy Go.");
+              alert("Booking Confirmed! Thank you for choosing TrippyGo.");
               window.location.reload();
             } else {
               throw new Error(verifyData.error || "Payment verification failed");

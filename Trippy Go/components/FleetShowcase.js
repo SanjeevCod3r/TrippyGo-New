@@ -162,7 +162,7 @@ export const FleetShowcase = ({ onBookNow }) => {
               View more fleet
             </motion.button>
 
-            <div className="flex gap-4">
+            <div className="hidden md:flex gap-4">
               <button className="w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center text-gray-500 hover:bg-white hover:border-white hover:shadow-lg transition-all duration-300">
                 <ChevronRight className="rotate-180" size={20} />
               </button>

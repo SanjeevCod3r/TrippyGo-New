@@ -76,6 +76,7 @@ import { CustomerReviews } from "@/components/CustomerReviews";
 import { AppPromoBanner } from "@/components/AppPromoBanner";
 import { TravelArticles } from "@/components/TravelArticles";
 import { EnquiryModal } from "@/components/EnquiryModal";
+import { OurClients } from "@/components/OurClients";
 
 // Animation variants
 const fadeInUp = {
@@ -149,7 +150,7 @@ function OldHeader() {
               <Navigation className="w-6 h-6 text-white" />
             </div>
             <span className="text-xl font-bold text-paleBlue">
-              Trippy Go
+              TrippyGo
             </span>
           </a>
 
@@ -295,7 +296,7 @@ function HeroSection() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600/20 backdrop-blur-md rounded-full border border-blue-500/30 text-blue-300 text-xs font-bold uppercase tracking-[0.3em] mb-8">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600/20 backdrop-blur-md rounded-full border border-blue-500/30 text-blue-300 text-xs font-bold uppercase tracking-[0.3em] mb-8 mt-24 lg:mt-0">
                 <Globe size={14} className="animate-spin-slow" />
                 <span>Boutique Travel Experiences</span>
               </div>
@@ -308,7 +309,7 @@ function HeroSection() {
                 <br />
                 adventure with
                 <br />
-                <span className="text-[#eb662b]">Trippy Go</span>
+                <span className="text-[#eb662b]">TrippyGo</span> India Technology
               </h1>
 
               <p
@@ -782,6 +783,7 @@ export default function App() {
         <PromoBanner />
         <PopularThingsToDo />
         <CustomerReviews />
+        <OurClients />
         <AppPromoBanner />
         <TravelArticles />
         <FleetShowcase

@@ -76,11 +76,11 @@ export const DestinationShowcase = () => {
           </div>
           <Link
             href="/destinations"
-            className="text-[13px] font-bold text-gray-400 hover:text-[#eb662b] transition-all flex items-center gap-1 group pb-1"
+            className="text-sm font-bold text-[#eb662b] bg-[#eb662b]/10 hover:bg-[#eb662b]/20 px-5 py-2.5 rounded-full transition-all flex items-center gap-2 group shadow-sm"
             style={{ fontFamily: 'var(--font-manrope)' }}
           >
-            See all
-            <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
+            <span>See all</span>
+            <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
 

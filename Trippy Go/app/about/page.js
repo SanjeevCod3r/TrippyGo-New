@@ -85,7 +85,7 @@ export default function About() {
                  Discover unbeatable travel packages tailored just for you. From serene escapes to thrilling adventures, we bring you the world's most captivating destinations at prices that inspire you to explore more.
                </p>
                <p>
-                 At Trippy Go, we believe every journey should be as unique as the traveler. Our dedicated team works tirelessly to curate experiences that blend luxury, comfort, and local authenticity.
+                 At TrippyGo, we believe every journey should be as unique as the traveler. Our dedicated team works tirelessly to curate experiences that blend luxury, comfort, and local authenticity.
                </p>
                <p>
                  Whether you're planning a corporate retreat, a romantic getaway, or a family vacation, our comprehensive services ensure every detail is perfectly managed, allowing you to focus on creating lasting memories.
@@ -119,7 +119,7 @@ export default function About() {
                <span className="text-[#eb662b] font-semibold text-sm">Why we are the best for our client</span>
              </div>
              <h2 className="text-3xl md:text-4xl font-black text-[#05073C]" style={{ fontFamily: "var(--font-montserrat)" }}>
-               Why book with Trippy Go?
+               Why book with TrippyGo?
              </h2>
 
              {/* Loop Graphic */}

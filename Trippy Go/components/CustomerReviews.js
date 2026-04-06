@@ -22,7 +22,7 @@ export const CustomerReviews = () => {
       name: "Sarah Jenkins",
       title: "Explorer",
       heading: "A trip to remember",
-      text: "Everything was perfectly curated. From the hotels to the tours, Trippy Go made sure our family had the best time possible in the serene mountains.",
+      text: "Everything was perfectly curated. From the hotels to the tours, TrippyGo made sure our family had the best time possible in the serene mountains.",
       avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop",
       rating: 5,
     },

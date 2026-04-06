@@ -8,8 +8,8 @@ const montserrat = Montserrat({ subsets: ['latin'], variable: '--font-montserrat
 const manrope = Manrope({ subsets: ['latin'], variable: '--font-manrope' })
 
 export const metadata = {
-  title: 'Trippy Go - Premium Travel & Cab Booking',
-  description: 'Book cabs, travel packages, and fleet vehicles with Trippy Go. Best prices, instant booking, and premium service.',
+  title: 'TrippyGo - Premium Travel & Cab Booking',
+  description: 'Book cabs, travel packages, and fleet vehicles with TrippyGo. Best prices, instant booking, and premium service.',
 }
 
 export default function RootLayout({ children }) {

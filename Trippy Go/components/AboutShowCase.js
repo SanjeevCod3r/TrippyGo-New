@@ -34,7 +34,7 @@ export const AboutShowcase = () => {
               className="font-semibold text-sm"
               style={{ fontFamily: "Manrope, sans-serif" }}
             >
-              About Trippy Go
+              About TrippyGo
             </span>
           </motion.div>
 
@@ -61,7 +61,7 @@ export const AboutShowcase = () => {
             className="text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto"
             style={{ fontFamily: "Manrope, sans-serif" }}
           >
-            Since our founding, Trippy Go has been dedicated to providing
+            Since our founding, TrippyGo has been dedicated to providing
             exceptional transportation services that combine luxury,
             reliability, and personalized care.
           </motion.p>
@@ -119,7 +119,7 @@ export const AboutShowcase = () => {
             >
               We understand that every journey is unique, and we're here to make
               yours unforgettable. Our commitment to excellence ensures that
-              every ride with Trippy Go is crafted for your comfort and
+              every ride with TrippyGo is crafted for your comfort and
               convenience.
             </p>
 

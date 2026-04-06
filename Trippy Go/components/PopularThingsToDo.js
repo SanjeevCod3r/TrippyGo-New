@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export const PopularThingsToDo = () => {
   const activities = [
@@ -55,13 +56,6 @@ export const PopularThingsToDo = () => {
           >
             Popular things to do
           </h2>
-          <Link
-            href="/tours"
-            className="text-[11px] font-bold text-gray-500 hover:text-[#eb662b] transition-colors"
-            style={{ fontFamily: "var(--font-manrope)" }}
-          >
-            See all
-          </Link>
         </div>
 
         {/* CSS Grid Layout */}

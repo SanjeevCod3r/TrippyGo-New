@@ -20,6 +20,7 @@ import {
   Camera,
   Heart,
   Search,
+  Building2,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -32,6 +33,18 @@ export default function Header() {
 
   // Always use solid white navbar as per user request
   const shouldBeSolid = true;
+
+  // Prevent background scrolling when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [mobileMenuOpen]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -60,6 +73,7 @@ export default function Header() {
     { name: "About", href: "/about" },
     { name: "Destinations", href: "/destinations" },
     { name: "Fleet", href: "/fleet" },
+    { name: "Hotels", href: "/hotels" },
     { name: "Blog", href: "/blog" },
     { name: "Contact", href: "/contact" },
   ];
@@ -74,6 +88,8 @@ export default function Header() {
         return <Compass size={20} />;
       case "Fleet":
         return <Plane size={20} />;
+      case "Hotels":
+        return <Building2 size={20} />;
       case "Experience":
         return <Camera size={20} />;
       case "Blog":
@@ -100,7 +116,7 @@ export default function Header() {
             <Link href="/" className="flex items-center group">
               <img
                 src="/asset/logo1.png"
-                alt="Trippy Go"
+                alt="TrippyGo"
                 className={`h-14 w-auto md:h-20 object-contain transition-transform duration-500 group-hover:scale-105 drop-shadow-sm`}
               />
             </Link>
@@ -195,7 +211,7 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="lg:hidden fixed top-0 right-0 bottom-0 w-80 max-w-[85vw] bg-white shadow-2xl z-50 overflow-hidden"
+              className="lg:hidden fixed top-0 right-0 bottom-0 w-80 max-w-[85vw] bg-white shadow-2xl z-50 overflow-hidden flex flex-col"
               data-testid="mobile-menu-drawer"
             >
               {/* Background Decor */}
@@ -214,7 +230,7 @@ export default function Header() {
                 <div className="relative z-10 flex items-center justify-between">
                   <div className="text-[#eb662b]">
                   <motion.div className="flex items-center gap-2">
-                  <img src="/asset/logo1.png" alt="Trippy Go" className="h-12 w-auto" /> </motion.div>
+                  <img src="/asset/logo1.png" alt="TrippyGo" className="h-12 w-auto" /> </motion.div>
                     <motion.p
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -242,7 +258,7 @@ export default function Header() {
               </div>
 
               {/* Drawer Content */}
-              <div className="relative z-10 px-6 py-3 space-y-3 overflow-y-auto h-full pb-32">
+              <div className="relative z-10 px-6 py-3 space-y-3 overflow-y-auto flex-1 pb-6">
                 {navLinks.map((link, index) => (
                   <motion.div
                     key={link.name}
@@ -354,7 +370,7 @@ export default function Header() {
                           className="font-bold text-gray-800 text-lg"
                           style={{ fontFamily: "Manrope, sans-serif" }}
                         >
-                          +91 9990-817-615
+                          +91 8076449902
                         </p>
                       </div>
                     </div>
@@ -425,6 +441,8 @@ export default function Header() {
                     </div>
                   )}
                 </motion.div>
+                {/* Spacer block to ensure the last button isn't cut off on any mobile browser */}
+                <div className="h-32 w-full flex-shrink-0"></div>
               </div>
             </motion.div>
           </>

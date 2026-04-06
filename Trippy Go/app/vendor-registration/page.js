@@ -103,7 +103,7 @@ export default function VendorRegistrationPage() {
               style={{ fontFamily: "var(--font-manrope), sans-serif" }}
             >
               Join our network of premium fleet providers. Elevate your business
-              by partnering with Trippy Go.
+              by partnering with TrippyGo.
             </p>
           </motion.div>
 

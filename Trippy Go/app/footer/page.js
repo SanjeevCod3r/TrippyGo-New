@@ -20,6 +20,7 @@ export default function Footer() {
     { label: "Home", href: "/" },
     { label: "Destinations", href: "/destinations" },
     { label: "Fleet", href: "/fleet" },
+    { label: "Hotels", href: "/hotels" },
     { label: "Blog", href: "/blog" },
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
@@ -160,13 +161,44 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Branch Offices and Registration */}
+        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
+          <div className="space-y-2">
+            <h5 className="text-[11px] font-black uppercase text-[#eb662b] tracking-widest">Branch Office (Ballia)</h5>
+            <p className="text-sm font-medium text-white/70 leading-relaxed" style={{ fontFamily: "var(--font-manrope)" }}>
+              Plot No - 517 Narayangarh ballia up 277208
+            </p>
+          </div>
+          <div className="space-y-2">
+            <h5 className="text-[11px] font-black uppercase text-[#eb662b] tracking-widest">Branch Office (Noida)</h5>
+            <p className="text-sm font-medium text-white/70 leading-relaxed" style={{ fontFamily: "var(--font-manrope)" }}>
+              B - 16, office no 2 basement noida sec 62 up
+            </p>
+          </div>
+          <div className="space-y-2">
+            <h5 className="text-[11px] font-black uppercase text-[#eb662b] tracking-widest">Branch Office (Chapra)</h5>
+            <p className="text-sm font-medium text-white/70 leading-relaxed" style={{ fontFamily: "var(--font-manrope)" }}>
+              Plot No - 3/1139, Civil court colony bara telpa chapra bihar 841302
+            </p>
+          </div>
+          <div className="space-y-2">
+            <h5 className="text-[11px] font-black uppercase text-[#eb662b] tracking-widest">Registration</h5>
+            <p className="text-sm font-medium text-white/70" style={{ fontFamily: "var(--font-manrope)" }}>
+              Udyam - UDYAM-DL-08-0027419
+            </p>
+            <p className="text-sm font-medium text-white/70 mt-1" style={{ fontFamily: "var(--font-manrope)" }}>
+              GSTIN - 07FNKPS1390P1Z3
+            </p>
+          </div>
+        </div>
+
         {/* Footer Bottom */}
         <div className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
           <p
             className="text-xs font-medium text-white/30 tracking-wider"
             style={{ fontFamily: "var(--font-manrope)" }}
           >
-            © {currentYear} Trippy Go. All Rights Reserved.
+            © {currentYear} TrippyGo. All Rights Reserved.
           </p>
           <div className="flex flex-wrap justify-center md:justify-end items-center gap-x-8 gap-y-2 text-[11px] font-black uppercase tracking-widest text-white/30">
             <Link

@@ -100,7 +100,7 @@ const FloatingChat = () => {
                 className="text-sm opacity-90 font-medium"
                 style={{ fontFamily: "var(--font-manrope), sans-serif" }}
               >
-                Get in touch with Trippy Go
+                Get in touch with TrippyGo
               </p>
             </div>
 

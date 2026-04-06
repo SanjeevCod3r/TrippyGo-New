@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import Header from '@/components/Header';
 import Footer from '@/app/footer/page';
 
-export default function TermsPage () {
+export default function PrivacyPage (){
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -25,7 +25,7 @@ export default function TermsPage () {
               className="text-4xl md:text-5xl font-bold text-gray-900 mb-4"
               style={{ fontFamily: 'Montserrat, sans-serif' }}
             >
-              Terms and Conditions
+              Privacy Policy
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -34,71 +34,13 @@ export default function TermsPage () {
               className="text-lg text-gray-600"
               style={{ fontFamily: 'Manrope, sans-serif' }}
             >
-              Welcome to Trippy Go. These Terms and Conditions outline the rules and regulations for using our services.
+              Your privacy is important to us. This Privacy Policy explains how TrippyGo collects, uses, and protects your information.
             </motion.p>
           </motion.div>
 
-          {/* Cancellation Policy Table */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="bg-white rounded-xl shadow-lg p-6 mb-8"
-          >
-            <motion.h2
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="text-2xl font-bold text-gray-900 mb-6"
-              style={{ fontFamily: 'Montserrat, sans-serif' }}
-            >
-              Cancellation Policy
-            </motion.h2>
-            <div className="overflow-x-auto">
-              <table className="w-full border-collapse border border-gray-300">
-                <thead>
-                  <tr className="bg-[#eb662b] text-white">
-                    <th className="border border-gray-300 px-4 py-3 text-left font-semibold" style={{ fontFamily: 'Manrope, sans-serif' }}>S.No.</th>
-                    <th className="border border-gray-300 px-4 py-3 text-left font-semibold" style={{ fontFamily: 'Manrope, sans-serif' }}>Cancellation Time</th>
-                    <th className="border border-gray-300 px-4 py-3 text-left font-semibold" style={{ fontFamily: 'Manrope, sans-serif' }}>Charges</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="bg-gray-50">
-                    <td className="border border-gray-300 px-4 py-3">1</td>
-                    <td className="border border-gray-300 px-4 py-3">Prior to 48 hours from pick-up time</td>
-                    <td className="border border-gray-300 px-4 py-3">0%</td>
-                  </tr>
-                  <tr>
-                    <td className="border border-gray-300 px-4 py-3">2</td>
-                    <td className="border border-gray-300 px-4 py-3">Within 24 – 48 hours from pick-up time</td>
-                    <td className="border border-gray-300 px-4 py-3">3%</td>
-                  </tr>
-                  <tr className="bg-gray-50">
-                    <td className="border border-gray-300 px-4 py-3">3</td>
-                    <td className="border border-gray-300 px-4 py-3">Within 4 – 24 hours from pick-up time</td>
-                    <td className="border border-gray-300 px-4 py-3">50%</td>
-                  </tr>
-                  <tr>
-                    <td className="border border-gray-300 px-4 py-3">4</td>
-                    <td className="border border-gray-300 px-4 py-3">Within 0 – 4 hours from pick-up time</td>
-                    <td className="border border-gray-300 px-4 py-3">100%</td>
-                  </tr>
-                  <tr className="bg-gray-50">
-                    <td className="border border-gray-300 px-4 py-3">5</td>
-                    <td className="border border-gray-300 px-4 py-3">No Show</td>
-                    <td className="border border-gray-300 px-4 py-3">100%</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </motion.div>
-
-          {/* Terms Sections */}
+          {/* Privacy Policy Sections */}
           <div className="space-y-8">
-            {/* Company Details */}
+            {/* Introduction */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -114,15 +56,19 @@ export default function TermsPage () {
                 className="text-xl font-bold text-gray-900 mb-4"
                 style={{ fontFamily: 'Montserrat, sans-serif' }}
               >
-                1. Company Details
+                1. Introduction
               </motion.h3>
               <div className="text-gray-700" style={{ fontFamily: 'Manrope, sans-serif' }}>
-                <p className="font-semibold text-lg mb-2">TRIPPY GO</p>
-                <p>Address: D-193, G/F Saurabh Vihar Gali No. 7, Harinagar Extension Jaitpur, Badarpur New Delhi – 110044</p>
+                <p className="mb-4">
+                  TrippyGo ("we," "us," or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, use our services, or interact with us.
+                </p>
+                <p>
+                  By using our services, you agree to the collection and use of information in accordance with this policy.
+                </p>
               </div>
             </motion.div>
 
-            {/* Booking Policy */}
+            {/* Information We Collect */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -138,16 +84,31 @@ export default function TermsPage () {
                 className="text-xl font-bold text-gray-900 mb-4"
                 style={{ fontFamily: 'Montserrat, sans-serif' }}
               >
-                2. Booking Policy
+                2. Information We Collect
               </motion.h3>
-              <ul className="text-gray-700 space-y-2" style={{ fontFamily: 'Manrope, sans-serif' }}>
-                <li>• All bookings are subject to availability and confirmation.</li>
-                <li>• Customers must provide a valid government-issued ID and a valid driver's license (if applicable).</li>
-                <li>• Advance payment is required to confirm bookings.</li>
-              </ul>
+              <div className="text-gray-700 space-y-4" style={{ fontFamily: 'Manrope, sans-serif' }}>
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-2">Personal Information:</h4>
+                  <ul className="list-disc list-inside space-y-1 ml-4">
+                    <li>Name, email address, phone number</li>
+                    <li>Billing and payment information</li>
+                    <li>Government-issued ID for verification</li>
+                    <li>Travel preferences and requirements</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-2">Usage Information:</h4>
+                  <ul className="list-disc list-inside space-y-1 ml-4">
+                    <li>IP address and location data</li>
+                    <li>Browser type and version</li>
+                    <li>Pages visited and time spent</li>
+                    <li>Device information</li>
+                  </ul>
+                </div>
+              </div>
             </motion.div>
 
-            {/* Payment Terms */}
+            {/* How We Use Your Information */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -163,16 +124,19 @@ export default function TermsPage () {
                 className="text-xl font-bold text-gray-900 mb-4"
                 style={{ fontFamily: 'Montserrat, sans-serif' }}
               >
-                3. Payment Terms
+                3. How We Use Your Information
               </motion.h3>
-              <ul className="text-gray-700 space-y-2" style={{ fontFamily: 'Manrope, sans-serif' }}>
-                <li>• Payments can be made via credit card, debit card, or bank transfer.</li>
-                <li>• Any outstanding dues must be cleared at the end of the rental period.</li>
-                <li>• Refunds for cancellations will be processed based on our cancellation policy.</li>
+              <ul className="text-gray-700 space-y-3" style={{ fontFamily: 'Manrope, sans-serif' }}>
+                <li>• <strong>Service Provision:</strong> To provide transportation services and process bookings</li>
+                <li>• <strong>Communication:</strong> To send booking confirmations, updates, and customer support</li>
+                <li>• <strong>Payment Processing:</strong> To process payments and maintain billing records</li>
+                <li>• <strong>Legal Compliance:</strong> To comply with legal obligations and regulatory requirements</li>
+                <li>• <strong>Service Improvement:</strong> To analyze usage patterns and improve our services</li>
+                <li>• <strong>Marketing:</strong> To send promotional offers (with your consent)</li>
               </ul>
             </motion.div>
 
-            {/* Cancellation Policy */}
+            {/* Information Sharing */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -188,15 +152,20 @@ export default function TermsPage () {
                 className="text-xl font-bold text-gray-900 mb-4"
                 style={{ fontFamily: 'Montserrat, sans-serif' }}
               >
-                4. Cancellation Policy
+                4. Information Sharing and Disclosure
               </motion.h3>
-              <ul className="text-gray-700 space-y-2" style={{ fontFamily: 'Manrope, sans-serif' }}>
-                <li>• Cancellations made more than 24 hours before the scheduled pickup time will incur no charges.</li>
-                <li>• Cancellations within 24 hours of the pickup time will result in a 50% charge.</li>
-              </ul>
+              <div className="text-gray-700 space-y-4" style={{ fontFamily: 'Manrope, sans-serif' }}>
+                <p>We do not sell, trade, or rent your personal information to third parties. We may share your information only in the following circumstances:</p>
+                <ul className="space-y-2">
+                  <li>• <strong>Service Providers:</strong> With trusted partners who help us operate our services (payment processors, chauffeur services)</li>
+                  <li>• <strong>Legal Requirements:</strong> When required by law or to protect our rights and safety</li>
+                  <li>• <strong>Business Transfers:</strong> In connection with a merger, acquisition, or sale of assets</li>
+                  <li>• <strong>Consent:</strong> With your explicit permission</li>
+                </ul>
+              </div>
             </motion.div>
 
-            {/* Vehicle Use Policy */}
+            {/* Data Security */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -212,16 +181,25 @@ export default function TermsPage () {
                 className="text-xl font-bold text-gray-900 mb-4"
                 style={{ fontFamily: 'Montserrat, sans-serif' }}
               >
-                5. Vehicle Use Policy
+                5. Data Security
               </motion.h3>
-              <ul className="text-gray-700 space-y-2" style={{ fontFamily: 'Manrope, sans-serif' }}>
-                <li>• Vehicles must be returned in the same condition as rented.</li>
-                <li>• Smoking and carrying hazardous materials are strictly prohibited.</li>
-                <li>• The renter is responsible for any fines, damages, or traffic violations incurred during the rental period.</li>
-              </ul>
+              <div className="text-gray-700 space-y-4" style={{ fontFamily: 'Manrope, sans-serif' }}>
+                <p>
+                  We implement appropriate technical and organizational security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.
+                </p>
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-2">Security Measures Include:</h4>
+                  <ul className="list-disc list-inside space-y-1 ml-4">
+                    <li>SSL/TLS encryption for data transmission</li>
+                    <li>Secure data storage systems</li>
+                    <li>Regular security audits and updates</li>
+                    <li>Employee access controls and training</li>
+                  </ul>
+                </div>
+              </div>
             </motion.div>
 
-            {/* Chauffeur Services */}
+            {/* Cookies and Tracking */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -237,16 +215,27 @@ export default function TermsPage () {
                 className="text-xl font-bold text-gray-900 mb-4"
                 style={{ fontFamily: 'Montserrat, sans-serif' }}
               >
-                6. Chauffeur Services
+                6. Cookies and Tracking Technologies
               </motion.h3>
-              <ul className="text-gray-700 space-y-2" style={{ fontFamily: 'Manrope, sans-serif' }}>
-                <li>• Chauffeurs will operate vehicles within agreed working hours.</li>
-                <li>• Additional charges may apply for overtime or late-night services.</li>
-                <li>• The renter is responsible for any fines, damages, or traffic violations incurred during the rental period.</li>
-              </ul>
+              <div className="text-gray-700 space-y-4" style={{ fontFamily: 'Manrope, sans-serif' }}>
+                <p>
+                  We use cookies and similar tracking technologies to enhance your browsing experience and analyze website traffic.
+                </p>
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-2">Types of Cookies We Use:</h4>
+                  <ul className="space-y-2">
+                    <li>• <strong>Essential Cookies:</strong> Required for website functionality</li>
+                    <li>• <strong>Analytics Cookies:</strong> Help us understand how visitors use our site</li>
+                    <li>• <strong>Marketing Cookies:</strong> Used to deliver relevant advertisements</li>
+                  </ul>
+                </div>
+                <p>
+                  You can control cookie preferences through your browser settings, though disabling certain cookies may affect website functionality.
+                </p>
+              </div>
             </motion.div>
 
-            {/* Airport and Event Transfers */}
+            {/* Your Rights */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -262,15 +251,24 @@ export default function TermsPage () {
                 className="text-xl font-bold text-gray-900 mb-4"
                 style={{ fontFamily: 'Montserrat, sans-serif' }}
               >
-                7. Airport and Event Transfers
+                7. Your Rights and Choices
               </motion.h3>
-              <ul className="text-gray-700 space-y-2" style={{ fontFamily: 'Manrope, sans-serif' }}>
-                <li>• Waiting time beyond the agreed duration may result in additional charges.</li>
-                <li>• Missed pickups due to flight delays or other issues must be communicated promptly.</li>
-              </ul>
+              <div className="text-gray-700 space-y-4" style={{ fontFamily: 'Manrope, sans-serif' }}>
+                <p>You have the following rights regarding your personal information:</p>
+                <ul className="space-y-2">
+                  <li>• <strong>Access:</strong> Request a copy of your personal data</li>
+                  <li>• <strong>Correction:</strong> Request correction of inaccurate information</li>
+                  <li>• <strong>Deletion:</strong> Request deletion of your personal data</li>
+                  <li>• <strong>Portability:</strong> Request transfer of your data to another service</li>
+                  <li>• <strong>Opt-out:</strong> Unsubscribe from marketing communications</li>
+                </ul>
+                <p>
+                  To exercise these rights, please contact us using the information provided below.
+                </p>
+              </div>
             </motion.div>
 
-            {/* Liability and Insurance */}
+            {/* Children's Privacy */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -286,15 +284,16 @@ export default function TermsPage () {
                 className="text-xl font-bold text-gray-900 mb-4"
                 style={{ fontFamily: 'Montserrat, sans-serif' }}
               >
-                8. Liability and Insurance
+                8. Children's Privacy
               </motion.h3>
-              <ul className="text-gray-700 space-y-2" style={{ fontFamily: 'Manrope, sans-serif' }}>
-                <li>• Comprehensive insurance is included for all vehicles, covering third-party liability.</li>
-                <li>• The renter is responsible for damages not covered by insurance, including negligence or unauthorized use.</li>
-              </ul>
+              <div className="text-gray-700" style={{ fontFamily: 'Manrope, sans-serif' }}>
+                <p>
+                  Our services are not intended for children under 18 years of age. We do not knowingly collect personal information from children under 18. If we become aware that we have collected personal information from a child under 18, we will take steps to delete such information.
+                </p>
+              </div>
             </motion.div>
 
-            {/* Privacy Policy */}
+            {/* Changes to Privacy Policy */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -310,35 +309,13 @@ export default function TermsPage () {
                 className="text-xl font-bold text-gray-900 mb-4"
                 style={{ fontFamily: 'Montserrat, sans-serif' }}
               >
-                9. Privacy Policy
+                9. Changes to This Privacy Policy
               </motion.h3>
-              <ul className="text-gray-700 space-y-2" style={{ fontFamily: 'Manrope, sans-serif' }}>
-                <li>• Customer data is securely stored and used only for booking and service improvement purposes.</li>
-                <li>• Trippy Go will not share personal data with third parties without consent.</li>
-              </ul>
-            </motion.div>
-
-            {/* Dispute Resolution */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 1.0 }}
-              className="bg-white rounded-xl shadow-lg p-6"
-            >
-              <motion.h3
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 1.1 }}
-                className="text-xl font-bold text-gray-900 mb-4"
-                style={{ fontFamily: 'Montserrat, sans-serif' }}
-              >
-                10. Dispute Resolution
-              </motion.h3>
-              <ul className="text-gray-700 space-y-2" style={{ fontFamily: 'Manrope, sans-serif' }}>
-                <li>• Any disputes arising from these terms will be resolved under the jurisdiction of the courts in Delhi.</li>
-              </ul>
+              <div className="text-gray-700" style={{ fontFamily: 'Manrope, sans-serif' }}>
+                <p>
+                  We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date. We encourage you to review this Privacy Policy periodically for any changes.
+                </p>
+              </div>
             </motion.div>
 
             {/* Contact Information */}
@@ -346,34 +323,34 @@ export default function TermsPage () {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 1.1 }}
+              transition={{ duration: 0.8, delay: 1.0 }}
               className="bg-gradient-to-r from-[#eb662b] to-[#d45a20] rounded-xl shadow-lg p-8 text-white text-center"
             >
               <motion.h3
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 1.2 }}
+                transition={{ duration: 0.6, delay: 1.1 }}
                 className="text-2xl font-bold mb-4"
                 style={{ fontFamily: 'Montserrat, sans-serif' }}
               >
-                Contact Us
+                Contact Us About Privacy
               </motion.h3>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 1.3 }}
+                transition={{ duration: 0.6, delay: 1.2 }}
                 className="text-lg mb-4"
                 style={{ fontFamily: 'Manrope, sans-serif' }}
               >
-                For any questions or clarifications regarding these Terms and Conditions, contact us at:
+                For privacy-related questions or to exercise your rights, contact us at:
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 1.4 }}
+                transition={{ duration: 0.6, delay: 1.3 }}
                 className="space-y-2"
               >
                 <p className="text-xl font-semibold">Phone: +91 8076449902</p>

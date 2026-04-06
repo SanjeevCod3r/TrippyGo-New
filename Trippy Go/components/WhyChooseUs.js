@@ -27,7 +27,7 @@ export const WhyChoose = () => {
       icon: Gem,
       title: "Quality at our core",
       description:
-        "High-quality standards. Millions of reviews. A Trippy Go company.",
+        "High-quality standards. Millions of reviews. A TrippyGo company.",
     },
     {
       icon: Medal,
@@ -67,7 +67,7 @@ export const WhyChoose = () => {
             style={{ fontFamily: "var(--font-montserrat)" }}
             data-testid="why-choose-title"
           >
-            Why choose Trippy Go
+            Why choose TrippyGo
           </h2>
         </motion.div>
 

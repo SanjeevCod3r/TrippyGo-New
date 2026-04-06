@@ -168,7 +168,7 @@ function LoginForm({ onLogin }) {
                 <div className="absolute inset-0 bg-[#eb662b]/20 blur-2xl rounded-full" />
                 <img 
                   src="/asset/logo1.png" 
-                  alt="Trippy Go Admin" 
+                  alt="TrippyGo Admin" 
                   className="h-14 w-auto relative z-10 filter drop-shadow-xl"
                 />
               </div>
@@ -241,7 +241,7 @@ function LoginForm({ onLogin }) {
 
           <div className="mt-10 pt-8 border-t border-white/5 text-center">
             <p className="text-[10px] text-white/20 font-black uppercase tracking-widest">
-              Trippy Go Private Limited © 2026
+              TrippyGo Private Limited © 2026
             </p>
           </div>
         </div>
