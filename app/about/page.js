@@ -213,9 +213,9 @@ export default function About() {
                </p>
              </div>
 
-             <Link href="/services">
+             <Link href="/destinations">
                 <button className="px-8 py-3 bg-gradient-to-r from-[#eb662b] to-[#ff9b6a] text-white font-bold text-sm tracking-wide rounded-full transition-all shadow-md hover:shadow-lg hover:scale-105 active:scale-95">
-                   Discover Services
+                   Discover Destinations
                 </button>
              </Link>
 
