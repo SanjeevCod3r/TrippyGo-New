@@ -65,7 +65,7 @@ export const DestinationShowcase = () => {
       <div className="max-w-screen-2xl mx-auto px-10 md:px-16 relative z-10">
 
         {/* Header: Title and "See all" link */}
-        <div className="flex items-end justify-between mb-16 px-4">
+        <div className="flex items-end justify-between mb-16 px-4 gap-4">
           <div className="space-y-4">
             <h2
               className="text-3xl md:text-5xl font-black text-[#eb662b] tracking-tight"
@@ -76,7 +76,7 @@ export const DestinationShowcase = () => {
           </div>
           <Link
             href="/destinations"
-            className="text-sm font-bold text-[#eb662b] bg-[#eb662b]/10 hover:bg-[#eb662b]/20 px-5 py-2.5 rounded-full transition-all flex items-center gap-2 group shadow-sm"
+            className="text-sm font-bold text-[#eb662b] bg-[#eb662b]/10 hover:bg-[#eb662b]/20 px-5 py-2.5 rounded-full transition-all flex items-center gap-2 group shadow-sm whitespace-nowrap flex-shrink-0"
             style={{ fontFamily: 'var(--font-manrope)' }}
           >
             <span>See all</span>

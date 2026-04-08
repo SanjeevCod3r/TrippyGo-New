@@ -9,6 +9,7 @@ import {
   ArrowRight,
   Search,
   ChevronRight,
+  ChevronLeft,
   PhoneCall,
   Tag,
   Eye,
@@ -22,6 +23,8 @@ export default function Blog() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [blogPosts, setBlogPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 6;
 
   // Derive categories and tags from posts
   const categories = ["All", ...new Set(blogPosts.map((p) => p.category).filter(Boolean))];
@@ -51,6 +54,15 @@ export default function Blog() {
     const matchesCategory = selectedCategory === "All" || post.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, selectedCategory]);
+
+  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
 
   return (
     <div className="min-h-screen bg-gray-50/50">
@@ -86,12 +98,12 @@ export default function Blog() {
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#eb662b]"></div>
           </div>
         ) : (
-          <div className="grid lg:grid-cols-12 gap-12">
+          <div className="flex flex-col-reverse lg:grid lg:grid-cols-12 gap-12">
 
             {/* LEFT: Blog Grid Content (8/12) */}
             <div className="lg:col-span-8">
               <div className="grid md:grid-cols-2 gap-8 lg:gap-10">
-                {filteredPosts.map((post, index) => (
+                {currentPosts.map((post, index) => (
                   <motion.article
                     key={post.id}
                     initial={{ opacity: 0, y: 30 }}
@@ -157,13 +169,42 @@ export default function Blog() {
               </div>
 
               {/* Pagination */}
-              <div className="mt-16 flex items-center gap-3">
-                <button className="w-12 h-12 rounded-2xl bg-gradient-to-r from-[#eb662b] to-[#ff9b6a] text-white flex items-center justify-center font-bold shadow-lg shadow-orange-100">1</button>
-                <button className="w-12 h-12 rounded-2xl bg-white text-gray-400 flex items-center justify-center font-bold hover:bg-orange-50 hover:text-[#eb662b] transition-colors border border-gray-100">2</button>
-                <button className="w-12 h-12 rounded-2xl bg-white text-gray-400 flex items-center justify-center font-bold hover:bg-orange-50 hover:text-[#eb662b] transition-colors border border-gray-100">
-                  <ChevronRight size={20} />
-                </button>
-              </div>
+              {totalPages > 1 && (
+                <div className="mt-16 flex items-center gap-3">
+                  <button 
+                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                    disabled={currentPage === 1}
+                    className="w-12 h-12 rounded-2xl bg-white text-gray-400 flex items-center justify-center font-bold hover:bg-orange-50 hover:text-[#eb662b] transition-colors border border-gray-100 disabled:opacity-30 disabled:cursor-not-allowed"
+                  >
+                    <ChevronLeft size={20} />
+                  </button>
+                  
+                  {Array.from({ length: totalPages }).map((_, idx) => {
+                    const page = idx + 1;
+                    return (
+                      <button 
+                        key={page}
+                        onClick={() => setCurrentPage(page)}
+                        className={`w-12 h-12 rounded-2xl flex items-center justify-center font-bold transition-colors ${
+                          currentPage === page 
+                            ? "bg-gradient-to-r from-[#eb662b] to-[#ff9b6a] text-white shadow-lg shadow-orange-100" 
+                            : "bg-white text-gray-400 hover:bg-orange-50 hover:text-[#eb662b] border border-gray-100"
+                        }`}
+                      >
+                        {page}
+                      </button>
+                    );
+                  })}
+
+                  <button 
+                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                    disabled={currentPage === totalPages}
+                    className="w-12 h-12 rounded-2xl bg-white text-gray-400 flex items-center justify-center font-bold hover:bg-orange-50 hover:text-[#eb662b] transition-colors border border-gray-100 disabled:opacity-30 disabled:cursor-not-allowed"
+                  >
+                    <ChevronRight size={20} />
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* RIGHT: Sidebar (4/12) */}

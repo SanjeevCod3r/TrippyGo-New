@@ -8,7 +8,7 @@ const FloatingChat = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleWhatsAppClick = () => {
-    const phoneNumber = "+919990817615"; // Replace with your actual WhatsApp number
+    const phoneNumber = "+918076449902"; // Replace with your actual WhatsApp number
     const message =
       "Hi! I'm interested in your transportation services. Can you help me?";
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
@@ -18,7 +18,7 @@ const FloatingChat = () => {
   };
 
   const handleCallClick = () => {
-    const phoneNumber = "+919990817615"; // Replace with your actual phone number
+    const phoneNumber = "+918076449902"; // Replace with your actual phone number
     window.location.href = `tel:${phoneNumber}`;
   };
 

@@ -52,7 +52,7 @@ export const FeaturedDestinations = () => {
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         {/* Section Header */}
-        <div className="flex items-center justify-between mb-12">
+        <div className="flex items-center justify-between mb-12 gap-4">
           <h2
             className="text-4xl font-black text-[#000]"
             style={{ fontFamily: 'var(--font-montserrat)' }}
@@ -61,7 +61,7 @@ export const FeaturedDestinations = () => {
           </h2>
           <Link 
             href="/destinations" 
-            className="text-sm font-bold text-[#eb662b] bg-[#eb662b]/10 hover:bg-[#eb662b]/20 px-5 py-2.5 rounded-full transition-all flex items-center gap-2 group shadow-sm"
+            className="text-sm font-bold text-[#eb662b] bg-[#eb662b]/10 hover:bg-[#eb662b]/20 px-5 py-2.5 rounded-full transition-all flex items-center gap-2 group shadow-sm whitespace-nowrap flex-shrink-0"
             style={{ fontFamily: 'var(--font-manrope)' }}
           >
             <span>See all</span>

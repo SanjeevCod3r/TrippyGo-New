@@ -166,9 +166,40 @@ ${formData.message}
                      <span>info@trippygo.co.in</span>
                   </div>
 
+                  {/* Head Office */}
                   <div className="flex items-start gap-4">
                      <MapPin size={20} fill="#eb662b" stroke="#ffffff" className="mt-1 flex-shrink-0" />
-                     <span className="leading-snug">D-193, G/F Saurabh Vihar Gali No. 7, Harinagar Extension Jaitpur, Badarpur New Delhi – 110044</span>
+                     <div className="flex flex-col">
+                        <span className="text-[12px] font-black uppercase tracking-widest text-[#eb662b] mb-1">Head Office</span>
+                        <span className="leading-snug">D-193, G/F Saurabh Vihar Gali No. 7, Harinagar Ext, Jaitpur, Badarpur New Delhi – 110044</span>
+                     </div>
+                  </div>
+
+                  {/* Branch (Ballia) */}
+                  <div className="flex items-start gap-4">
+                     <MapPin size={20} fill="#eb662b" stroke="#ffffff" className="mt-1 flex-shrink-0" />
+                     <div className="flex flex-col">
+                        <span className="text-[12px] font-black uppercase tracking-widest text-[#eb662b] mb-1">Branch Office (Ballia)</span>
+                        <span className="leading-snug">Plot No - 517 Narayangarh ballia up 277208</span>
+                     </div>
+                  </div>
+
+                  {/* Branch (Noida) */}
+                  <div className="flex items-start gap-4">
+                     <MapPin size={20} fill="#eb662b" stroke="#ffffff" className="mt-1 flex-shrink-0" />
+                     <div className="flex flex-col">
+                        <span className="text-[12px] font-black uppercase tracking-widest text-[#eb662b] mb-1">Branch Office (Noida)</span>
+                        <span className="leading-snug">B - 16, office no 2 basement noida sec 62 up</span>
+                     </div>
+                  </div>
+
+                  {/* Branch (Chapra) */}
+                  <div className="flex items-start gap-4">
+                     <MapPin size={20} fill="#eb662b" stroke="#ffffff" className="mt-1 flex-shrink-0" />
+                     <div className="flex flex-col">
+                        <span className="text-[12px] font-black uppercase tracking-widest text-[#eb662b] mb-1">Branch Office (Chapra)</span>
+                        <span className="leading-snug">Plot No - 3/1139, Civil court colony bara telpa chapra bihar 841302</span>
+                     </div>
                   </div>
 
                </div>
