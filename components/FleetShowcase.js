@@ -49,7 +49,7 @@ export const FleetShowcase = ({ onBookNow }) => {
   return (
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="bg-[#f3f4f6] rounded-[3rem] p-10 md:p-16 relative overflow-hidden">
+        <div className="bg-[#f3f4f6] rounded-[3rem] p-6 md:p-16 relative overflow-hidden">
           {/* Header Section */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16">
             <div className="max-w-xl">

@@ -62,10 +62,10 @@ export const DestinationShowcase = () => {
 
   return (
     <section className="py-20 bg-white relative overflow-hidden">
-      <div className="max-w-screen-2xl mx-auto px-10 md:px-16 relative z-10">
+      <div className="max-w-screen-2xl mx-auto px-6 md:px-16 relative z-10">
 
         {/* Header: Title and "See all" link */}
-        <div className="flex items-end justify-between mb-16 px-4 gap-4">
+        <div className="flex items-end justify-between mb-16 px-0 gap-4">
           <div className="space-y-4">
             <h2
               className="text-3xl md:text-5xl font-black text-[#eb662b] tracking-tight"

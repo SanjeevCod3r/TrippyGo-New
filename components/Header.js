@@ -39,10 +39,10 @@ export default function Header() {
     if (mobileMenuOpen) {
       document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "";
     }
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "";
     };
   }, [mobileMenuOpen]);
 
@@ -109,7 +109,7 @@ export default function Header() {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 bg-white shadow-[0_10px_40px_rgba(0,0,0,0.06)] border-b border-gray-100 ${isScrolled ? "py-2.5" : "py-4"
           }`}
       >
-        <div className="max-w-screen-2xl mx-auto px-10 md:px-16 flex items-center justify-between">
+        <div className="max-w-screen-2xl mx-auto px-6 md:px-16 flex items-center justify-between">
 
           {/* Left: Logo (Mega Prominent) */}
           <div className="flex-shrink-0 w-1/4">

@@ -343,8 +343,8 @@ function HeroSection() {
             className="lg:col-span-5 flex justify-center lg:justify-end"
           >
             <div className="w-full max-w-[450px] relative group">
-              {/* Decorative Glow */}
-              <div className="absolute -inset-4 bg-gradient-to-br from-[#eb662b]/30 to-[#ff9b6a]/30 rounded-[3rem] blur-3xl opacity-50 group-hover:opacity-75 transition-opacity" />
+              {/* Decorative Glow - Fixed overflow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[#eb662b]/30 to-[#ff9b6a]/30 rounded-[3rem] blur-3xl opacity-50 group-hover:opacity-75 transition-opacity" />
 
               <div className="relative bg-white/10 backdrop-blur-2xl rounded-[2.5rem] border border-white/20 p-2 shadow-2xl overflow-hidden">
                 <div className="bg-white/90 backdrop-blur-md p-2 rounded-[2rem]">
@@ -774,7 +774,7 @@ export default function App() {
   return (
     <div className="min-h-screen">
       <Header />
-      <main>
+      <main className="overflow-x-hidden">
         <HeroSection />
         <WhyChoose />
         {/* <Services /> */}
